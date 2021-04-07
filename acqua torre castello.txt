@@ -1,0 +1,27 @@
+ASCIANO
+Castelnuovo Scalo - Torre a Castello
+
+Bicarbonati (* / mg/l) 	363
+Ammonio (* 0,50 mg/l) 	<0.05 (mg/l)
+Arsenico (* 10 μg/l) 	<1 (μg/l)
+Calcio (* / mg/l) 	119,0 (mg/l)
+Cloruro (* 250 mg/l) 	27,5 (mg/l)
+Cloruro residuo libero (* 0,2 mg/l valore consigliato)	0,14 (mg/l)
+Conducibilità a 20° (* 2500 microS/cm a 20°C)	663 (microS/cm a 20°C)
+Durezza totale (* tra 15°F e 50°F valore consigliato)	34 (°F)
+Floruro (* 1,5 mg/l)	<0.2 (mg/l)
+Magnesio (* / mg/l)	12,8 (mg/l)
+Manganese (* 50 microgrammi/l)	4,0 (microgrammi/l)
+Nitrato (* 50 mg/l)	4,0 (mg/l)
+Nitriti (* 50 mg/l)	<0.02 (milligrammi/l)
+pH (* tra 6.5 e 9.5 unità pH)	7,5 (unità pH)
+Potassio (* / mg/l)	1,2 (mg/l)
+Residuo secco (*1500 mg/l valore consigliato)	445,5 (mg/l)
+Sodio (* 200 mg/l)	18,0 (mg/l)
+Solfato (* 250 mg/l)	65,5 (mg/l)
+Tallio (* / μg/l)	<0.1 (microgrammi/li)
+
+Durezza (totale) = somma delle concentrazioni di ione Ca2+ e Mg2+ presenti.
+ °F  =  10  mg  di CaCO3/ l
+
+34  = 12,8 +119,0

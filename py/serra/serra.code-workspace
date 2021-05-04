@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\centralina"
+		},
+		{
+			"path": "..\\frontend"
+		}
+	],
+	"settings": {}
+}

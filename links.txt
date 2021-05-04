@@ -1,0 +1,8 @@
+RTC
+
+http://win.adrirobot.it/rtc_module/rtc_module_with_ds1302.htm
+
+ESP8266
+
+https://farelettronica.it/web/guida-utilizzo-dei-moduli-wireless-esp8266-e-esp32/
+http://www.elettronicalarosa.it/programmare-arduino-in-wi-fi-tramite-esp8266-esp-01-come-programmatore-remoto/

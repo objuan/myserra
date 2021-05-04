@@ -1,0 +1,19 @@
+Board list
+
+{% if latest_board_list %}
+    <ul>
+    {% for board in latest_board_list %}
+        <li><a href="/api/board_set/{{ board.id }}">{{ board.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Board are available.</p>
+{% endif %}
+
+Scheda Selezionata: 
+
+<form action="{% url 'centralina.test_button' %}" method="post">
+    {% csrf_token %}
+
+    <button type="submit" name='mybtn2' value='test'>Download results in Excel</button>
+</form>

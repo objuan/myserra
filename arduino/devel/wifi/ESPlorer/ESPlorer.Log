@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871757</millis>
+  <sequence>5</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Load saved settings: Firmware:NodeMCU</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871772</millis>
+  <sequence>6</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Snippets: loading...</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871772</millis>
+  <sequence>7</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Snippets load: Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871857</millis>
+  <sequence>8</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Set new color theme: Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871857</millis>
+  <sequence>9</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Load saved settings: DONE.</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871872</millis>
+  <sequence>10</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Snippets: loading...</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:51</date>
+  <millis>1493930871872</millis>
+  <sequence>11</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Snippets load: Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:52</date>
+  <millis>1493930872173</millis>
+  <sequence>12</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Scan system...</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:52</date>
+  <millis>1493930872173</millis>
+  <sequence>13</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>found COM1</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:52</date>
+  <millis>1493930872173</millis>
+  <sequence>14</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>found COM3</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:52</date>
+  <millis>1493930872173</millis>
+  <sequence>15</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>found last saved serial port COM6</message>
+</record>
+<record>
+  <date>2017-05-04T22:47:52</date>
+  <millis>1493930872173</millis>
+  <sequence>16</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Scan done.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:03</date>
+  <millis>1493930943824</millis>
+  <sequence>17</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM3 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:03</date>
+  <millis>1493930943824</millis>
+  <sequence>18</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:03</date>
+  <millis>1493930943824</millis>
+  <sequence>19</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM3, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:03</date>
+  <millis>1493930943840</millis>
+  <sequence>20</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM3 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:13</date>
+  <millis>1493930953967</millis>
+  <sequence>21</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM3 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:15</date>
+  <millis>1493930955719</millis>
+  <sequence>22</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:15</date>
+  <millis>1493930955719</millis>
+  <sequence>23</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:15</date>
+  <millis>1493930955719</millis>
+  <sequence>24</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:15</date>
+  <millis>1493930955735</millis>
+  <sequence>25</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:49:24</date>
+  <millis>1493930964911</millis>
+  <sequence>26</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:19</date>
+  <millis>1493931319914</millis>
+  <sequence>27</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:19</date>
+  <millis>1493931319914</millis>
+  <sequence>28</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:19</date>
+  <millis>1493931319914</millis>
+  <sequence>29</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:19</date>
+  <millis>1493931319929</millis>
+  <sequence>30</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:33</date>
+  <millis>1493931333989</millis>
+  <sequence>31</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>DTR set to ON</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:39</date>
+  <millis>1493931339371</millis>
+  <sequence>32</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>RTS set to OFF</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:45</date>
+  <millis>1493931345465</millis>
+  <sequence>33</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>RTS set to ON</message>
+</record>
+<record>
+  <date>2017-05-04T22:55:56</date>
+  <millis>1493931356089</millis>
+  <sequence>34</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>sending:=node.heap()&lt;CR&gt;&lt;LF&gt;</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:31</date>
+  <millis>1493931451957</millis>
+  <sequence>35</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to reconnect with baud 9600...</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:31</date>
+  <millis>1493931451958</millis>
+  <sequence>36</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>sending:print(uart.setup(0, 9600, 8, 0, 1, 1 ))&lt;CR&gt;&lt;LF&gt;</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:32</date>
+  <millis>1493931452161</millis>
+  <sequence>37</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Reconnect: Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:32</date>
+  <millis>1493931452742</millis>
+  <sequence>38</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:33</date>
+  <millis>1493931453845</millis>
+  <sequence>39</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:33</date>
+  <millis>1493931453846</millis>
+  <sequence>40</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 9600 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:33</date>
+  <millis>1493931453846</millis>
+  <sequence>41</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 9600, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:33</date>
+  <millis>1493931453850</millis>
+  <sequence>42</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:42</date>
+  <millis>1493931462462</millis>
+  <sequence>43</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:45</date>
+  <millis>1493931465285</millis>
+  <sequence>44</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:45</date>
+  <millis>1493931465286</millis>
+  <sequence>45</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 57600 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:45</date>
+  <millis>1493931465286</millis>
+  <sequence>46</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 57600, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:45</date>
+  <millis>1493931465290</millis>
+  <sequence>47</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:50</date>
+  <millis>1493931470046</millis>
+  <sequence>48</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:53</date>
+  <millis>1493931473612</millis>
+  <sequence>49</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:53</date>
+  <millis>1493931473613</millis>
+  <sequence>50</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:53</date>
+  <millis>1493931473615</millis>
+  <sequence>51</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T22:57:53</date>
+  <millis>1493931473617</millis>
+  <sequence>52</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:48</date>
+  <millis>1493931648399</millis>
+  <sequence>53</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>jssc.SerialPortException: Port name - COM6; Method name - setEventsMask(); Exception type - Can't set mask.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:48</date>
+  <millis>1493931648399</millis>
+  <sequence>54</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - unknown error.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:49</date>
+  <millis>1493931649283</millis>
+  <sequence>55</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:49</date>
+  <millis>1493931649283</millis>
+  <sequence>56</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:49</date>
+  <millis>1493931649283</millis>
+  <sequence>57</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:49</date>
+  <millis>1493931649283</millis>
+  <sequence>58</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Open port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T23:00:58</date>
+  <millis>1493931658931</millis>
+  <sequence>59</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Close port COM6 - Success.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:05</date>
+  <millis>1493931665766</millis>
+  <sequence>60</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:05</date>
+  <millis>1493931665766</millis>
+  <sequence>61</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:05</date>
+  <millis>1493931665766</millis>
+  <sequence>62</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:05</date>
+  <millis>1493931665766</millis>
+  <sequence>63</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>jssc.SerialPortException: Port name - COM6; Method name - openPort(); Exception type - Port not found.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:10</date>
+  <millis>1493931670050</millis>
+  <sequence>64</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Serial port COM6 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:10</date>
+  <millis>1493931670050</millis>
+  <sequence>65</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Baud rate 115200 save as default.</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:10</date>
+  <millis>1493931670050</millis>
+  <sequence>66</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>Try to open port COM6, baud 115200, 8N1</message>
+</record>
+<record>
+  <date>2017-05-04T23:01:10</date>
+  <millis>1493931670050</millis>
+  <sequence>67</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>15</thread>
+  <message>jssc.SerialPortException: Port name - COM6; Method name - openPort(); Exception type - Port not found.</message>
+</record>

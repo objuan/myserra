@@ -35,4 +35,5 @@ urlpatterns = [
     path('', include(vue_urls)),
     path('api/', include('centralina.urls')),
     path('admin/', admin.site.urls),
+	#path('ws/', include('django_socketio.urls')),
 ]

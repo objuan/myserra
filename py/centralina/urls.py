@@ -10,10 +10,11 @@ urlpatterns = [
     path('', include(router.urls)),
  
     path('board/', views.board_list),
-    path('board/<int:pk>/', views.board_detail),
+    path('board/<int:pk>', views.board_detail),
+    path('board/<int:pk>/cmd/<str:cmd>', views.board_command),
+    path('board_switchs/<int:pk>', views.board_switchs),
 
     path('switchType/', views.switch_type_list),
-    path('switch/', views.switch_list),
     path('switch/<int:pk>', views.switch_detail),
     path('switch/<int:pk>/cmd/<str:cmd>', views.switch_command),
 ]

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+#from centralina.runtime_service import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-g^4pl0)=k#cby$x5w9gh8^j)u+u$&-vt7qdl7s!9-3i9+5lp97
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'centralina.apps.CentralinaConfig',
     'bootstrap4',
-    'rest_framework'
+    'rest_framework',
+	'channels',
+	#'django_socketio',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'serra.wsgi.application'
-
+ASGI_APPLICATION = "serra.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -141,4 +144,42 @@ REST_FRAMEWORK = {
      ),
     'PAGE_SIZE': 100,
   
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+	 'formatters': {
+        'console': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        },
+        'web': {
+            'format': '{"time": "%(asctime)s","name":"%(name)s","level":"%(levelname)s","message":"%(message)s}"}'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+			'formatter': 'console'
+        },
+		'web': {
+            'class': 'centralina.CustomLog',
+			'formatter': 'web'
+			
+        },
+    },
+    'root': {
+        'handlers': ['console','web'],
+        'level': 'DEBUG',
+    },
+	'loggers': {
+		'daphne': {
+			'handlers': ['console',],
+			'level': 'WARNING'
+		},
+		'django': {
+			'handlers': ['console',],
+			'level': 'INFO'
+		},
+	 },
 }

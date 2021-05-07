@@ -6,12 +6,14 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+#from django_socketio import events
+
+from .runtime_service import ConnectBoards
 
 def index(request):
     latest_question_list = Board.objects.order_by('-name')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'centralina/index.html', context)
-
 
 def board_set(request,board_id):
     request.session['board'] = board_id
@@ -53,6 +55,21 @@ def board_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
+def board_command(request, pk,cmd):
+    #print ("Command", cmd)
+    if request.method == 'GET':
+
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+        board.command(cmd)
+        serializer = BoardSerializer(board)
+        return JsonResponse(serializer.data)
+    else:
+        return HttpResponse(status=404)
+
+@csrf_exempt
 def board_detail(request, pk):
     """
     Retrieve, update or delete a code snippet.
@@ -67,10 +84,18 @@ def board_detail(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
         data = JSONParser().parse(request)
+        #print(board)
+        #print(data)
         serializer = BoardSerializer(board, data=data)
         if serializer.is_valid():
             serializer.save()
+            #print("dsa")
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
@@ -101,24 +126,47 @@ def switch_type_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
-def switch_list(request):
+def board_switchs(request,pk):
     """
    
     """
     if request.method == 'GET':
-        boards = Switch.objects.all()
-        serializer = SwitchSerializer(boards, many=True)
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
+        #boards = Switch.objects.filter(board.id=pk)
+        serializer = SwitchSerializer(board.switch_set, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
+        # new switch
+              
         data = JSONParser().parse(request)
-        #print(data)
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
+        sw = SwitchType.objects.get(id=1)
+
+        added = board.switch_set.create( name='default' , switchType = sw) 
+
+        serializer = SwitchSerializer(added)
+
+        return JsonResponse(serializer.data)
+        '''
+        print("kk")
+        data = JSONParser().parse(request)
+        print(data)
         serializer = SwitchSerializer(data=data)
         #print(serializer)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+        '''
 
 
 @csrf_exempt
@@ -152,7 +200,7 @@ def switch_detail(request, pk):
 
 @csrf_exempt
 def switch_command(request, pk,cmd):
-    print("switch "+str(pk)+" " +cmd)
+    ("switch "+str(pk)+" " +cmd)
     try:
         switch = Switch.objects.get(pk=pk)
     except Switch.DoesNotExist:
@@ -168,3 +216,10 @@ def switch_command(request, pk,cmd):
         #return JsonResponse(serializer.errors, status=400)
     else:
         return HttpResponse(status=404)
+
+'''
+@events.on_message(channel="^light")
+def message(request, socket, message):
+    #import pdb; pdb.set_trace()
+    print("message",message)
+'''

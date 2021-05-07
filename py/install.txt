@@ -1,1 +1,9 @@
 https://medium.com/@bebbington/setting-up-django-and-vuejs-cf2b5444d69f
+
+pip install Django==3.2.1
+pip install django-bootstrap4
+pip install djangorestframework
+
+npm install -g vue
+npm install -g @vue/cli
+npm install @vue/cli-service -g

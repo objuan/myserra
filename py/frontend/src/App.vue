@@ -1,8 +1,12 @@
+
 <template>
   <div id="app">
 
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">MySerra</b-navbar-brand>
+       <span class="btn-success">
+          State: {{board_state}}&nbsp;&nbsp;&nbsp;
+       </span>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -10,7 +14,7 @@
         <b-nav card-header tabs>
           <b-nav-item  to="/centralina" exact exact-active-class="active">Centralina</b-nav-item>
           <b-nav-item  to="/boardlist" exact exact-active-class="active">Boards</b-nav-item>
-          <b-nav-item to="/hello" exact exact-active-class="active">Hello </b-nav-item>
+          <b-nav-item to="/log" exact exact-active-class="active">Log </b-nav-item>
           <b-nav-item to="/admin/" exact exact-active-class="active">Admin </b-nav-item>
         </b-nav>
 
@@ -34,6 +38,7 @@
     </b-navbar>
 
     <router-view ></router-view>
+
   </div>
 </template>
 
@@ -47,6 +52,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+//import Log from './components/Log.vue'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -56,21 +62,54 @@ Vue.use(IconsPlugin)
 export default {
   name: 'App',
   components: {
-   // HelloWorld,
-    //BoardList
+  //  Log
   },
   data() {
     return {
-    
+      board_state : "............"
     };
   },
   methods: {
-    
+  
+    connect_event: function() {
+      var ws = new WebSocket('ws://'
+                + window.location.host
+                + '/ws/event/');
+
+      var self=this;
+
+    ws.onopen = function(e) {
+        console.log("Socket open",e);
+      
+      };
+      ws.onmessage = function(e) {
+         //console.log( e.data);
+         var o = JSON.parse(e.data);
+        //console.log( e.data,o);
+        if (o.type=="connect")
+          self.board_state=o.msg;
+      };
+
+      ws.onclose = function(e) {
+        console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+        setTimeout(function() {
+          self.connect_event();
+        }, 1000);
+      };
+
+      ws.onerror = function(err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+        ws.close();
+      };
+    }
   },
   created() {
-    //this.loadBoards();
+    
+    this.connect_event();
   },
 }
+// =======
+
 </script>
 
 <style>
@@ -82,4 +121,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

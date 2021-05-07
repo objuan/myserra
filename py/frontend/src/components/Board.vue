@@ -1,22 +1,44 @@
 <template>
     <div>
-    <b-card  :header="'BOARD: '+board.name+'('+board.name+') '+board.cpu_type+' ' + board.usb_address" 
+    <b-card  :header="'BOARD: '+board.id+' ' +board.name+'('+board.description+') '+board.cpu_type" 
          style="max-width: 90rem;">
             <b-card-text>
-                
+                <table>
+                    <tr>
+                        <td>
+                             <b-button variant="success" @click="newSwitch()">Add Switch</b-button>
+                        </td>
+                        <td>
+                            address
+                         </td>
+                         
+                         <td><b-form-input  v-model="board.usb_address" placeholder="Address" type="text"></b-form-input>
+                         </td>
+                         <td>
+                              <b-button variant="success" @click="saveBoard()">Set</b-button>
+                              
+                          </td>
+                           <td>
+                              <b-button variant="danger" @click="cmdBoard('restart')">Restart</b-button>
+                             <b-button variant="danger" @click="cmdBoard('stop')">Stop</b-button>
+                               
+                          </td>
+                    </tr>
+                </table>
                 <table style="width:100%" border=1>
                     <tr>
+                        <td></td>
                         <td>ID</td>
                         <td>name</td>
                         <td>desc</td>
                         <td>pin</td>
-                        <td>onHi</td>
                         <td>type</td>
                         <td>state</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr v-for="(sw, index) in switch_list" :key="index">
+                        <td> <b-button variant="danger" @click="deleteSwitch(sw)">X</b-button></td>
                        <td>{{sw.id}}</td>
                        <td>
                          <b-form-input  v-model="sw.name" placeholder="Enter  name" type="text"></b-form-input>
@@ -27,22 +49,25 @@
                        <td>
                             <b-form-input  v-model="sw.pin" placeholder="Enter  PIN" type="number"></b-form-input>
                        </td>
-                       <td>
-                         <b-form-checkbox v-model="sw.on_hi"  >
-                                </b-form-checkbox>
-                            </td>
+                      
                        <td>
                               <b-dropdown :text="sw.switchType.name" class="m-md-2" >
                                 <b-dropdown-item  @click="onSelectType(sw,s)" v-for="(s, index) in switch_type_list" :key="index" 
                                         >{{s.name}}</b-dropdown-item>
                                 </b-dropdown>
                        </td>
-                       <td>{{sw.state}}</td>
+                       <td class="static">
+                              <p style="width: 8rem;" v-bind:class="{ 'bg-success': sw.state=='open', 'bg-danger':  sw.state!='open'} ">
+                            {{sw.state}}({{sw.pin_value}})
+                            </p>
+                            </td>
                        <td>
                             <b-button variant="success" @click="saveSwitch(sw)">Save</b-button>
                        </td>
                        <td>
-                            <b-button variant="success" @click="manualSwitch(sw)">Manual Switch</b-button>
+                             <b-button v-if="sw.switchType.mode=='O'" variant="success" @click="manualSwitch(sw)">Manual Switch</b-button>
+                      
+                           
                        </td>
                     </tr>
                 </table>
@@ -55,6 +80,7 @@
     import axios from 'axios';
     import Vue from 'vue'
 
+
     export default {
         name: "Board",
         props: {
@@ -63,7 +89,9 @@
                 required: true,
             },
         },
-         components: {
+        
+        components: {
+                
         },
         data() {
             return {
@@ -72,9 +100,47 @@
                 selected_switch : {},
             };
         },
+        watch: {
+            board: {
+                    immediate: true,
+                    handler() {
+                        if (this.board.id)
+                            this.load();
+                    }
+                }
+        },
         methods: {
+              connect_event: function() {
+                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/event/');
+                    var self=this;
+                    
+                    ws.onmessage = function(e) {
+                        //console.log( "board", e.data);
+                        var sw = JSON.parse(e.data);
+                        //console.log( e.data,o);
+                        if (sw.type=="sw")
+                        {
+                            console.log( e.data);
+                            let idx = self.switch_list.findIndex((x) => x.id === sw.id) ;
+                            self.switch_list[idx].state = sw.state;
+                            self.switch_list[idx].pin_value = sw.pin_value;
+                        }
+                    };
+
+                    ws.onclose = function() {
+                        setTimeout(function() {
+                        self.connect_event();
+                        }, 1000);
+                    };
+
+                    ws.onerror = function() {
+                        ws.close();
+                    };
+            },
+
             load: function() {
-                axios.get('/api/switch/').then(
+                //console.log(this.board);
+                axios.get('/api/board_switchs/'+this.board.id).then(
                     response => {
                     this.switch_list = response.data;
                     this.selected_switch = this.switch_list[0];
@@ -85,6 +151,31 @@
                          this.switch_type_list = response.data;
                     }
                 );
+            },
+            cmdBoard: function(cmd) {
+                   console.log ("cmd"  );
+                   axios.get('/api/board/'+this.board.id+"/cmd/"+cmd);
+                
+            },
+           saveBoard: function() {
+                   console.log ("save"  );
+                   axios.put('/api/board/'+this.board.id, this.board);
+                
+            },
+           newSwitch: function() {
+                    console.log ("new"  );
+                    this.new_switch ={"name":"default"}    ;
+                    axios.post('/api/board_switchs/'+this.board.id, this.new_switch)
+                     .then(
+                        () => {
+                            this.new_switch = "";
+                          //  this.boards.push(response.data);
+                        }
+                    );
+            },
+            deleteSwitch: function(sw) {
+                    console.log ("save" , sw);
+                    axios.delete('/api/switch/'+sw.id, sw);
             },
             saveSwitch: function(sw) {
                     console.log ("save" , sw);
@@ -110,7 +201,7 @@
             },
         },
         created() {
-            this.load();
+          this.connect_event();
         },
     }
 </script>

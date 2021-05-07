@@ -17,6 +17,10 @@ class BoardSerializer(serializers.ModelSerializer):
         """
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
+        instance.usb_address = validated_data.get('usb_address', instance.usb_address)
+        instance.net_address = validated_data.get('net_address', instance.net_address)
+        instance.wifi_name = validated_data.get('wifi_name', instance.wifi_name)
+        instance.cpu_type = validated_data.get('cpu_type', instance.cpu_type)
         instance.save()
         return instance
 
@@ -27,13 +31,15 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class SwitchTypeSerializer(serializers.ModelSerializer):
  
+    open_value = serializers.NullBooleanField()
+
     class Meta:
         model = SwitchType
-        fields = ['id','name','description','voltage']
+        fields = ['id','name','description','voltage','open_value','mode']
 
 class SwitchSerializer(serializers.ModelSerializer):
  
-    on_hi = serializers.NullBooleanField()
+    #on_hi = serializers.NullBooleanField()
     #voltage = serializers.CharField(max_length=50, allow_blank=False)
     switchType = SwitchTypeSerializer()
 
@@ -44,17 +50,20 @@ class SwitchSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
         instance.pin = validated_data.get('pin', instance.pin)
-        instance.on_hi = validated_data.get('on_hi', instance.on_hi)
-        s = validated_data.get('switchType')
-        print(validated_data)
-        print(validated_data.pop('switchType'))
-  
-        sw = SwitchType.objects.get(name=s.name)
-        print(sw.id)
+        #instance.on_hi = validated_data.get('on_hi', instance.on_hi)
+        _switchType = validated_data.get('switchType')
+        #print(validated_data)
+        #print(_switchType)
+        #nn = s["name"]
+        #print(nn)
+        
+        sw = SwitchType.objects.get(name=_switchType["name"])
+        #print(sw.id)
         instance.switchType = sw
-        instance.save()
+        instance.save() 
+        
         return instance
 
     class Meta:
         model = Switch
-        fields = ['id','name','description','pin','on_hi','state','switchType']
+        fields = ['id','name','description','pin','state','switchType','pin_value']

@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 
 import BoardList from './components/BoardList'
 import Centralina from './components/Centralina'
-import HelloWorld from './components/HelloWorld'
+import Log from './components/Log'
 
 // import some global styles
 //import './styles/style.scss'
@@ -18,7 +18,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/centralina', alias: '/', component: Centralina },
   { path: '/boardlist',  component: BoardList },
-  { path: '/hello', component: HelloWorld }
+  { path: '/log', component: Log }
 ]
 
 // Create the router instance and pass the `routes` option

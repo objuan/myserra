@@ -3,54 +3,87 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from enum import Enum
 from pyfirmata2 import  INPUT,OUTPUT
-from .ws_service import GetEvent
+from .ws_service import *
 import json
 import logging
+from .cloud import VirtualPinMode
 
 logger = logging.getLogger(__name__)
 
 def Connect_Event(message):
-     if (GetEvent()):
-            GetEvent().fire( ' {"type" : "connect", "msg":"'+message+'"}')
+     if (GetConn()):
+            GetConn().fire( ' {"type" : "connect", "msg":"'+message+'"}')
 
 def Switch_Event(sw,message):
-     if (GetEvent()):
-            GetEvent().fire( ' {"type" : "sw",  "id" : '+str(sw.id)+', "state" : "'+sw.state+'", "pin_value" : "'+str(sw.pin_value)+'", "msg":"'+message+'"}')
+     if (GetSWEvent()):
+            GetSWEvent().fire( ' {"type" : "sw",  "id" : '+str(sw.id)+', "state" : "'+sw.state+'", "pin_value" : "'+str(sw.pin_value)+'", "msg":"'+message+'"}')
+
+def Var_Event(sw,message):
+     if (GetVarEvent()):
+            GetVarEvent().fire( ' {"type" : "var",  "id" : '+str(sw.id)+',  "value" : "'+str(sw.value)+'", "msg":"'+message+'"}')
+
 
 class Memory() :
     board_map = {}
-    connection= { "active":False}
+    commands= []
+    manager=None
 
 memory = Memory()
 
-def RegisterArduino(address,arduino):
-    memory.board_map[address] = arduino
+def RegisterManager(manager):
+    global memory
+    memory.manager = manager
+
+def GetManager():
+    return memory.manager 
+
+def GetControl(board):
+    return memory.board_map[board.name]
+
+def RegisterControl(board,client):
+    memory.board_map[board.name] = client
   
-def MustReconnect():
-    return memory.connection["active"]
-
-def OnReconnect():
-    memory.connection["active"]=False
-      
-def GetArduino(board):
-    return memory.board_map[board.usb_address]
-
-PING_PIN=10
 
 class BoardControl():
 
     # sampling rate: 10Hz
     samplingRate = 10
 
-    def __init__(self,board):
+    def __init__(self,board,client):
         self.board=board
+        self.client=client
+        client.onMemory.on("onWrite", self.onWrite)
+
+    def onWrite(self,pin,value):
+        #print("onWrite ", pin,value)
+       
+        for sw in self.board.switch_set.all():
+            if (sw.switchType.mode=="I" and pin == sw.pin):
+                print("onRead  ",sw.pin,value)
+                sw.setPinValue(value)
+                Switch_Event(sw,"STATE " + sw.state)
+
+        for var in self.board.variable_set.all():
+            if (pin == var.pin):
+                print("onReadV  ",var.pin,value)
+                var.setPinValue(value)
+                Var_Event(var,"")
+                
+                
         #print("CREATE BOARD CONTROLLER ", model)
 
     def onConnect(self):
-        print ("onConnect")
-        arduino = GetArduino(self.board)
+        logger.info("CONTROLLER " +str(self.board))
+    
+        for var in self.board.variable_set.all():
+            if not ((var.varType =="text_bool") or (var.varType =="btn_toggle")):
+                self.client.setPinMode(var.pin,VirtualPinMode.VIRTUAL)
 
-        arduino.samplingOn(1000 / self.samplingRate)
+            self.client.read(var.pin)
+
+        #print(memory)
+        '''
+        #arduino.samplingOn(1000 / self.samplingRate)
 
         arduino.digital[PING_PIN].mode = OUTPUT
         arduino.digital[PING_PIN].write(False)
@@ -68,14 +101,17 @@ class BoardControl():
                 if (v != sw.pin_value or sw.state == ''):
                     print("INIT READ  ",sw.pin,v)
                     sw.setPinValue(v)
+        '''
 
 
     def reconnect(self):
         global memory
-        memory.connection["active"] = True
+        GetManager().reconnect()
 
     def stop(self):
         global memory
+        GetManager().stop()
+        '''
         arduino = GetArduino(self.board)
         memory.connection["active"] = False
         try:
@@ -83,12 +119,14 @@ class BoardControl():
         except Exception as e:
             print("ERROR ",e)
         arduino.exit()
+        '''
 
     c=0
     ping_tick=True
     old_conn=""
     def tick(self):
        
+        '''
         arduino = GetArduino(self.board)
 
         ## PING
@@ -121,7 +159,9 @@ class BoardControl():
                
 
             #print("rick ",sw)
+        '''
 
+    '''
     def read(self,pin):
         arduino = GetArduino(self.board)
         try:
@@ -130,17 +170,20 @@ class BoardControl():
         except Exception as e:
             print("ERROR ",e)
             memory.connection["active"]=True
-
+    '''
     def write(self,pin, value):
-        global memory
-        arduino = GetArduino(self.board)
+        #global memory
+        #arduino = GetArduino(self.board)
 
-        print("WRITE ",arduino,pin,value)
+        print("WRITE ",pin,value)
 
+        self.client.write(pin,value)
+
+        '''
         #pin3 = arduino.get_pin('d:3:o')
         #print(pin)
         try:
-            arduino.digital[pin].write(value)
+            self.client.write(pin,value)
             return True
         except Exception as e:
             print("ERROR ",e)
@@ -149,6 +192,7 @@ class BoardControl():
         #p = arduino.get_pin(pin)
         #p.write(value)
         #print("WRITE "+str(pin)+"=" +str(value))
+        '''
 
 class SwitchControl(BoardControl):
 

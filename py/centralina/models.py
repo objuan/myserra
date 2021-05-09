@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from centralina.runtime import *
 from enum import Enum
 from .ws_service import *
+import datetime
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
@@ -15,13 +16,10 @@ class Board(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._controller = BoardControl(self)
-
-    def onConnect(self):
-        self._controller.onConnect()
+        #self._controller = BoardControl(self)
 
     def get_controller(self):
-         return self._controller 
+         return GetControl(self)
 
     def get_current(self):
          Board.objects.get(id= request.session['board'] )
@@ -30,11 +28,10 @@ class Board(models.Model):
 
         print("CMD "+str(self)+"=" +str(cmd))
         if (cmd =="restart"):
-            self._controller.reconnect()
+            self.get_controller().reconnect()
         if (cmd =="stop"):
-            self._controller.stop()
-    def tick(self):
-        self._controller.tick()
+            self.get_controller().stop()
+
 
     def __str__(self):
         return "BOARD "+self.name
@@ -94,7 +91,7 @@ class Switch(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #print ("board",self.board)
-        self._controller = SwitchControl(self.board,self)
+        #self._controller = SwitchControl(self.board,self)
         #self._controller = SwitchControl(self)
         # add your own logic
 
@@ -102,7 +99,7 @@ class Switch(models.Model):
          return self.pin_value
 
     def setPinValue(self,value):
-        print("set",self.state,self.pin_value,value)
+        #print("set",self.state,self.pin_value,value)
         if (value != None):
             ss = lambda  v : 'open' if v else 'close'
             v=value
@@ -111,7 +108,7 @@ class Switch(models.Model):
 
             self.state = ss(v)
             self.pin_value=value
-            print("sewt",self.state,self.pin_value)
+            #print("sewt",self.state,self.pin_value)
             self.save()
             #event
 
@@ -144,38 +141,10 @@ class Switch(models.Model):
         #self.setPinValue(pin_value)
 
         self.save()
-        self._controller.setPinValue(pin_value)
-            
-    # value : open  | close
-    '''
-    def setState(self,state_value):
-        print("setPinValue "+str(self.pin)+"=" +str(pin_value))
-2
-        #ss = lambda  v : 'open' if v else 'close'
-        self.state =ss(state_value)
-        self.save()
+
+        self.board.get_controller().write(self.pin,pin_value)
         
-        if (state_value == "open"):
-            setPinValue(True)
-        else:
-             setPinValue(True)
-  '''     
-    #pin_value = True, False
-    def setPinValue_bp(self,pin_value):
-        print("setPinValue "+str(self.pin)+"=" +str(pin_value))
 
-        self.pin_value=pin_value
-
-        self._controller.setPinValue(pin_value)
-
-        #ss = lambda  v : 'open' if v else 'close'
-        #self.state =ss(pin_value)
-        #elf.save()
-
-        #if (pin_value == self.PIN_HI):
-        #    print ("Set Pin " + str(self.pin)+"=" + "HI")
-        #else:
-        #    print ("Set Pin " + str(self.pin)+"=" + "LOW")
     def Save(self):
         self.save()
         print("save")
@@ -184,5 +153,58 @@ class Switch(models.Model):
         return self.board.__str__()+" -> "+ self.name
 
     
+
+class Variable(models.Model):
+    
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    description = models.CharField(blank=True,max_length=100)
+    value = models.CharField(max_length=255)
+    pin = models.IntegerField(default=1)
+    updated = models.DateTimeField()
+
+    ## runtime
+    #state = models.CharField(max_length=10,default='')
+    class VarType(models.TextChoices):
+        UNKNOW = ''
+        TEXT_BOOL = 'text_bool'
+        TEXT_INT = 'text_int'
+        TEXT_REAL = 'text_real'
+        TEXT_STRING = 'text_string'
+        BTN_TOGGLE = 'btn_toggle'
+
+    varType = models.CharField(
+        max_length=12,
+        choices=VarType.choices,
+        default=VarType.TEXT_STRING
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def pinState(self):
+         return self.pin_value
+   
+    def setPinValue(self,value):
+        print("set",self.pin,value)
+        if (value != None):
+            self.value=value
+            #self.updated = datetime.datetime()
+            self.save()
+            #event
+
+    def command(self,cmd):
+
+        print("CMD VAR "+str(self.pin)+"=" +str(cmd))
+        if (cmd =="TOGGLE"):
+            self.value = not (str(self.value) =="True")
+            self.board.get_controller().write(self.pin, self.value)
+
+    def Save(self):
+        self.save()
+
+    def __str__(self):
+        return self.board.__str__()+" . "+ self.name
+
    
 

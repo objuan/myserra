@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from centralina.models import Board ,Switch,SwitchType
+from centralina.models import Board ,Switch,SwitchType,Variable
+import datetime
 
 class BoardSerializer(serializers.ModelSerializer):
     #name = serializers.CharField(max_length=50, allow_blank=False)
@@ -67,3 +68,26 @@ class SwitchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Switch
         fields = ['id','name','description','pin','state','switchType','pin_value']
+
+
+class VariableSerializer(serializers.ModelSerializer):
+ 
+   
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Snippet` instance, given the validated data.
+        """
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.pin = validated_data.get('pin', instance.pin)
+        instance.value = validated_data.get('value', instance.value)
+        instance.varType = validated_data.get('varType', instance.varType)
+        instance.updated = datetime.datetime()
+
+        instance.save() 
+        
+        return instance
+
+    class Meta:
+        model = Variable
+        fields = ['id','name','description','pin','value','varType']

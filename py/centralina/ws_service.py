@@ -6,21 +6,31 @@ import threading
 import time
 
 _log=None
-_event=None
+_conn=None
+_sw=None
+_var=None
 
 def GetLog():
     #print("Wlog ",str(_log))
     return _log
 
-def GetEvent():
+def GetConn():
     #print("Wlog ",str(_log))
-    return _event
+    return _conn
 
-class EventConsumer(WebsocketConsumer):
+def GetSWEvent():
+    #print("Wlog ",str(_log))
+    return _sw
+
+def GetVarEvent():
+    #print("Wlog ",str(_log))
+    return _var
+
+class ConnectionConsumer(WebsocketConsumer):
     def __init__(self):
-        global _event
+        global _conn
         WebsocketConsumer.__init__(self)
-        _event=self
+        _conn=self
 
 
     def Timer(self):
@@ -45,7 +55,82 @@ class EventConsumer(WebsocketConsumer):
 
     #@shared_task
     def fire(self,message):
-        print("FIRE " , message)
+        #print("FIRE " , message)
+        self.messages.append(str(message))
+
+    def disconnect(self, close_code):
+        print("WS DISCONNECTED")
+        self.Ancora=False
+        pass
+
+
+class VarEventConsumer(WebsocketConsumer):
+    def __init__(self):
+        global _var
+        WebsocketConsumer.__init__(self)
+        _var=self
+
+
+    def Timer(self):
+        #c=0
+        while self.Ancora:
+                    #print("tick",c)
+                    #c=c+1
+                    for m in self.messages:
+                        #print(m)
+                        self.send(m)
+
+                    self.messages.clear()
+                    time.sleep(1)
+
+    def connect(self):
+        print("WS CONNECTED")
+        self.messages = []
+        self.accept()
+        self.Ancora=True
+        self.task= threading.Thread(target=self.Timer,args=[],daemon=True)
+        self.task.start()
+
+    #@shared_task
+    def fire(self,message):
+        #print("FIRE " , message)
+        self.messages.append(str(message))
+
+    def disconnect(self, close_code):
+        print("WS DISCONNECTED")
+        self.Ancora=False
+        pass
+
+class SWEventConsumer(WebsocketConsumer):
+    def __init__(self):
+        global _sw
+        WebsocketConsumer.__init__(self)
+        _sw=self
+
+
+    def Timer(self):
+        #c=0
+        while self.Ancora:
+                    #print("tick",c)
+                    #c=c+1
+                    for m in self.messages:
+                        #print(m)
+                        self.send(m)
+
+                    self.messages.clear()
+                    time.sleep(1)
+
+    def connect(self):
+        print("WS CONNECTED")
+        self.messages = []
+        self.accept()
+        self.Ancora=True
+        self.task= threading.Thread(target=self.Timer,args=[],daemon=True)
+        self.task.start()
+
+    #@shared_task
+    def fire(self,message):
+        #print("FIRE " , message)
         self.messages.append(str(message))
 
     def disconnect(self, close_code):

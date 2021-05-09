@@ -71,6 +71,7 @@
                        </td>
                     </tr>
                 </table>
+                <VarList :board="board"/>
             </b-card-text>
         </b-card>
     </div>
@@ -79,7 +80,7 @@
 <script>
     import axios from 'axios';
     import Vue from 'vue'
-
+    import VarList from './VarList.vue'
 
     export default {
         name: "Board",
@@ -91,7 +92,7 @@
         },
         
         components: {
-                
+                VarList
         },
         data() {
             return {
@@ -111,11 +112,11 @@
         },
         methods: {
               connect_event: function() {
-                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/event/');
+                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
                     var self=this;
                     
                     ws.onmessage = function(e) {
-                        //console.log( "board", e.data);
+                        console.log( "board", e.data);
                         var sw = JSON.parse(e.data);
                         //console.log( e.data,o);
                         if (sw.type=="sw")

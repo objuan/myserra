@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from .models import Board,Switch,SwitchType
+from .models import Board,Switch,SwitchType,Variable
 from django.http import HttpResponse, JsonResponse
-from centralina.serializers import BoardSerializer,SwitchSerializer,SwitchTypeSerializer
+from centralina.serializers import BoardSerializer,SwitchSerializer,SwitchTypeSerializer,VariableSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 #from django_socketio import events
 
-from .runtime_service import ConnectBoards
+from .runtime_service import BoardManager
 
 def index(request):
     latest_question_list = Board.objects.order_by('-name')[:5]
@@ -223,3 +223,52 @@ def message(request, socket, message):
     #import pdb; pdb.set_trace()
     print("message",message)
 '''
+
+
+@csrf_exempt
+def board_vars(request,pk):
+    """
+    """
+    if request.method == 'GET':
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
+        serializer = VariableSerializer(board.variable_set, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        # new switch
+              
+        data = JSONParser().parse(request)
+        try:
+            board = Board.objects.get(pk=pk)
+        except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
+     
+        added = board.variable_set.create( name='default' ) 
+
+        serializer = VariableSerializer(added)
+
+        return JsonResponse(serializer.data)
+      
+
+@csrf_exempt
+def var_command(request, pk,cmd):
+    print ("var "+str(pk)+" " +cmd)
+    try:
+        var = Variable.objects.get(pk=pk)
+    except Variable.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        var.command(cmd)
+
+        serializer = VariableSerializer(var)
+     
+        return JsonResponse(serializer.data)
+
+    else:
+        return HttpResponse(status=404)

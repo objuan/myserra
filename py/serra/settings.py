@@ -168,16 +168,21 @@ LOGGING = {
 			
         },
     },
-    'root': {
-        'handlers': ['console','web'],
-        'level': 'DEBUG',
-    },
+
 	'loggers': {
+		'centralina': {
+			'handlers': ['console','web'],
+			'level': 'DEBUG'
+		},
 		'daphne': {
 			'handlers': ['console',],
 			'level': 'WARNING'
 		},
 		'django': {
+			'handlers': ['console',],
+			'level': 'INFO'
+		},
+		'asyncio': {
 			'handlers': ['console',],
 			'level': 'INFO'
 		},

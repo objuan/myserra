@@ -4,103 +4,141 @@ from django.utils.translation import gettext_lazy as _
 from enum import Enum
 import json
 from .models import *
-from .runtime import Connect_Event
+from .runtime import *
 
-from .runtime import MustReconnect,OnReconnect,RegisterArduino,GetArduino
-from pyfirmata2 import Arduino, util
+from .runtime import RegisterControl,GetControl,RegisterManager #OnReconnect MustReconnect
+from .cloud import *
 import threading
 import time
 import logging
+import traceback
 
 logger = logging.getLogger(__name__)
 
+arduino_map = {}
+arduino_list = []
+control_list = []
 
-def ConnectBoards():
-    logger.info ("------INIT ARDUINO-----------")
-    OnReconnect()
+class BoardManager():
 
-    PING_PIN = 2
+    shared_memory = SharedMemory()
+    ancora =True
+
+    def ConnectArduino(self,memory,arduino):
+        logger.info ("------INIT ARDUINO AT "+arduino.port)
+
+        try:
+        
+                    Connect_Event("CONNECTED "+ arduino.port)    
+                    
+                    #inizializzo i pin in ingrresso
+
+                    try:
+                        for b in Board.objects.all():  
+                            client = SharedClient(memory,arduino)
+                            control = BoardControl(b,client)
+                            b._controller = control
+                            control_list.append(control)
+                            control.onConnect() 
+
+                            RegisterControl(b,control)
+
+                            logger.info("CONTROLLER TOTAL " + str(len(control_list)))
+
+                        Connect_Event("CONNECTED AT"+str(arduino.port) )
+                        
+                    except Exception  as e:
+                        traceback.print_exc()
+                        logger.error ("ERROR INIT " + b.name+ " "+str(e))    
+                        Connect_Event("ERROR INIT")  
+
+                    return True
+
+        except Exception  as e:
+                traceback.print_exc()
+                logger.error ("ERROR CONNETTING " + arduino.port+ " "+str(e))    
+                Connect_Event("ERROR CONNETTING")    
+                return False
+
+    def ConnectBoards(self):
+        global ancora
+        ancora =True
+        logger.info ("------INIT ARDUINO-----------")
+
+        for b in Board.objects.all():
+            if (not b.usb_address in  arduino_map):
+                a= ArduinoClient(b.usb_address,115200,self.shared_memory)
+                arduino_map[b.usb_address] =  a
+                arduino_list.append(a)
+                a.start()
+                #ConnectArduino(arduino_map[b.usb_address])
+
+        def Timer():
+                    c=0
+                    while ancora:
+                        
+                        for arduino in arduino_list:
+                            if (arduino.popConnChanged()):
+                                if (arduino.isOpen):
+                                    client = self.ConnectArduino(self.shared_memory,arduino)
+                                else:
+                                    Connect_Event("DISCONNECTED" )
+                                    for c in control_list:
+                                        if (c.client.arduino == arduino):
+                                            logger.info("CONTROLLER REMOVED " +str(c.board.name))
+                                            control_list.remove(c)
+                                            logger.info("CONTROLLER TOTAL " + str(len(control_list)))
+                                        
+
+                        #    if ( not arduino.isOpen):
+                        #        logger.info ("RECONNECT")
+                        #        ConnectArduino(shared_memory,arduino)
+                        # 
+                        #print ("TICK",c)
+                        #c=c+1
+                        time.sleep(2)
+        
+        def Ping():
+                    c=0
     
-    def Connect(board):
-        try:
-            Connect_Event("CONNECTING " + board.usb_address)    
+                    while ancora:
+                        for arduino in arduino_list:
+                            arduino.ping()
 
-            arduino = Arduino(board.usb_address)
-            #arduino = {}#Arduino(Arduino.AUTODETECT)
-            RegisterArduino(board.usb_address,arduino)
-            logger.info ("CONNECTED"  + board.usb_address)
-            Connect_Event("CONNECTED "+ board.usb_address)    
-            
-            #inizializzo i pin in ingrresso
-         
-            board.onConnect() 
-            '''
-            for sw in board.switch_set.all():
-                 logger.info ("SWITCH START " + sw.name)
-                 if (sw.switchType.mode=="O"):
-                    logger.info ("INIT VALUE %d %d" , sw.pin , sw.pin_value)
-                    arduino.digital[sw.pin].write(sw.pin_value)
-            '''
-            return True
-
-        except Exception  as e:
-            logger.error ("ERROR CONNETTING " + board.usb_address+ " "+str(e))    
-            Connect_Event("ERROR CONNETTING")    
-            return False
+                        c=c+1
+                        time.sleep(1)
 
 
-    for b in Board.objects.all():
-        logger.info ("BOARD " + b.name +" " + b.usb_address)
-        #board_map[b.id] = BoardControl(b)
-        try:
+        t = threading.Thread(target=Timer,args=[],daemon=True)
+        t.start()
 
-            Connect(b)
+        ping = threading.Thread(target=Ping,args=[],daemon=True)
+        ping.start()
 
-            logger.info("START TIMER")
+    def Start(self):
+        self.ConnectBoards()
 
-            def Timer(memory):
-                c=0
-                while True:
-                    if (MustReconnect()):
-                        logger.info ("RECONNECT")
-                        for b in Board.objects.all():
-                            if (Connect(b)):
-                                OnReconnect()
-                     
-                    #print ("TICK",c, memory.connection)
-                    c=c+1
-                    time.sleep(1)
+    def reconnect(self):
+        global arduino_map,arduino_list,control_list
+     
+        self.ConnectBoards()
 
-            def Ping(board):
-                c=0
- 
-                while True:
-                    #v = GetArduino(board).digital[PING_PIN].read(PING_WRITE_PIN)
-                    #if (not cont.read(PING_WRITE_PIN)):
-                    #    Event("PING ERROR")    
-                    #else:
-                    #    Event("PING OK")    
+    def stop(self):
+        global arduino_map,arduino_list,control_list
+     
+        Connect_Event("DISCONNECTED" )
+        for arduino in arduino_list:
+            print("stop")
+            arduino.stop()
+        arduino_map = {}
+        arduino_list = []
+        control_list = []
+     
 
-                   
-                    #print ("PING")
+main_control = BoardManager()
+main_control.Start()
 
-                    board.tick()
-                  
-                    c=c+1
-                    time.sleep(1)
-
-            t = threading.Thread(target=Timer,args=[memory],daemon=True)
-            t.start()
-
-            ping = threading.Thread(target=Ping,args=[b],daemon=True)
-            ping.start()
-
-        except Exception  as e:
-            logger.error ("ERROR CONNETTING "+str(b.usb_address)+str(e))
-            
-    logger.info ("----------------")
-
-ConnectBoards()
+RegisterManager(main_control)
 
 
 

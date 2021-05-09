@@ -5,7 +5,17 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">MySerra</b-navbar-brand>
        <span class="btn-success">
-          State: {{board_state}}&nbsp;&nbsp;&nbsp;
+         <table>
+           <tr>
+             <td>
+                 State: {{arduino_state}}&nbsp;&nbsp;&nbsp;
+               </td>
+               <td>
+                 Time: {{arduino_time}}&nbsp;&nbsp;&nbsp;
+               </td>
+             </tr>
+          </table>
+
        </span>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -66,15 +76,14 @@ export default {
   },
   data() {
     return {
-      board_state : "............"
+      arduino_state : "............",
+      arduino_time : 0
     };
   },
   methods: {
   
     connect_event: function() {
-      var ws = new WebSocket('ws://'
-                + window.location.host
-                + '/ws/event/');
+     var ws = new WebSocket('ws://' + window.location.host  + '/ws/connection/');
 
       var self=this;
 
@@ -87,7 +96,9 @@ export default {
          var o = JSON.parse(e.data);
         //console.log( e.data,o);
         if (o.type=="connect")
-          self.board_state=o.msg;
+          self.arduino_state=o.msg;
+        if (o.type=="time")
+          self.arduino_time=o.msg;
       };
 
       ws.onclose = function(e) {

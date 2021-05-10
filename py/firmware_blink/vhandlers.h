@@ -7,7 +7,7 @@
  * @brief      Handlers for virtual pin operations
  *
  */
-
+/*
 #ifndef VirtualHandlers_h
 #define VirtualHandlers_h
 
@@ -381,3 +381,4 @@ VIRTUAL_WRITE(31);
 #endif
 
 #endif
+*/

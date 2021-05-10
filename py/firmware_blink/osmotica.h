@@ -25,7 +25,7 @@
   
   // eletrovalvola ingresso acqua
   #define WATER_IN_SOLENOID_PIN 7   // eletrovalvola acqua in ingresso 
-  #define WATER_OUT_RELE_PIN 6    //   rele pompa di uscita
+  #define WATER_OUT_RELE_PIN  9    //   rele pompa di uscita
 #endif
 
 #define WATER_STATE_VPIN 101  // 
@@ -34,17 +34,95 @@
 // the setup function runs once when you press reset or power the board
 
 // variables will change:
-int top_state = -1;         //  0 = not active, 1 = active 
-int fill_state = -1;         //  0 = not active, 1 = active 
-int danger_state = -1;         //  0 = not active, 1 = active 
+//int top_state = -1;         //  0 = not active, 1 = active 
+//int fill_state = -1;         //  0 = not active, 1 = active 
+//int danger_state = -1;         //  0 = not active, 1 = active 
 
-int water_enable =1;         //  0 = not active, 1 = active 
+//int water_enable =1;         //  0 = not active, 1 = active 
 
 #define STATE_IDDLE "IDDLE"
 #define STATE_FILL "FILLING"
 #define STATE_DISABLED "DISABLED"
 
-String in_water_state = STATE_IDDLE;
+//String in_water_state = STATE_IDDLE;
+
+
+class Osmotica
+{
+  Switch *top_state;
+  Switch *fill_state;
+  Switch *danger_state;
+
+  SolenoidValve *in_water ;
+  Pump *pump;
+ 
+  Var_Bool *water_enable;
+  Var_String *in_water_state;
+  
+  public:
+    Osmotica(VirtualElementManager &manager){
+        top_state=  manager.addSwitch(TOP_SWITCH_PIN);
+        fill_state =  manager.addSwitch(FILL_SWITCH_PIN);
+        danger_state = manager.addSwitch(DANGER_SWITCH_PIN);
+      
+        in_water =  manager.addSolenoidValve(WATER_IN_SOLENOID_PIN);
+        pump =  manager.addPump(WATER_OUT_RELE_PIN);
+      
+       water_enable = manager.addVarBool(WATER_ENABLE_VPIN) ;
+       in_water_state= manager.addVarString(WATER_STATE_VPIN) ;
+    }
+    
+    bool isFull()
+    {
+      return top_state->get() ==true;
+    }
+    
+    bool needWater()
+    {
+      return fill_state->get() == true;
+    }
+
+    void Logic()
+    {
+      if (water_enable->get())
+      {
+  
+        if (in_water_state->get() == STATE_IDDLE)
+        {
+            if (needWater())
+            {
+               in_water_state->set(STATE_FILL);
+               in_water->Open() ; 
+                 
+               Log("STATE_WATER = FILLING");
+            }
+         }
+         else  if (in_water_state->get() == STATE_FILL)
+         {
+            if (isFull())
+            {
+                 in_water_state->set(STATE_IDDLE);
+                 in_water->Close() ;
+               
+                Log("STATE_WATER = IDDLE");
+            }
+         }
+          else  if (in_water_state->get() == STATE_DISABLED)
+          { 
+              in_water_state->set(STATE_IDDLE);
+              in_water->Close();  
+          }
+     }
+     else if (in_water_state->get() != STATE_DISABLED)
+     {
+        in_water_state->set(STATE_DISABLED);
+        in_water->Close() ;
+     }
+     
+    }
+    
+};
+
 
 /*
  *  CONNECT DIAGRAM
@@ -60,6 +138,7 @@ String in_water_state = STATE_IDDLE;
  * 
  */
 
+/*
 void osmotica_setup() {
   
   // initialize digital pins
@@ -119,7 +198,7 @@ bool needWater()
   return fill_state==1;
 }
 
-CLOUD_ON_WRITE(  WATER_ENABLE_VPIN){
+CLOUD_ON_WRITE( WATER_ENABLE_VPIN){
 
   water_enable =  param.asInt();
   //cloudWrite(WATER_ENABLE_VPIN,water_enable);
@@ -138,16 +217,8 @@ CLOUD_ON_WRITE(WATER_OUT_RELE_PIN){
       digitalWrite(WATER_OUT_RELE_PIN, RELE_OFF);
       Debug("PUMP " ,"OFF");
    }
-      //int valPin = param.asInt();
 }
-/*
-CLOUD_ASK_VALUE(WATER_IN_SOLENOID_PIN){
-     // cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
-}
-CLOUD_ASK_VALUE(WATER_OUT_RELE_PIN){
-     // cloudWrite(WATER_OUT_RELE_PIN,digitalRead(WATER_OUT_RELE_PIN));
-}
-*/
+
 CLOUD_ASK_VALUE(TOP_SWITCH_PIN){
       cloudWrite(TOP_SWITCH_PIN,digitalRead(TOP_SWITCH_PIN));
 }   
@@ -157,6 +228,7 @@ CLOUD_ASK_VALUE(FILL_SWITCH_PIN){
 CLOUD_ASK_VALUE(DANGER_SWITCH_PIN){
       cloudWrite(DANGER_SWITCH_PIN,digitalRead(DANGER_SWITCH_PIN));
 } 
+
 CLOUD_ASK_VALUE(WATER_STATE_VPIN){
       cloudWrite(WATER_STATE_VPIN,in_water_state);
 }   
@@ -177,35 +249,51 @@ void osmotica_loop()
  if (water_enable==1)
  {
   
-  if (in_water_state == STATE_IDDLE)
-  {
-      if (needWater())
-      {
-         in_water_state = STATE_FILL;
-         cloudWrite(WATER_STATE_VPIN,in_water_state);
-         
-         digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_ON);
-         cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
-          
-         Log("STATE_WATER = FILLING");
+    if (in_water_state == STATE_IDDLE)
+    {
+        if (needWater())
+        {
+           in_water_state = STATE_FILL;
+           cloudWrite(WATER_STATE_VPIN,in_water_state);
+           
+           digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_ON);
+           cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
+            
+           Log("STATE_WATER = FILLING");
+        }
+     }
+     else  if (in_water_state == STATE_FILL)
+     {
+        if (isFull())
+        {
+           in_water_state = STATE_IDDLE;
+           cloudWrite(WATER_STATE_VPIN,in_water_state);
+           
+           digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_OFF);
+           cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
+           
+          Log("STATE_WATER = IDDLE");
+        }
+     }
+      else  if (in_water_state == STATE_DISABLED)
+      { 
+          in_water_state = STATE_IDDLE;
+          cloudWrite(WATER_STATE_VPIN,in_water_state);
+
+          digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_OFF);
+          cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
       }
-   }
-   else  if (in_water_state == STATE_FILL)
-   {
-      if (isFull())
-      {
-         in_water_state = STATE_IDDLE;
-         cloudWrite(WATER_STATE_VPIN,in_water_state);
-         
-         digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_OFF);
-         cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
-         
-        Log("STATE_WATER = IDDLE");
-      }
-   }
+    
  }
- else
+ else if (in_water_state != STATE_DISABLED)
+ {
+    in_water_state= STATE_DISABLED;
     cloudWrite(WATER_STATE_VPIN,STATE_DISABLED);
+
+    digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_OFF);
+    cloudWrite(WATER_IN_SOLENOID_PIN,digitalRead(WATER_IN_SOLENOID_PIN));
+           
+ }
   
 
-}
+}*/

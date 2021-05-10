@@ -6,7 +6,7 @@
  * @date       Jan 2015
  * @brief      Virtual pin utilities
  */
-
+/*
 #include <Blynk/BlynkConfig.h>
 #include "VHandlers.h"
 #include "config.h"
@@ -39,7 +39,7 @@ void Com_Tick()
       //  pars.add(_s);
 
     
-        BlynkParam pars(mem, 0, sizeof(mem));
+         BlynkParam pars(mem, 0, sizeof(mem));
       
           pars.add(_s);
 
@@ -65,3 +65,4 @@ void Com_Tick()
   }
    
 }
+*/

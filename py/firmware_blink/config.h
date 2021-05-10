@@ -73,8 +73,8 @@ void Debug(Args... values) {
         Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
     }
         
-#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
-#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
+//#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
+//#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
 
 template <typename... Args>
 void cloudWrite(int pin, Args... values) {

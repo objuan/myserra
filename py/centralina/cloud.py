@@ -86,6 +86,8 @@ class SharedMemory:
     def write(self,arduino,pin,val):
        self.data[pin].write(arduino.con(),val)
 
+'''
+'''
 class SharedClient:  
 
     isOpen=False
@@ -207,7 +209,7 @@ class ArduinoClient:
                     #while True:
                     while self.connection.in_waiting > 0:
                         line = self.connection.readline().decode('utf-8').rstrip()
-                        #print(line)
+                        #print("<=",line)
                         if (line.startswith("vw")):
                             #print(repr(line[2]))
                             args = line.split(sep=self.end_param)

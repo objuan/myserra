@@ -71,9 +71,9 @@
                        </td>
                     </tr>
                 </table>
-                <VarList :board="board"/>
             </b-card-text>
         </b-card>
+         <VarList :board="board"/>
     </div>
 </template>
 

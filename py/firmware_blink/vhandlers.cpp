@@ -7,6 +7,7 @@
  * @brief      Virtual pin utilities
  */
 
+/*
 #include <Blynk/BlynkConfig.h>
 #include "VHandlers.h"
 #include "config.h"
@@ -406,3 +407,4 @@ VirtualWriteHandler GetVWriteHandler(uint8_t pin)
     return VirtualWriteHandlerVector[pin];
 //#endif
 }
+*/

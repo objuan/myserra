@@ -54,12 +54,17 @@ class BoardControl():
         self.client=client
         client.onMemory.on("onWrite", self.onWrite)
 
+    ## from arduino
     def onWrite(self,pin,value):
         #print("onWrite ", pin,value)
        
         for sw in self.board.switch_set.all():
             if (sw.switchType.mode=="I" and pin == sw.pin):
-                print("onRead  ",sw.pin,value)
+                print("onRead  I ",sw.pin,value)
+                sw.setPinValue(value)
+                Switch_Event(sw,"STATE " + sw.state)
+            if (sw.switchType.mode=="O" and pin == sw.pin):
+                print("onRead  O ",sw.pin,value)
                 sw.setPinValue(value)
                 Switch_Event(sw,"STATE " + sw.state)
 
@@ -75,8 +80,19 @@ class BoardControl():
     def onConnect(self):
         logger.info("CONTROLLER " +str(self.board))
     
+        '''
+        for sw in self.board.switch_set.all():
+            logger.info ("SWITCH START " + sw.name + " " +str(sw.switchType.mode))
+            if (sw.switchType.mode=="O"):
+                #arduino.digital[sw.pin].mode = OUTPUT
+                logger.info ("START SET VALUE %d %d" , sw.pin , sw.pin_value)
+                arduino.digital[sw.pin].write(sw.pin_value)
+                self.client.write()
+        '''
+
         for var in self.board.variable_set.all():
-            if not ((var.varType =="text_bool") or (var.varType =="btn_toggle")):
+            if not ((var.varType =="text_bool") 
+                 or (var.varType =="btn_toggle")):
                 self.client.setPinMode(var.pin,VirtualPinMode.VIRTUAL)
 
             self.client.read(var.pin)

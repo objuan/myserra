@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from centralina.runtime import *
 from enum import Enum
 from .ws_service import *
-import datetime
+import parsedatetime
+from datetime import datetime, timezone
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
@@ -13,6 +14,7 @@ class Board(models.Model):
     usb_address = models.CharField(max_length=200,default='', blank=True, null=True)
     net_address = models.CharField(max_length=200,default='', blank=True, null=True)
     wifi_name = models.CharField(max_length=200,default='', blank=True, null=True)
+    enable_cpu = models.BooleanField(default=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -103,8 +105,8 @@ class Switch(models.Model):
         if (value != None):
             ss = lambda  v : 'open' if v else 'close'
             v=value
-            if (not self.switchType.open_value):
-                v=not value
+            #if (not self.switchType.open_value):
+           #     v=not value
 
             self.state = ss(v)
             self.pin_value=value
@@ -125,8 +127,8 @@ class Switch(models.Model):
                 new_state = "close"
 
         pin_value = self.PIN_HI
-        if (not self.switchType.open_value):
-            pin_value=self.PIN_LOW
+       # if (not self.switchType.open_value):
+       #     pin_value=self.PIN_LOW
 
         #print("a "+str(self.pin)+"=" +str(pin_value))
 
@@ -153,15 +155,16 @@ class Switch(models.Model):
         return self.board.__str__()+" -> "+ self.name
 
     
+var_map = {}
 
 class Variable(models.Model):
     
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     description = models.CharField(blank=True,max_length=100)
-    value = models.CharField(max_length=255)
+    value = models.CharField(blank=True,default='',max_length=255)
     pin = models.IntegerField(default=1)
-    updated = models.DateTimeField()
+    updated = models.DateTimeField(default=datetime.now)
 
     ## runtime
     #state = models.CharField(max_length=10,default='')
@@ -179,6 +182,21 @@ class Variable(models.Model):
         default=VarType.TEXT_STRING
     )
 
+    class SaveMode(models.TextChoices):
+        NONE = '', _('None')
+        ALWAYS = '0', _('Always')
+        sec_10 = '10', _('10 secs')
+        sec_30 = '30', _('30 secs')
+        min_1 = '60', _('1 min')
+        min_10 = '600', _('10 min')
+        hour_10 = '3600', _('1 hour')
+
+    saveMode = models.CharField(
+        max_length=5,
+        choices=SaveMode.choices,
+        default=SaveMode.NONE
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -186,7 +204,7 @@ class Variable(models.Model):
          return self.pin_value
    
     def setPinValue(self,value):
-        print("set",self.pin,value)
+        #print("set",self.pin,value)
         if (value != None):
             self.value=value
             #self.updated = datetime.datetime()
@@ -200,11 +218,60 @@ class Variable(models.Model):
             self.value = not (str(self.value) =="True")
             self.board.get_controller().write(self.pin, self.value)
 
-    def Save(self):
-        self.save()
+    def save(self, *args, **kwargs):
+        #def Save(self):
+        self.updated = datetime.now()
+        #print ("save", self)
+        if (self.saveMode!=""):
+            #history
+            ss = int(self.saveMode)
+            
+            if (self.id in  var_map):
+                tt =  var_map[self.id].updated
+                #print (datetime.now())
+                #print (tt)
+                elapsedTime = datetime.now()  - tt
+                if (elapsedTime.total_seconds() > ss):
+                    #print ("history")
+                    var_map[self.id] =  self
+                    v = VariableHistory.create(self,float(self.value))
+                    v.save()
+            else:
+                var_map[self.id] =  self
+                v = VariableHistory.create(self,float(self.value))
+                v.save()
+            
+
+        super(Variable, self).save(*args, **kwargs)
+        #super().save(*args, **kwargs)
 
     def __str__(self):
         return self.board.__str__()+" . "+ self.name
 
    
 
+class VariableHistory(models.Model):
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+    variable = models.ForeignKey(Variable, on_delete=models.CASCADE)
+    value = models.FloatField()
+
+    @classmethod
+    def create(cls, variable,value):
+        vv = cls(variable=variable,value=value)
+        return vv
+
+    def save(self, *args, **kwargs):
+        self.save_and_smear_timestamp(*args, **kwargs)
+    
+    def save_and_smear_timestamp(self, *args, **kwargs):
+        """Recursivly try to save by incrementing the timestamp on duplicate error"""
+        try:
+            super().save(*args, **kwargs)
+        except IntegrityError as exception:
+            # Only handle the error:
+            #   psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "1_1_farms_sensorreading_pkey"
+            #   DETAIL:  Key ("time")=(2020-10-01 22:33:52.507782+00) already exists.
+            if all (k in exception.args[0] for k in ("Key","time", "already exists")):
+                # Increment the timestamp by 1 µs and try again
+                self.time = str(parse_datetime(self.time) + datetime.timedelta(microseconds=1))
+                self.save_and_smear_timestamp(*args, **kwargs)

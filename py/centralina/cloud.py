@@ -10,6 +10,7 @@ import logging
 import threading
 from .ws_service import GetConn
 from pymitter import EventEmitter
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,7 @@ class VirtualPinMode(Enum):
      NULL = 0
      DIGITAL = 1
      ANALOGIC = 2
-     VIRTUAL = 3
+     #VIRTUAL = 3
 
 #class Protocol(object):
 #    
@@ -38,7 +39,7 @@ class VirtualPin:
     name="s"
     pin=0
     value=None # out value
-    mode = VirtualPinMode.DIGITAL
+    mode = VirtualPinMode.ANALOGIC
 
     def __init__(self,pin):
         self.pin=pin
@@ -99,6 +100,7 @@ class SharedClient:
         self.arduino.onMemory.on("onWrite", self.onWrite)
 
     def fireWrite(self,name,value):
+            #print("fire write" , name,value)
             pin = self.memory.data[name]
             if (pin.mode == VirtualPinMode.DIGITAL):
                 #print("handler1 called with", name,"'"+str(value)+"'",pin.mode )
@@ -242,7 +244,8 @@ class ArduinoClient:
                 logger.error("Connecting .."+str(e) )
 
             except Exception as e:
-                print (e.__traceback__)
+                traceback.print_exc()
+                #print ("...",e.__traceback__)
                 logger.error(str(e) )
 
             time.sleep(1)

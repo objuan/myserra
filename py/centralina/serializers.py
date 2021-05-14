@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from centralina.models import Board ,Switch,SwitchType,Variable
-import datetime
+from datetime import datetime
 
 class BoardSerializer(serializers.ModelSerializer):
     #name = serializers.CharField(max_length=50, allow_blank=False)
@@ -16,27 +16,29 @@ class BoardSerializer(serializers.ModelSerializer):
         """
         Update and return an existing `Snippet` instance, given the validated data.
         """
+        print(validated_data)
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
         instance.usb_address = validated_data.get('usb_address', instance.usb_address)
         instance.net_address = validated_data.get('net_address', instance.net_address)
         instance.wifi_name = validated_data.get('wifi_name', instance.wifi_name)
         instance.cpu_type = validated_data.get('cpu_type', instance.cpu_type)
+        instance.enable_cpu = validated_data.get('enable_cpu', instance.enable_cpu)
         instance.save()
         return instance
 
     class Meta:
         model = Board
-        fields = ['id','name','description','cpu_type','usb_address','net_address','wifi_name']
+        fields = ['id','name','description','cpu_type','usb_address','net_address','wifi_name','enable_cpu']
 
 
 class SwitchTypeSerializer(serializers.ModelSerializer):
  
-    open_value = serializers.NullBooleanField()
+    #open_value = serializers.NullBooleanField()
 
     class Meta:
         model = SwitchType
-        fields = ['id','name','description','voltage','open_value','mode']
+        fields = ['id','name','description','voltage','mode']
 
 class SwitchSerializer(serializers.ModelSerializer):
  
@@ -74,6 +76,7 @@ class VariableSerializer(serializers.ModelSerializer):
  
    
     def update(self, instance, validated_data):
+        print (validated_data)
         """
         Update and return an existing `Snippet` instance, given the validated data.
         """
@@ -82,12 +85,13 @@ class VariableSerializer(serializers.ModelSerializer):
         instance.pin = validated_data.get('pin', instance.pin)
         instance.value = validated_data.get('value', instance.value)
         instance.varType = validated_data.get('varType', instance.varType)
-        instance.updated = datetime.datetime()
-
+        instance.saveMode = validated_data.get('saveMode', instance.saveMode)
+   
+        print (instance)
         instance.save() 
         
         return instance
 
     class Meta:
         model = Variable
-        fields = ['id','name','description','pin','value','varType']
+        fields = ['id','name','description','pin','value','varType','saveMode']

@@ -60,17 +60,17 @@ class BoardControl():
        
         for sw in self.board.switch_set.all():
             if (sw.switchType.mode=="I" and pin == sw.pin):
-                print("onRead  I ",sw.pin,value)
+                #print("onRead  I ",sw.pin,value)
                 sw.setPinValue(value)
                 Switch_Event(sw,"STATE " + sw.state)
             if (sw.switchType.mode=="O" and pin == sw.pin):
-                print("onRead  O ",sw.pin,value)
+                #print("onRead  O ",sw.pin,value)
                 sw.setPinValue(value)
                 Switch_Event(sw,"STATE " + sw.state)
 
         for var in self.board.variable_set.all():
             if (pin == var.pin):
-                print("onReadV  ",var.pin,value)
+                #print("onReadV  ",var.pin,value)
                 var.setPinValue(value)
                 Var_Event(var,"")
                 
@@ -91,9 +91,9 @@ class BoardControl():
         '''
 
         for var in self.board.variable_set.all():
-            if not ((var.varType =="text_bool") 
+            if  ((var.varType =="text_bool") 
                  or (var.varType =="btn_toggle")):
-                self.client.setPinMode(var.pin,VirtualPinMode.VIRTUAL)
+                self.client.setPinMode(var.pin,VirtualPinMode.DIGITAL)
 
             self.client.read(var.pin)
 

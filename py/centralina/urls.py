@@ -22,6 +22,7 @@ urlpatterns = [
     path('switch/<int:pk>', views.switch_detail),
 
     path('var/<int:pk>/cmd/<str:cmd>', views.var_command),
+     path('var/<int:pk>', views.var_manage),
 
 ]
 

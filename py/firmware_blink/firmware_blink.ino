@@ -3,19 +3,25 @@
  *
  */
 
+//#define  MEGA
+
 #include <SoftwareSerial.h>
 SoftwareSerial DebugSerial(2, 3); // RX, TX
 
 #include <BlynkSimpleStream.h>
 #include "config.h"
 //#include "vhandlers.h"
-#include "virtual_elements.h"
+#include "virtual_elements_manager.h"
+
 #include "osmotica.h"
+#include "vasca.h"
 //include "lab.h"
 
 VirtualElementManager manager;
 
+
 Osmotica osmotica(manager);
+Vasca vasca1(manager,60,95.5,0);
 
 //===================================
 
@@ -27,10 +33,13 @@ void setup() {
   //osmotica_setup();
  // lab_setup();
  
-  virtualWrite(0,"INIT");
+  cloudWrite(0,"INIT");
 //  com.Register(CMD_PING, OnPing);
 
   clock_time=millis();
+
+  vasca1.Init();
+  
 /*
   manager.addSwitch(4);
   manager.addSwitch(5);
@@ -53,7 +62,9 @@ void loop()
   //Com_Tick();
 
   manager.tick();
+  
   osmotica.Logic();
+  vasca1.Logic();
   
   //osmotica_loop();
   //lab_loop();

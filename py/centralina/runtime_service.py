@@ -35,15 +35,16 @@ class BoardManager():
 
                     try:
                         for b in Board.objects.all():  
-                            client = SharedClient(memory,arduino)
-                            control = BoardControl(b,client)
-                            b._controller = control
-                            control_list.append(control)
-                            control.onConnect() 
+                            if (b.enable_cpu):
+                                client = SharedClient(memory,arduino)
+                                control = BoardControl(b,client)
+                                b._controller = control
+                                control_list.append(control)
+                                control.onConnect() 
 
-                            RegisterControl(b,control)
+                                RegisterControl(b,control)
 
-                            logger.info("CONTROLLER TOTAL " + str(len(control_list)))
+                                logger.info("CONTROLLER TOTAL " + str(len(control_list)))
 
                         Connect_Event("CONNECTED AT"+str(arduino.port) )
                         
@@ -66,11 +67,11 @@ class BoardManager():
         logger.info ("------INIT ARDUINO-----------")
 
         for b in Board.objects.all():
-            if (not b.usb_address in  arduino_map):
-                a= ArduinoClient(b.usb_address,115200,self.shared_memory)
-                arduino_map[b.usb_address] =  a
-                arduino_list.append(a)
-                a.start()
+                if (not b.usb_address in  arduino_map):
+                    a= ArduinoClient(b.usb_address,115200,self.shared_memory)
+                    arduino_map[b.usb_address] =  a
+                    arduino_list.append(a)
+                    a.start()
                 #ConnectArduino(arduino_map[b.usb_address])
 
         def Timer():

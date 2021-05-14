@@ -93,7 +93,7 @@ class VarEventConsumer(WebsocketConsumer):
 
     #@shared_task
     def fire(self,message):
-        #print("FIRE " , message)
+        #print("FIRE VAR " , message)
         self.messages.append(str(message))
 
     def disconnect(self, close_code):

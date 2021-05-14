@@ -3,18 +3,32 @@
     <b-card  :header="'VAR: '+board.id+' ' +board.name+'('+board.description+') '+board.cpu_type" 
          style="max-width: 90rem;">
             <b-card-text>
+                  
+                             <b-button variant="success" @click="newVar()">Add Var</b-button>
+                        
                 <table style="width:100%" border=1>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td>ID</td>
                         <td>name</td>
                         <td>desc</td>
                         <td>pin</td>
                         <td>type</td>
+                        <td>save</td>
                         <td>value</td>
-                    
+                        <td></td>
                     </tr>
                     <tr v-for="(sw, index) in var_list" :key="index">
+                        <td>
+                            
+                             <b-button :v-b-modal="'modal-1'" variant="danger" >X</b-button>
+                             
+                           
+                            <b-modal :id="'modal-'+sw.id" title="BootstrapVue">
+                                <p class="my-4">Hello from modal!</p>
+                            </b-modal>
+                            </td>
                         <td> 
                          
                             <b-button v-if="sw.varType=='btn_toggle'" variant="success" @click="toggle(sw)">Toggle</b-button>
@@ -32,8 +46,15 @@
                       
                        <td>
                          
-                              <b-dropdown :text="sw.varType" class="m-md-2" >
-                                <b-dropdown-item  v-for="(s, index) in var_type_list" :key="index" 
+                           <b-dropdown :text="sw.varType" class="m-md-2" >
+                                <b-dropdown-item  @click="onSelectType(sw,s)" v-for="(s, index) in var_type_list" :key="index" 
+                                        >{{s}}</b-dropdown-item>
+                                </b-dropdown>
+                       </td>
+                        <td>
+                         
+                              <b-dropdown :text="sw.saveMode" class="m-md-2" >
+                                <b-dropdown-item   @click="onSelectSavewMode(sw,s)"  v-for="(s, index) in var_saveMode_list" :key="index" 
                                         >{{s}}</b-dropdown-item>
                                 </b-dropdown>
                        </td>
@@ -42,7 +63,10 @@
                             {{sw.value}}
                             </p>
                          </td>
-                      
+                      <td>
+                            <b-button variant="success" @click="saveVar(sw)">Save</b-button>
+                
+                          </td>
                     </tr>
                 </table>
             </b-card-text>
@@ -70,9 +94,11 @@
         data() {
             return {
                 var_list: [],
-                var_type_list : ['bool','real','int','string']
+                var_type_list : ['text_bool','text_int','text_real','text_string','btn_toggle'],
+                 var_saveMode_list : ['','0','10','30','60','600','3600']
             };
         },
+
         watch: {
             board: {
                     immediate: true,
@@ -84,18 +110,19 @@
         },
         methods: {
               connect_event: function() {
-                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/var/');
                     var self=this;
+                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/var/');
                     
                     ws.onmessage = function(e) {
-                        console.log( "var", e.data);
+                        //console.log( "var", e.data);
                         var sw = JSON.parse(e.data);
                         //console.log( e.data,o);
                         if (sw.type=="var")
                         {
-                            console.log( e.data);
+                            //console.log( e.data);
                             let idx = self.var_list.findIndex((x) => x.id === sw.id) ;
-                            self.var_list[idx].value = sw.value;
+                            if (idx!=-1)
+                                self.var_list[idx].value = sw.value;
                         }
                     };
 
@@ -111,6 +138,8 @@
             },
 
             load: function() {
+                this.connect_event();
+
                 //console.log(this.board);
                 axios.get('/api/board/'+this.board.id+"/vars").then(
                     response => {
@@ -120,14 +149,47 @@
             
             },
 
+            newVar: function() {
+                    console.log ("new"  );
+                    this.new_var ={"name":"default"}    ;
+                    axios.post('/api/board/'+this.board.id+"/vars", this.new_var)
+                     .then(
+                        () => {
+                            this.new_var = "";
+                        }
+                    );
+            },
+            deleteVar: function(sw) {
+                    console.log ("save" , sw);
+                    axios.delete('/api/var/'+sw.id, sw);
+            },
+            saveVar: function(sw) {
+                    console.log ("save" , sw);
+                    axios.put('/api/var/'+sw.id, sw);
+            },
+
             toggle: function(v) {
                 console.log(this.board);
                 axios.get('/api/var/'+v.id+'/cmd/TOGGLE');
 
             },
+            onSelectType: function(sw,sw_type) {
+                console.log ("select" , sw,sw_type);
+                let idx = this.var_list.findIndex((x) => x.id === sw.id) ;
+                console.log (this.var_list,idx);
+                this.var_list[idx].varType = sw_type;
+               // Vue.set(this.var_list[idx].varType,sw_type);
+            },
+            onSelectSavewMode: function(sw,sw_type) {
+                console.log ("select" , sw,sw_type);
+                let idx = this.var_list.findIndex((x) => x.id === sw.id) ;
+                console.log (this.var_list,idx);
+                this.var_list[idx].saveMode = sw_type;
+               // Vue.set(this.var_list[idx].varType,sw_type);
+            },
         },
         created() {
-          this.connect_event();
+        //  this.connect_event();
         },
     }
 </script>

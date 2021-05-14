@@ -8,6 +8,16 @@
                         <td>
                              <b-button variant="success" @click="newSwitch()">Add Switch</b-button>
                         </td>
+                       
+                        <td>
+                              <b-form-checkbox
+                                v-model="board.enable_cpu"
+                                unchecked-value="not_accepted"
+                                >
+                                Enabled
+                                </b-form-checkbox>
+                                
+                        </td>
                         <td>
                             address
                          </td>
@@ -112,8 +122,8 @@
         },
         methods: {
               connect_event: function() {
-                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
                     var self=this;
+                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
                     
                     ws.onmessage = function(e) {
                         console.log( "board", e.data);
@@ -141,6 +151,8 @@
 
             load: function() {
                 //console.log(this.board);
+                this.connect_event();
+
                 axios.get('/api/board_switchs/'+this.board.id).then(
                     response => {
                     this.switch_list = response.data;
@@ -202,7 +214,7 @@
             },
         },
         created() {
-          this.connect_event();
+        
         },
     }
 </script>

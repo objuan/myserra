@@ -270,5 +270,32 @@ def var_command(request, pk,cmd):
      
         return JsonResponse(serializer.data)
 
+    elif request.method == 'DELETE':
+        var.delete()
+        return HttpResponse(status=204)
     else:
         return HttpResponse(status=404)
+
+@csrf_exempt
+def var_manage(request, pk):
+    print ("var "+str(pk))
+    try:
+        var = Variable.objects.get(pk=pk)
+    except Variable.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'PUT':
+        print("pu")
+        data = JSONParser().parse(request)
+        print(str(data))
+        serializer = VariableSerializer(var, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+    elif request.method == 'DELETE':
+        var.delete()
+        return HttpResponse(status=204)
+    else:
+        return HttpResponse(status=404)
+

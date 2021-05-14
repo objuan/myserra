@@ -11,7 +11,7 @@
                  State: {{arduino_state}}&nbsp;&nbsp;&nbsp;
                </td>
                <td>
-                 Time: {{arduino_time}}&nbsp;&nbsp;&nbsp;
+                 Time: {{arduino_time | durationFormat}}&nbsp;&nbsp;&nbsp;
                </td>
              </tr>
           </table>
@@ -80,6 +80,15 @@ export default {
       arduino_time : 0
     };
   },
+  filters: {
+        durationFormat(value) {
+            var hh = Math.trunc(value / 3600);
+            value = value - hh * 3600;
+            var mm = Math.trunc(value / 60);
+            value = Math.trunc(value - mm * 60);
+            return "h:"+hh+" m:"+mm+" s:"+value;
+        }
+    },
   methods: {
   
     connect_event: function() {

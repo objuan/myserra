@@ -1,6 +1,5 @@
 #include <Blynk/BlynkConfig.h>
 #include <Blynk/BlynkParam.h>
-#include "vhandlers.h"
 
 #ifndef Config_
 #define Config_
@@ -13,18 +12,6 @@
 
 void Com_Tick();
 
-
-template <typename... Args>
-void virtualWrite(int pin, Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("vw");
-        cmd.add(pin);
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
-    }
 
 template <typename... Args>
 void Log(Args... values) {
@@ -87,5 +74,58 @@ void cloudWrite(int pin, Args... values) {
         Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
        // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
     }
-    
+
+
+class movingAvg
+{
+    private:
+        int _size;     // number of data points for the moving average
+        int count;  // number of readings
+        float sum;         // sum of the m_readings array
+        int index;         // index to the next reading
+        float *data;    // pointer to the dynamically allocated interval array
+        
+    public:
+        movingAvg(int _size)
+            : _size(_size), count(0), sum(0), index(0) {
+              data = new float[_size];
+           }
+
+        float Add(float value){
+            // Serial.println(value);
+            if (count < _size)
+            {
+                ++count;
+                sum = sum + value;
+            }
+            else
+            {
+                sum = sum - data[index] + value;
+              
+            }
+             data[index]=value;
+             if (++index >= _size) index = 0;
+                
+            // Serial.println(count);
+            //  Serial.println(_size);
+             //  Serial.println(index);
+           // Serial.println(sum);
+            return sum / count;
+            
+            //m_readings[m_next] = newReading;
+           // if (++m_next >= m_interval) m_next = 0;
+          //  return m_sum / m_nbrReadings;
+           // return (m_sum + m_nbrReadings / 2) / m_nbrReadings;
+        }
+   
+
+        void reset(){
+            count = 0;
+            sum = 0;
+            index = 0;
+        }
+
+
+  
+};
 #endif

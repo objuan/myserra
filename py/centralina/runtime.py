@@ -80,44 +80,35 @@ class BoardControl():
     def onConnect(self):
         logger.info("CONTROLLER " +str(self.board))
     
-        '''
+            
         for sw in self.board.switch_set.all():
             logger.info ("SWITCH START " + sw.name + " " +str(sw.switchType.mode))
+            self.client.setPinMode(sw.pin,VirtualPinMode.DIGITAL)
+
+            if (sw.switchType.mode=="I"):
+               self.client.read(sw.pin)
+
+            '''
             if (sw.switchType.mode=="O"):
                 #arduino.digital[sw.pin].mode = OUTPUT
                 logger.info ("START SET VALUE %d %d" , sw.pin , sw.pin_value)
                 arduino.digital[sw.pin].write(sw.pin_value)
                 self.client.write()
-        '''
+            '''
+        
 
         for var in self.board.variable_set.all():
+            print ("var ",var.name,var.value)
             if  ((var.varType =="text_bool") 
-                 or (var.varType =="btn_toggle")):
-                self.client.setPinMode(var.pin,VirtualPinMode.DIGITAL)
+                or (var.varType =="btn_toggle")):
+                    self.client.setPinMode(var.pin,VirtualPinMode.DIGITAL)
 
-            self.client.read(var.pin)
+            if  (var.startupMode =="db") :
+                self.client.write(var.pin, var.value)
+            elif  (var.startupMode =="hw") :
+                self.client.read(var.pin)
 
-        #print(memory)
-        '''
-        #arduino.samplingOn(1000 / self.samplingRate)
-
-        arduino.digital[PING_PIN].mode = OUTPUT
-        arduino.digital[PING_PIN].write(False)
-
-        for sw in self.board.switch_set.all():
-            logger.info ("SWITCH START " + sw.name + str(sw.switchType.mode)+"'")
-            if (sw.switchType.mode=="O"):
-                arduino.digital[sw.pin].mode = OUTPUT
-                logger.info ("START SET VALUE %d %d" , sw.pin , sw.pin_value)
-                arduino.digital[sw.pin].write(sw.pin_value)
-
-            elif (sw.switchType.mode=="I"):
-                arduino.digital[sw.pin].mode = INPUT
-                v =  arduino.digital[sw.pin].read()
-                if (v != sw.pin_value or sw.state == ''):
-                    print("INIT READ  ",sw.pin,v)
-                    sw.setPinValue(v)
-        '''
+      
 
 
     def reconnect(self):
@@ -127,16 +118,7 @@ class BoardControl():
     def stop(self):
         global memory
         GetManager().stop()
-        '''
-        arduino = GetArduino(self.board)
-        memory.connection["active"] = False
-        try:
-            return arduino.digital[pin].read()
-        except Exception as e:
-            print("ERROR ",e)
-        arduino.exit()
-        '''
-
+     
     c=0
     ping_tick=True
     old_conn=""

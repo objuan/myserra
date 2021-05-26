@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: "value",
+        name: "switch",
         props: {
             switch: {
                 type: Object,

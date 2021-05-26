@@ -16,6 +16,7 @@
                         <td>pin</td>
                         <td>type</td>
                         <td>save</td>
+                        <td>startup</td>
                         <td>value</td>
                         <td></td>
                     </tr>
@@ -58,9 +59,16 @@
                                         >{{s}}</b-dropdown-item>
                                 </b-dropdown>
                        </td>
+                         <td>
+                            <b-dropdown :text="sw.startupMode" class="m-md-2" >
+                                <b-dropdown-item   @click="onSelectStartupMode(sw,s)"  v-for="(s, index) in var_startup_list" :key="index" 
+                                        >{{s}}</b-dropdown-item>
+                                </b-dropdown>
+                       </td>
                        <td class="static">
                               <p  >
-                            {{sw.value}}
+                          
+                             <b-form-input  v-model="sw.value" placeholder="Enter  desc" type="text"></b-form-input>
                             </p>
                          </td>
                       <td>
@@ -94,8 +102,9 @@
         data() {
             return {
                 var_list: [],
-                var_type_list : ['text_bool','text_int','text_real','text_string','btn_toggle'],
-                 var_saveMode_list : ['','0','10','30','60','600','3600']
+                var_type_list : ['text_bool','text_int','text_real','text_string','btn_toggle','json'],
+                 var_saveMode_list : ['','0','10','30','60','600','3600'],
+                   var_startup_list : ['','db','hw']
             };
         },
 
@@ -185,6 +194,13 @@
                 let idx = this.var_list.findIndex((x) => x.id === sw.id) ;
                 console.log (this.var_list,idx);
                 this.var_list[idx].saveMode = sw_type;
+               // Vue.set(this.var_list[idx].varType,sw_type);
+            },
+              onSelectStartupMode: function(sw,sw_type) {
+                console.log ("select" , sw,sw_type);
+                let idx = this.var_list.findIndex((x) => x.id === sw.id) ;
+                console.log (this.var_list,idx);
+                this.var_list[idx].startupMode = sw_type;
                // Vue.set(this.var_list[idx].varType,sw_type);
             },
         },

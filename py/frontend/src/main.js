@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 
 import BoardList from './components/BoardList'
 import Centralina from './components/Centralina'
+import Giardino from './components/Giardino'
 import Log from './components/Log'
 
 // import some global styles
@@ -18,6 +19,7 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/centralina', alias: '/', component: Centralina },
   { path: '/boardlist',  component: BoardList },
+  { path: '/giardino',  component: Giardino },
   { path: '/log', component: Log }
 ]
 

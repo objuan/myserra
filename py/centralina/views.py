@@ -257,7 +257,7 @@ def board_vars(request,pk):
 
 @csrf_exempt
 def var_command(request, pk,cmd):
-    print ("var "+str(pk)+" " +cmd)
+    print ("var mcd"+str(pk)+" " +cmd)
     try:
         var = Variable.objects.get(pk=pk)
     except Variable.DoesNotExist:
@@ -284,14 +284,29 @@ def var_manage(request, pk):
     except Variable.DoesNotExist:
         return HttpResponse(status=404)
 
+
+    if request.method == 'GET':
+        serializer = VariableSerializer(var)
+
+        return JsonResponse(serializer.data)
+
     if request.method == 'PUT':
-        print("pu")
+        print("put")
         data = JSONParser().parse(request)
+      
+        if (var.varType=='json'):
+            j = str(data["value"])
+            #j=j.replace('\'','|')
+            print (j)
+            data['value'] = j
         print(str(data))
         serializer = VariableSerializer(var, data=data)
+
         if serializer.is_valid():
             serializer.save()
+            var.board.get_controller().write(var.pin,data['value'] )
             return JsonResponse(serializer.data)
+        print("bad")
         return JsonResponse(serializer.errors, status=400)
     elif request.method == 'DELETE':
         var.delete()

@@ -86,7 +86,8 @@ class VariableSerializer(serializers.ModelSerializer):
         instance.value = validated_data.get('value', instance.value)
         instance.varType = validated_data.get('varType', instance.varType)
         instance.saveMode = validated_data.get('saveMode', instance.saveMode)
-   
+        instance.startupMode = validated_data.get('startupMode', instance.startupMode)
+       
         print (instance)
         instance.save() 
         
@@ -94,4 +95,4 @@ class VariableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Variable
-        fields = ['id','name','description','pin','value','varType','saveMode']
+        fields = ['id','name','description','pin','value','varType','saveMode','startupMode']

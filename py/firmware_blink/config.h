@@ -1,131 +1,59 @@
-#include <Blynk/BlynkConfig.h>
-#include <Blynk/BlynkParam.h>
 
 #ifndef Config_
 #define Config_
 
-#define SOLENOID_ON LOW
-#define SOLENOID_OFF HIGH
 
-#define RELE_ON LOW
-#define RELE_OFF HIGH
+// SWITCHS
+#ifdef MEGA
+  // OSMOTICA
+  #define OSMOTICA_TOP_SWITCH_PIN  53  // interruttore acqua piena
+  #define OSMOTICA_FILL_SWITCH_PIN  51  // interruttore inizzio acqua piena
+  #define OSMOTICA_DANGER_SWITCH_PIN  49  // interruttore acqua bassa per pompa
+  
+  // eletrovalvola ingresso acqua
+  #define OSMOTICA_WATER_IN_SOLENOID_PIN 47   // eletrovalvola acqua in ingresso 
+  #define OSMOTICA_WATER_OUT_RELE_PIN 44    //   rele pompa di uscita
 
-void Com_Tick();
+  //POZZO
+  #define POZZO_SOLENOID_PIN 45
 
-
-template <typename... Args>
-void Log(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("[LOG] ");
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
-template <typename... Args>
-void Debug(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("[DEBUG] ");
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
-    template <typename... Args>
- void Warn(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("[WARN] ");
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
-    template <typename... Args>
- void Error(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("[ERROR] ");
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
-    
-  template <typename... Args>
- void COMMAND(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("CMD");
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
-        
-//#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
-//#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
-
-template <typename... Args>
-void cloudWrite(int pin, Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
-        cmd.add("vw");
-        cmd.add(pin);
-        cmd.add_multi(values...);
-        cmd.add("\n");
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
-    }
-
-
-class movingAvg
-{
-    private:
-        int _size;     // number of data points for the moving average
-        int count;  // number of readings
-        float sum;         // sum of the m_readings array
-        int index;         // index to the next reading
-        float *data;    // pointer to the dynamically allocated interval array
-        
-    public:
-        movingAvg(int _size)
-            : _size(_size), count(0), sum(0), index(0) {
-              data = new float[_size];
-           }
-
-        float Add(float value){
-            // Serial.println(value);
-            if (count < _size)
-            {
-                ++count;
-                sum = sum + value;
-            }
-            else
-            {
-                sum = sum - data[index] + value;
-              
-            }
-             data[index]=value;
-             if (++index >= _size) index = 0;
-                
-            // Serial.println(count);
-            //  Serial.println(_size);
-             //  Serial.println(index);
-           // Serial.println(sum);
-            return sum / count;
-            
-            //m_readings[m_next] = newReading;
-           // if (++m_next >= m_interval) m_next = 0;
-          //  return m_sum / m_nbrReadings;
-           // return (m_sum + m_nbrReadings / 2) / m_nbrReadings;
-        }
+ // LEDS
+  #define LEDS_SOLENOID_PIN 31
+ 
+  // GIARDINO
+  #define PERIMETRALE_SOLENOID_PIN 32
    
+#else
+  #define OSMOTICA_TOP_SWITCH_PIN  4  // interruttore acqua piena
+  #define OSMOTICA_FILL_SWITCH_PIN  5  // interruttore inizzio acqua piena
+  #define OSMOTICA_DANGER_SWITCH_PIN  6  // interruttore acqua bassa per pompa
+  
+  // eletrovalvola ingresso acqua
+  #define OSMOTICA_WATER_IN_SOLENOID_PIN 7   // eletrovalvola acqua in ingresso 
+  #define OSMOTICA_WATER_OUT_RELE_PIN  9    //   rele pompa di uscita
 
-        void reset(){
-            count = 0;
-            sum = 0;
-            index = 0;
-        }
+  //POZZO
+  #define POZZO_SOLENOID_PIN 8
 
+  // LEDS
+  #define LEDS_SOLENOID_PIN 10
+ 
+   // GIARDINO
+  #define PERIMETRALE_SOLENOID_PIN 11
 
   
-};
+#endif
+
+// EPROM
+
+#define EPROM_VASCA1_LEVEL 0 // 1 byte
+
+#define EPROM_GIARDINO_SCHEDULING_DA 2 // 4 byte
+#define EPROM_GIARDINO_SCHEDULING_A 6 // 4 byte
+#define EPROM_GIARDINO_PERIMETRALE_ENABLE 10 // 1 byte
+
+#define EPROM_LED_SCHEDULING_DA 12 // 4 byte
+#define EPROM_LED_SCHEDULING_A 16 // 4 byte
+#define EPROM_LED_ENABLE 20 // 1 byte
+
 #endif

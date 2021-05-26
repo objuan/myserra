@@ -11,7 +11,11 @@
                  State: {{arduino_state}}&nbsp;&nbsp;&nbsp;
                </td>
                <td>
-                 Time: {{arduino_time | durationFormat}}&nbsp;&nbsp;&nbsp;
+                 Running Time: {{arduino_time | durationFormat}}&nbsp;&nbsp;&nbsp;
+               </td>
+
+                <td>
+                 Date : {{arduino_date}}&nbsp;&nbsp;&nbsp;
                </td>
              </tr>
           </table>
@@ -24,6 +28,7 @@
         <b-nav card-header tabs>
           <b-nav-item  to="/centralina" exact exact-active-class="active">Centralina</b-nav-item>
           <b-nav-item  to="/boardlist" exact exact-active-class="active">Boards</b-nav-item>
+          <b-nav-item  to="/giardino" exact exact-active-class="active">Giardino</b-nav-item>
           <b-nav-item to="/log" exact exact-active-class="active">Log </b-nav-item>
           <b-nav-item to="/admin/" exact exact-active-class="active">Admin </b-nav-item>
         </b-nav>
@@ -77,7 +82,8 @@ export default {
   data() {
     return {
       arduino_state : "............",
-      arduino_time : 0
+      arduino_time : 0,
+      arduino_date : ""
     };
   },
   filters: {
@@ -101,13 +107,17 @@ export default {
       
       };
       ws.onmessage = function(e) {
-         //console.log( e.data);
+        // console.log( e.data);
          var o = JSON.parse(e.data);
-        //console.log( e.data,o);
+      //  console.log( e.data,o,o.time_type);
         if (o.type=="connect")
           self.arduino_state=o.msg;
-        if (o.type=="time")
+        if (o.type=="time" && o.time_type=="RUN_TIME")
           self.arduino_time=o.msg;
+        if (o.type=="time" && o.time_type=="DATE")
+        {
+          self.arduino_date=o.msg;
+        }
       };
 
       ws.onclose = function(e) {

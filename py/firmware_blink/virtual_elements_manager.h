@@ -16,46 +16,59 @@ class VirtualElementManager
     VirtualElement* list[100];
     int count=0;
 
-    char mem[BLYNK_MAX_SENDBYTES];
+    char mem[BLYNK_MAX_SENDBYTES]; // 1024
 public:
-  
-   Switch *addSwitch(int pin) {
-      Switch *sw = new Switch(pin);
+  VirtualElementManager(){
+     full_str="";
+     
+   }
+   Switch *addSwitch(int virtual_pin,int arduino_pin) {
+      Switch *sw = new Switch(virtual_pin,arduino_pin);
       Add(sw);
       return sw;
   }
   
-  SolenoidValve *addSolenoidValve(int pin) {
-      SolenoidValve *sw = new SolenoidValve(pin);
+  SolenoidValve *addSolenoidValve(int virtual_pin,int arduino_pin) {
+      SolenoidValve *sw = new SolenoidValve(virtual_pin,arduino_pin);
        Add(sw);
       return sw;
   }
 
-  Pump *addPump(int pin) {
-      Pump *sw = new Pump(pin);
+  Pump *addPump(int virtual_pin,int arduino_pin) {
+      Pump *sw = new Pump(virtual_pin,arduino_pin);
        Add(sw);
       return sw;
   }
 
-   DistanceSensor *addDistance(int vpin,int TRIG_PIN,int ECHO_PIN) {
-      DistanceSensor *sw = new DistanceSensor(vpin,TRIG_PIN,ECHO_PIN);
+   DistanceSensor *addDistance(int virtual_pin,int TRIG_PIN,int ECHO_PIN) {
+      DistanceSensor *sw = new DistanceSensor(virtual_pin,TRIG_PIN,ECHO_PIN);
        Add(sw);
       return sw;
   }
 
-
-
-  Var_Bool *addVarBool(int pin,bool startValue=false) {
-       Var_Bool *sw = new Var_Bool(pin);
+  WaterFlowSensor *addWaterFlowSensor(int virtual_pin, int SENSOR_PIN,int SENSOR_INTERRUPT) {
+        WaterFlowSensor *sw = new WaterFlowSensor(virtual_pin,SENSOR_PIN,SENSOR_INTERRUPT);
        Add(sw);
-       sw->set(startValue);
+      return sw;
+  }
+  
+
+  // ===============================
+  
+
+  Var_Bool *addVarBool(int pin,bool startValue=false,int eprom_address=-1) {
+       Var_Bool *sw = new Var_Bool(pin,eprom_address);
+       Add(sw);
+       if (eprom_address==-1)
+          sw->set(startValue);
       return sw;
   }
 
  Var_String *addVarString(int pin,const String& startValue="") {
       Var_String *sw = new Var_String(pin);
        Add(sw);
-        sw->set(startValue);
+       if (startValue!="")
+         sw->set(startValue);
       return sw;
   }
 
@@ -66,8 +79,9 @@ public:
       return sw;
   }
   
-  void Add(VirtualElement *ele){
+  VirtualElement* Add(VirtualElement *ele){
     list[count++] = ele;
+    return ele;
   }
   VirtualElement *Find(int pin)
   {
@@ -75,70 +89,109 @@ public:
         if (this->list[i]->pin == pin) return list[i];
       return NULL;
   }
-  
-  void tick()
-  {
-    while (Serial.available() > 0 ) {
-      //char comando = toLowerCase(Serial.read());
-      //String str = Serial.readString();
-      String str = Serial.readStringUntil('\n');
 
-      Debug("<<" , str);
-
-     if (str.startsWith("CMD PING_REQ")) {
-        COMMAND("PING_ACQ");
-     }
-      if (str.startsWith("_vw ")) {
-       
-         int idx = str.indexOf(" ",4);
-         int pin = str.substring(4,idx).toInt();
-         String _s=str.substring(idx+1);
-
-       // Debug("W" , pin , _s );
-
-      //  BlynkParamAllocated pars(_s.length());
-      //  pars.add(_s);
-
+ void Process(String &str)
+ { 
+         Debug("<<" , str);
     
-         BlynkParam pars(this->mem, 0, sizeof(this->mem));
-      
-          pars.add(_s);
-          
-         //Debug("PIN2" , pin , pars.asInt());
-
-          VirtualElement *ele = Find(pin);
-          if (ele!=NULL)
-            ele->OnCloudWrite(pars);
-          
-     // pars.
-       // VirtualReq req;
-       // req.pin = pin;
-       // GetVWriteHandler(pin)(req,pars);
-        
-      }
-      if (str.startsWith("_vr ")) {
-       
-         int pin = str.substring(4).toInt();
-      
-        // Debug("R" , pin );
-
-         VirtualElement *ele = Find(pin);
-          if (ele!=NULL)
-              ele->OnCloudAskValue();
+         if (str.startsWith("CMD PING_REQ")) {
+            COMMAND("PING_ACQ");
+         }
+    
+       //  if (str.startsWith("_vw _vw")) 
+       ///   str = str.substring(4);
+         
+          if (str.startsWith("_vw ")) {
+    
+             //Debug("<<" , str);
+             if ( str.endsWith("\n"))
+              str = str.substring(0,str.length()-1);
+             
             
-        //VirtualReq req;
-       // req.pin = pin;
-      //  GetVReadHandler(pin)(req);
+             int idx = str.indexOf(" ",4);
+             int pin = str.substring(4,idx).toInt();
+             String _s=str.substring(idx+1);
+    
+          //  Debug("W" , pin , _s );
+    
+          //  BlynkParamAllocated pars(_s.length());
+          //  pars.add(_s);
+    
         
-      }
-   }
+             BlynkParam pars(this->mem, 0, sizeof(this->mem));
+          
+              pars.add(_s);
+              
+             //Debug("PIN2" , pin , pars.asInt());
+    
+              VirtualElement *ele = Find(pin);
+              if (ele!=NULL)
+                ele->OnCloudWrite(pars);
+              else
+                Warn("pin not found " , pin);
+                
+         // pars.
+           // VirtualReq req;
+           // req.pin = pin;
+           // GetVWriteHandler(pin)(req,pars);
+            
+          }
+          if (str.startsWith("_vr ")) {
+           
+             int pin = str.substring(4).toInt();
+          
+            // Debug("R" , pin );
+    
+             VirtualElement *ele = Find(pin);
+              if (ele!=NULL)
+                  ele->OnCloudAskValue();
+                
+            //VirtualReq req;
+           // req.pin = pin;
+          //  GetVReadHandler(pin)(req);
+            
+          }
+      
+   
   
-    for(int i=0;i<this->count;i++)
+  }
+  
+  int incomingByte = 0;
+  String full_str;
+  
+  void fast_tick()
+  {
+     ///Debug("..");
+
+    while (Serial.available() > 0 ) 
+    {
+      incomingByte = Serial.read();
+     // Serial.flush();
+      //String c = String((char)incomingByte);
+      //Debug (incomingByte);
+       
+      if (incomingByte == '\n')
+      {
+        full_str+= '\0';
+        Process(full_str);
+        full_str="";
+        Serial.println("ACK");
+         Serial.flush();
+
+      }
+      else
+        full_str = full_str + (char )incomingByte;
+     //
+    }
+  }
+    
+void tick()
+  {
+    fast_tick();
+  
+     for(int i=0;i<this->count;i++)
     {
         list[i]->tick();
     }
-    
   }
-  
-  
 } ;

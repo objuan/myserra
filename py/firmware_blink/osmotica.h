@@ -5,45 +5,25 @@
 
 #include <BlynkSimpleStream.h>
 #include "config.h"
+#include "common.h"
 
 // constants 
 
-// SWITCHS
-#ifdef MEGA
-  #define TOP_SWITCH_PIN  53  // interruttore acqua piena
-  #define FILL_SWITCH_PIN  51  // interruttore inizzio acqua piena
-  #define DANGER_SWITCH_PIN  49  // interruttore acqua bassa per pompa
+#define TOP_SWITCH_VPIN  4  // interruttore acqua piena
+#define FILL_SWITCH_VPIN  5  // interruttore inizzio acqua piena
+#define DANGER_SWITCH_VPIN  6  // interruttore acqua bassa per pompa
   
-  // eletrovalvola ingresso acqua
-  #define WATER_IN_SOLENOID_PIN 47   // eletrovalvola acqua in ingresso 
-  #define WATER_OUT_RELE_PIN 44    //   rele pompa di uscita
-#else
-  #define TOP_SWITCH_PIN  4  // interruttore acqua piena
-  #define FILL_SWITCH_PIN  5  // interruttore inizzio acqua piena
-  #define DANGER_SWITCH_PIN  6  // interruttore acqua bassa per pompa
-  
-  // eletrovalvola ingresso acqua
-  #define WATER_IN_SOLENOID_PIN 7   // eletrovalvola acqua in ingresso 
-  #define WATER_OUT_RELE_PIN  9    //   rele pompa di uscita
-#endif
+// eletrovalvola ingresso acqua
+#define WATER_IN_SOLENOID_VPIN 7   // eletrovalvola acqua injson ingresso 
+#define WATER_OUT_RELE_VPIN 9    //   rele pompa di uscita
 
+// virtua lvars
 #define WATER_STATE_VPIN 101  // 
 #define WATER_ENABLE_VPIN 102  // 
-
-// the setup function runs once when you press reset or power the board
-
-// variables will change:
-//int top_state = -1;         //  0 = not active, 1 = active 
-//int fill_state = -1;         //  0 = not active, 1 = active 
-//int danger_state = -1;         //  0 = not active, 1 = active 
-
-//int water_enable =1;         //  0 = not active, 1 = active 
 
 #define STATE_IDDLE "IDDLE"
 #define STATE_FILL "FILLING"
 #define STATE_DISABLED "DISABLED"
-
-//String in_water_state = STATE_IDDLE;
 
 
 /*
@@ -73,12 +53,12 @@ class Osmotica
   
   public:
     Osmotica(VirtualElementManager &manager){
-        top_state=  manager.addSwitch(TOP_SWITCH_PIN);
-        fill_state =  manager.addSwitch(FILL_SWITCH_PIN);
-        danger_state = manager.addSwitch(DANGER_SWITCH_PIN);
+        top_state=  manager.addSwitch(TOP_SWITCH_VPIN,        OSMOTICA_TOP_SWITCH_PIN);
+        fill_state =  manager.addSwitch(FILL_SWITCH_VPIN,     OSMOTICA_FILL_SWITCH_PIN);
+        danger_state = manager.addSwitch(DANGER_SWITCH_VPIN,  OSMOTICA_DANGER_SWITCH_PIN);
       
-        in_water =  manager.addSolenoidValve(WATER_IN_SOLENOID_PIN);
-        pump =  manager.addPump(WATER_OUT_RELE_PIN);
+        in_water =  manager.addSolenoidValve(WATER_IN_SOLENOID_VPIN,  OSMOTICA_WATER_IN_SOLENOID_PIN);
+        pump =  manager.addPump(WATER_OUT_RELE_VPIN,                  OSMOTICA_WATER_OUT_RELE_PIN);
       
         water_enable = manager.addVarBool(WATER_ENABLE_VPIN,true) ;
         in_water_state= manager.addVarString(WATER_STATE_VPIN,STATE_IDDLE) ;
@@ -120,7 +100,7 @@ class Osmotica
                
                 Log("STATE_WATER = IDDLE");
             }
-         }
+          }
           else  if (in_water_state->get() == STATE_DISABLED)
           { 
               in_water_state->set(STATE_IDDLE);

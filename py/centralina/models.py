@@ -165,7 +165,7 @@ class Variable(models.Model):
     value = models.CharField(blank=True,default='',max_length=255)
     pin = models.IntegerField(default=1)
     updated = models.DateTimeField(default=datetime.now)
-
+    
     ## runtime
     #state = models.CharField(max_length=10,default='')
     class VarType(models.TextChoices):
@@ -174,7 +174,8 @@ class Variable(models.Model):
         TEXT_INT = 'text_int'
         TEXT_REAL = 'text_real'
         TEXT_STRING = 'text_string'
-        BTN_TOGGLE = 'btn_toggle'
+        BTN_TOGGLE = 'btn_toggle',
+        JSON = 'json',
 
     varType = models.CharField(
         max_length=12,
@@ -195,6 +196,17 @@ class Variable(models.Model):
         max_length=5,
         choices=SaveMode.choices,
         default=SaveMode.NONE
+    )
+
+    class StartupMode(models.TextChoices):
+        NONE = '', _('None')
+        DB = 'db', _('Db')
+        HARDWARE = 'hd', _('Hardware')
+
+    startupMode = models.CharField(
+        max_length=2,
+        choices=StartupMode.choices,
+        default=StartupMode.NONE
     )
 
     def __init__(self, *args, **kwargs):

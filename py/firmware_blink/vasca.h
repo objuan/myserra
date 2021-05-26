@@ -5,7 +5,7 @@
 
 #include <BlynkSimpleStream.h>
 #include "config.h"
-#include <EEPROM.h>
+
 
 // constants 
 
@@ -47,6 +47,8 @@ class Vasca
         water_liters = manager.addVarReal(WATER_VOLUME_LITERS_PIN,0) ;
         sensor_height = manager.addVarReal(SENSOR_HEIGHT,0) ;         
         distance_reset = manager.addVarBool(DISTANCE_RESET_PIN,false) ;
+
+        Init();
     }
 
     void Init()

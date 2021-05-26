@@ -5,13 +5,15 @@ from enum import Enum
 import json
 from .models import *
 from .runtime import *
-
+import datetime
 from .runtime import RegisterControl,GetControl,RegisterManager #OnReconnect MustReconnect
 from .cloud import *
 import threading
 import time
 import logging
 import traceback
+from .config import *
+
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +34,13 @@ class BoardManager():
                     Connect_Event("CONNECTED "+ arduino.port)    
                     
                     #inizializzo i pin in ingrresso
+
+                    ## system message
+
+                    dt = datetime.datetime.now()
+                    memory.write(arduino,DATETIME_SET_VPIN,dt.strftime("%Y-%m-%d-%H-%M-%S"))
+                    # board
+
 
                     try:
                         for b in Board.objects.all():  
@@ -80,7 +89,7 @@ class BoardManager():
                         
                         for arduino in arduino_list:
                             if (arduino.popConnChanged()):
-                                if (arduino.isOpen):
+                                if (arduino.isReady):
                                     client = self.ConnectArduino(self.shared_memory,arduino)
                                 else:
                                     Connect_Event("DISCONNECTED" )
@@ -91,7 +100,7 @@ class BoardManager():
                                             logger.info("CONTROLLER TOTAL " + str(len(control_list)))
                                         
 
-                        #    if ( not arduino.isOpen):
+                        #    if ( not arduino.isReady):
                         #        logger.info ("RECONNECT")
                         #        ConnectArduino(shared_memory,arduino)
                         # 

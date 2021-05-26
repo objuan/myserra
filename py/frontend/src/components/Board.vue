@@ -126,13 +126,14 @@
                     var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
                     
                     ws.onmessage = function(e) {
-                        console.log( "board", e.data);
+                        //console.log( "board", e.data);
                         var sw = JSON.parse(e.data);
                         //console.log( e.data,o);
                         if (sw.type=="sw")
                         {
                             console.log( e.data);
                             let idx = self.switch_list.findIndex((x) => x.id === sw.id) ;
+                             console.log(  self.switch_list[idx].name);
                             self.switch_list[idx].state = sw.state;
                             self.switch_list[idx].pin_value = sw.pin_value;
                         }

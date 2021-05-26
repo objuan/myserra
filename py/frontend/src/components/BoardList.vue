@@ -1,15 +1,22 @@
 <template>
   <div>
   
-   <b-card
+   <b-card 
     title="Board List"
-    style="max-width: 20rem;"
+   
     class="mb-2"
   >
     <b-card-text>
       <div >
-      <Board v-for="(board, index) in boards" :key="index" 
+        <table width="100%" border="1">
+          <tr v-for="(board, index) in boards" :key="index" >
+            <td>
+              <Board
             :board="board" />
+            </td>
+          </tr>
+        </table>
+   
     </div>
     </b-card-text>
   </b-card>

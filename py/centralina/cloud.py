@@ -14,9 +14,9 @@ import traceback
 
 logger = logging.getLogger(__name__)
 
-def Time_Event(time):
+def Time_Event(time_type,time):
     if (GetConn()):
-            GetConn().fire( ' {"type" : "time", "msg":'+time+'}')
+            GetConn().fire( ' {"type" : "time", "time_type": "'+time_type+'" ,"msg":"'+time+'"}')
             
 def char_range(c1, c2):
     """Generates the characters from `c1` to `c2`, inclusive."""
@@ -48,20 +48,19 @@ class VirtualPin:
         return self.value
 
     #
-    def read(self,con):
-        c = "_vr "+ str(self.pin) +"\n"
-        con.write(c.encode())
+    def read(self,client):
+        c = "_vr "+ str(self.pin)
+        client.write(c.encode())
 
-    def write(self,con,val):
-             
+    def write(self,client,val):
+      
         self.value=val
         print ("[CLOUD] " + str(self.pin) +"="+self.value)
-        self.send(con)
+        self.send(client)
 
-    def send(self,com):
-        #print("_wm")
-        c = "_vw "+ str(self.pin) +" "+self.value+"\n"
-        com.write(c.encode())
+    def send(self,client):
+        c = "_vw "+ str(self.pin) +" "+self.value
+        client.write(c.encode())
 
     #def onConnect(self,con):
     #    if (self.mode == VirtualPinMode.READ_WRITE ):
@@ -74,7 +73,7 @@ class SharedMemory:
     data = {}
   
     def __init__(self):
-        for c in range(0, 128):
+        for c in range(0, 256):
             self.data[c]=VirtualPin(c)
 
     def get(self,name):
@@ -82,16 +81,16 @@ class SharedMemory:
 
     def read(self,arduino,pin_list):
         for c in pin_list:
-           self.data[c].read(arduino.con())  
+           self.data[c].read(arduino)  
 
     def write(self,arduino,pin,val):
-       self.data[pin].write(arduino.con(),val)
+       self.data[pin].write(arduino,val)
 
 '''
 '''
 class SharedClient:  
 
-    isOpen=False
+    isReady=False
     
     def __init__(self,memory,arduino):
         self.memory=memory
@@ -112,8 +111,8 @@ class SharedClient:
             self.fireWrite(name,value)
 
     def isConnChanged(self):
-        if (self.isOpen!= self.arduino.isOpen):
-            self.isOpen= self.arduino.isOpen
+        if (self.isReady!= self.arduino.isReady):
+            self.isReady= self.arduino.isReady
             return True
         else:
             return False
@@ -132,22 +131,22 @@ class SharedClient:
 
     def read(self,pin):
         print("READ " , pin)
-        self.memory.data[pin].read(self.arduino.con())  
+        self.memory.data[pin].read(self.arduino)
 
     def reads(self,pin_list):
         for c in pin_list:
-           self.memory.data[c].read(self.arduino.con())  
+           self.memory.data[c].read(self.arduino)
 
     def write(self,name,val):
         print("WRITE " , name,val)
         pin = self.memory.data[name]
         if (pin.mode == VirtualPinMode.DIGITAL):
-            if (val):
-                self.memory.data[name].write(self.arduino.con(),"1")
+            if (str(val) == "True" or  str(val) == "1"):
+                self.memory.data[name].write(self.arduino,"1")
             else:
-                self.memory.data[name].write(self.arduino.con(),"0")
+                self.memory.data[name].write(self.arduino,"0")
         else:
-            self.memory.data[name].write(self.arduino.con(),str(val))
+            self.memory.data[name].write(self.arduino,str(val))
 
         self.fireWrite(name,self.memory.data[name].get())
 
@@ -157,19 +156,24 @@ class ArduinoClient:
     baud_rate = 9600
     end_param='\x00'
     isOpen=False
-    _isOpen=None
+    isReady=False
+    _isReady=None
     connection=None
     ancora=True
- 
+    messageQueue = []
+    currentMessage = None
+   
     def __init__(self,port,baud_rate,memory):
         self.port=port
         self.baud_rate=baud_rate
         self.memory=memory
         self.onMemory = EventEmitter()
+        self._lock = threading.Lock() 
+ 
 
     def popConnChanged(self):
-        if (self.isOpen!= self._isOpen):
-            self._isOpen= self.isOpen
+        if (self.isReady!= self._isReady):
+            self._isReady= self.isReady
             return True
         else:
             return False
@@ -180,6 +184,9 @@ class ArduinoClient:
         self.ancora=True
         t = threading.Thread(target=self.tick,args=[],daemon=True)
         t.start() 
+
+        #t1 = threading.Thread(target=self.send_tick,args=[],daemon=True)
+        #t1.start() 
         #self.run();
 
     def stop(self):
@@ -187,8 +194,35 @@ class ArduinoClient:
         self.ancora=False
         self.connection.close()
 
-    def con(self):
-        return self.connection
+    #def con(self):
+    #    return self.connection
+
+    def write(self,buffer):
+        with self._lock:
+            #print("Send", buffer)
+            if (self.currentMessage == None):
+                self.currentMessage=buffer
+                print("Send", buffer)
+                self.connection.write(buffer)
+                self.connection.write(b'\n')
+                self.connection.flush()
+            else:
+                self.messageQueue.append(buffer)
+
+    def onACK(self):
+        with self._lock:
+            if (self.currentMessage != None):
+                self.currentMessage=None
+
+            if (len( self.messageQueue)>0):
+                        msg = self.messageQueue[0]
+                        self.currentMessage=msg
+                        #print("Send queue ", msg)
+                        del self.messageQueue[0]
+                        self.connection.write(msg)
+                        self.connection.write(b'\n')
+                        self.connection.flush()
+
 
     def ping(self):
         #if ( self.isOpen):
@@ -197,6 +231,7 @@ class ArduinoClient:
         #if ( self.isOpen):
         #    self.connection.
 
+   
     def tick(self):
 
         while self.ancora:
@@ -212,7 +247,9 @@ class ArduinoClient:
                     while self.connection.in_waiting > 0:
                         line = self.connection.readline().decode('utf-8').rstrip()
                         #print("<=",line)
-                        if (line.startswith("vw")):
+                        if (line.startswith("ACK")):
+                            self.onACK()
+                        elif (line.startswith("vw")):
                             #print(repr(line[2]))
                             args = line.split(sep=self.end_param)
 
@@ -220,7 +257,7 @@ class ArduinoClient:
                             #pin = int(line[3:i])
                             pin = int(args[1])
                             #print ("pin = " + str(pin))
-
+                            #if (self.isReady):
                             self.memory.write(self,pin,args[2].rstrip())
 
                             self.onMemory.emit("onWrite",pin,self.memory.get(pin))
@@ -230,15 +267,23 @@ class ArduinoClient:
                                 command = line[4:]
                                 args = command.split(sep=self.end_param)
 
+                                if (args[0].rstrip() =="STARTUP"):
+                                    logger.info("CONNECTION READY")
+                                    self.isReady=True
+                                    
                                 #print(command,args)
-                                if (args[0].rstrip() =="TIME"):
+                                if (args[0].rstrip() =="RUN_TIME"):
                                       #print (args[1] )
-                                      Time_Event(str(int(args[1])/1000))
+                                      Time_Event("RUN_TIME",str(int(args[1])/1000))
+                                if (args[0].rstrip() =="DATE"):
+                                      #print (args[1] )
+                                      Time_Event("DATE",str(args[1]))
                             else:
                                 logger.info(line)
             
             except serial.SerialException as e:
                 self.isOpen=False
+                self.isReady=False
                 #e = sys.exc_info()[0]
                 print (e)
                 logger.error("Connecting .."+str(e) )
@@ -248,7 +293,7 @@ class ArduinoClient:
                 #print ("...",e.__traceback__)
                 logger.error(str(e) )
 
-            time.sleep(1)
+            time.sleep(0.1)
 
 
 

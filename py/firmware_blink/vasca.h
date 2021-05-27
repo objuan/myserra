@@ -3,7 +3,6 @@
  *
  */
 
-#include <BlynkSimpleStream.h>
 #include "config.h"
 
 

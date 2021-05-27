@@ -3,7 +3,6 @@
  *
  */
 
-#include <BlynkSimpleStream.h>
 #include "config.h"
 #include "common.h"
 
@@ -88,7 +87,7 @@ class Osmotica
                in_water_state->set(STATE_FILL);
                in_water->Open() ; 
                  
-               Log("STATE_WATER = FILLING");
+               Log(F("STATE_WATER = FILLING"));
             }
          }
          else  if (in_water_state->get() == STATE_FILL)
@@ -98,7 +97,7 @@ class Osmotica
                  in_water_state->set(STATE_IDDLE);
                  in_water->Close() ;
                
-                Log("STATE_WATER = IDDLE");
+                Log(F("STATE_WATER = IDDLE"));
             }
           }
           else  if (in_water_state->get() == STATE_DISABLED)

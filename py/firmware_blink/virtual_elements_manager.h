@@ -3,20 +3,19 @@
  *
  */
 
-#include <SoftwareSerial.h>
-
-#include <BlynkSimpleStream.h>
 #include "config.h"
 #include "virtual_elements.h"
 #include "sensors.h"
 
+#define MAX_VARS 32
+#define MAX_RECEIVE_BUFFER BLYNK_MAX_SENDBYTES
 
 class VirtualElementManager
 {
-    VirtualElement* list[100];
+    VirtualElement* list[MAX_VARS];
     int count=0;
 
-    char mem[BLYNK_MAX_SENDBYTES]; // 1024
+    char mem[MAX_RECEIVE_BUFFER]; 
 public:
   VirtualElementManager(){
      full_str="";
@@ -72,14 +71,19 @@ public:
       return sw;
   }
 
-  Var_Real *addVarReal(int pin,float startValue=0) {
-      Var_Real *sw = new Var_Real(pin);
+  Var_Real *addVarReal(int pin,float startValue=0,int eprom_address=-1) {
+      Var_Real *sw = new Var_Real(pin,eprom_address);
        Add(sw);
-        sw->set(startValue);
+       if (eprom_address==-1)
+          sw->set(startValue);
+
       return sw;
   }
   
   VirtualElement* Add(VirtualElement *ele){
+    if (count == MAX_VARS)
+      Error("TOO VARS");
+      
     list[count++] = ele;
     return ele;
   }
@@ -94,8 +98,8 @@ public:
  { 
          Debug("<<" , str);
     
-         if (str.startsWith("CMD PING_REQ")) {
-            COMMAND("PING_ACQ");
+         if (str.startsWith(F("CMD PING_REQ"))) {
+            COMMAND(F("PING_ACQ"));
          }
     
        //  if (str.startsWith("_vw _vw")) 
@@ -104,7 +108,7 @@ public:
           if (str.startsWith("_vw ")) {
     
              //Debug("<<" , str);
-             if ( str.endsWith("\n"))
+             if ( str.endsWith(F("\n")))
               str = str.substring(0,str.length()-1);
              
             
@@ -136,7 +140,7 @@ public:
            // GetVWriteHandler(pin)(req,pars);
             
           }
-          if (str.startsWith("_vr ")) {
+          if (str.startsWith(F("_vr "))) {
            
              int pin = str.substring(4).toInt();
           
@@ -175,7 +179,7 @@ public:
         full_str+= '\0';
         Process(full_str);
         full_str="";
-        Serial.println("ACK");
+        Serial.println(F("ACK"));
          Serial.flush();
 
       }

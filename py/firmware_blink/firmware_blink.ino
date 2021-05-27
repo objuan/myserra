@@ -3,43 +3,53 @@
  *
  */
 
-//#define MEGA
-
-//#define CENTRALINA
-#define LAB
+// -----------
+/*
+#define MEGA
+#define CENTRALINA
+#define TIME
+*/
+// -----------
+//4#define LAB
 //#define TIME
 
 #include <SoftwareSerial.h>
-SoftwareSerial DebugSerial(2, 3); // RX, TX
-
-#include <BlynkSimpleStream.h>
+SoftwareSerial LabSerial(3,4); // RX, TX
 
 #include "common.h"
 DateTime lastTime;
 
-//#include "vhandlers.h"
 #include "virtual_elements_manager.h"
 #include "sensors.h"
 
+#ifdef CENTRALINA
 #include "osmotica.h"
 #include "vasca.h"
 #include "giardino.h"
 #include "led.h"
 #include "actions.h"
+#endif
+
+#ifdef LAB
 #include "lab.h"
+#endif
 
 byte WaterFlowSensor::_pulseCount[3];
 int WaterFlowSensor::_pulseIndex;
 
 VirtualElementManager manager;
-ActionManager actions;
+//ActionManager actions;
 
+#ifdef CENTRALINA
 Osmotica *osmotica=NULL;
 Vasca *vasca1=NULL;
 Giardino *giardino=NULL;
 Leds *leds=NULL;
-Lab *lab=NULL;
+#endif
 
+#ifdef LAB
+Lab *lab=NULL;
+#endif
 WaterFlowSensor *s1;
 SolenoidValve *v1;
 
@@ -62,7 +72,7 @@ class Var_SetDateTime : public Var_String
         value = param.asString();
         DateTime dt = ParseDateTime(value);
         setDateTime( dt);
-        Debug("ON SET DATETIME ", pin , dt.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
+        Debug(F("ON SET DATETIME "), pin , dt.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
 
     }
 };
@@ -74,6 +84,7 @@ void setup() {
   //osmotica_setup();
  // lab_setup();
  
+   LabSerial.begin(9600);
    
 //  com.Register(CMD_PING, OnPing);
 
@@ -84,7 +95,6 @@ void setup() {
    // setDateTime( DateTime(2021,5,20,16,43,0));
 
  #ifdef CENTRALINA
-
     osmotica = new Osmotica(manager);
     giardino = new Giardino(manager);
     leds = new Leds(manager);
@@ -121,7 +131,7 @@ void setup() {
   Var_Bool *water_fill_enable = manager.addVarBool(102) ;
 Var_String *water_state= manager.addVarString(101) ;
 */
-  COMMAND("STARTUP");
+  COMMAND(F("STARTUP"));
 }
 
 int i_time=0;
@@ -130,25 +140,31 @@ unsigned long last_time=0;
 // the loop function runs over and over again forever
 void loop() 
 {
+
   
   //return;
   clock_time=millis();
 
   if (clock_time - last_time> 1000)
   {
+     LabSerial.println(clock_time);
+  LabSerial.println("tick");
+
+ 
     last_time = clock_time;
     //Com_Tick();
 
     #ifdef TIME
     DateTime now = currentDateTime();
      
-    COMMAND("RUN_TIME ",clock_time);
-    COMMAND("DATE ",now.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
+    COMMAND(F("RUN_TIME "),clock_time);
+    COMMAND(F("DATE "),now.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
     #endif
 
     manager.tick();
-    actions.tick();
+    //actions.tick();
   
+ #ifdef CENTRALINA
     if (osmotica!=NULL)
       osmotica->Logic();
     if (vasca1!=NULL)
@@ -158,18 +174,23 @@ void loop()
 
      if (leds!=NULL)
       leds->Logic();
+#endif
 
+
+ #ifdef LAB
     if (lab!=NULL)
       lab->Logic();
+#endif
 
     i_time++;
   }
   else
   {
     manager.fast_tick();
-
+ #ifdef LAB
      if (lab!=NULL)
       lab->LogicFast();
+ #endif
   }
 
   // delay(1);

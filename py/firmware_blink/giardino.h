@@ -3,7 +3,7 @@
  *
  */
 
-#include <BlynkSimpleStream.h>
+
 #include "config.h"
 #include "common.h"
 #include <ArduinoJson.h>
@@ -27,38 +27,55 @@ class Giardino
   SolenoidValve *perimetrale ;
   Var_SCHEDULING *scheduler;
   Var_Bool *perimetrale_enable;
-
+  bool isEnabled=false;
+  
   public:
     Giardino(VirtualElementManager &manager){
       
         perimetrale =  manager.addSolenoidValve(PERIMETRALE_SWITCH_VPIN,  PERIMETRALE_SOLENOID_PIN);
       
         perimetrale_enable = manager.addVarBool(PERIMETRALE_ENABLE_VPIN,true,EPROM_GIARDINO_PERIMETRALE_ENABLE) ;
-        scheduler= manager.Add(new Var_PERIMETRALE_SCHEDULING()) ;
+        scheduler= (Var_PERIMETRALE_SCHEDULING*) manager.Add(new Var_PERIMETRALE_SCHEDULING()) ;
     }
     
   
     void Logic()
     {
  
-      if (perimetrale_enable->get())
+     if (perimetrale_enable->get())
       {
           DateTime now = currentDateTime();
-        
           TimeSpan dayTime = TimeSpan(0,now.hour(), now.minute(),0);
 
-          if ( dayTime.totalseconds() >= scheduler->time_da.totalseconds ()
-          && dayTime.totalseconds() < scheduler->time_a.totalseconds ())
+          bool _isEnabled =  ( dayTime.totalseconds() >= scheduler->time_da.totalseconds ()
+                        && dayTime.totalseconds() < scheduler->time_a.totalseconds ());
+
+          if (_isEnabled!=isEnabled)
           {
-            Debug("ACTIVE");
-            perimetrale->Open();
+            isEnabled=_isEnabled;
+
+              if (isEnabled)
+             {
+                Debug(F("ACTIVE"));
+                perimetrale->Open();
+              }
+              else
+              {
+                Debug(F("DISABLED"));
+                perimetrale->Close();
+              }
           }
-          else
+
+      }
+      
+      else
+      {
+          if (isEnabled)
           {
-            Debug("DISABLED");
-            perimetrale->Close();
+              isEnabled=false;
+                  Debug(F("DISABLED"));
+                  perimetrale->Close();
           }
-       
       }
     }
     

@@ -5,9 +5,6 @@
 #ifndef __VirtualElement
 #define __VirtualElement
 
-#include <SoftwareSerial.h>
-
-#include <BlynkSimpleStream.h>
 #include "config.h"
 #include "common.h"
 #include <ArduinoJson.h>
@@ -21,6 +18,8 @@ enum VirtualElement_Type
   PUMP,
   DISTANCE
 };
+
+
 
 class VirtualElement
 {
@@ -94,15 +93,18 @@ class Var_Bool : public VirtualElement_Bool
     
      void set(bool value){
        //Debug("set",pin,value);
+       if (this->value!=value)
+       {
         this->value = (value) ? 1 : 0;
         cloudWrite(this->pin, this->value );
+       }
      }
      void OnCloudAskValue(){
         cloudWrite(this->pin,this->value);
      }
      virtual void OnCloudWrite(BlynkParam &param){
         value = param.asInt();
-        Debug("ON SET BOOL ", pin , value);
+        Debug(F("ON SET BOOL "), pin , value);
         if (EPROM_ADDRESS!=-1)
           EEPROM_Write(EPROM_ADDRESS,(byte)this->value);
     }
@@ -118,38 +120,90 @@ class Var_String : public VirtualElement_String
 
     
      void set(String value){
+      if (this->value!=value)
+      {
         this->value = value;
         cloudWrite(this->pin, this->value );
+      }
      }
      void OnCloudAskValue(){
         cloudWrite(this->pin,this->value);
      }
      virtual void OnCloudWrite(BlynkParam &param){
         value = param.asString();
-        Debug("ON SET STRING ", pin , value);
+        Debug(F("ON SET STRING "), pin , value);
     }
 };
 
 
 class Var_Real : public VirtualElement_Real
 {
+   int EPROM_ADDRESS; // -1 = disabled
   public:
 
-     Var_Real(int pin) : VirtualElement_Real(pin){
+     Var_Real(int pin,int EPROM_ADDRESS=-1) : VirtualElement_Real(pin),EPROM_ADDRESS(EPROM_ADDRESS){
+       value=0;
+       if (EPROM_ADDRESS!=-1)
+          value = EEPROM_ReadFloat(EPROM_ADDRESS);
      }
-
     
      void set(float value){
+      if (this->value!=value)
+      {
         this->value = value;
         cloudWrite(this->pin, this->value );
+      }
      }
      void OnCloudAskValue(){
         cloudWrite(this->pin,this->value);
      }
      virtual void OnCloudWrite(BlynkParam &param){
         value = param.asFloat();
-        Debug("ON SET REAL ", pin , value);
+        Debug(F("ON SET REAL "), pin , value,F(" at:"), EPROM_ADDRESS);
+        if (EPROM_ADDRESS!=-1)
+          EEPROM_Write(EPROM_ADDRESS,this->value);
     }
+};
+
+ // value is a json array, 3 dimension
+class Var_RealVector3 : public Var_String
+{
+   int EPROM_ADDRESS; // -1 = disabled
+   float data[3];
+   
+  public:
+
+     Var_RealVector3(int pin, int EPROM_ADDRESS=-1) : Var_String(pin),EPROM_ADDRESS(EPROM_ADDRESS){
+       value="";
+       if (EPROM_ADDRESS!=-1)
+          value = EEPROM_ReadFloat(EPROM_ADDRESS);
+     }
+
+     
+   
+     void Read(){
+            const size_t CAPACITY = JSON_ARRAY_SIZE(3);
+            StaticJsonDocument<CAPACITY> doc;
+            DeserializationError error = deserializeJson(doc, value);
+             if (error) {
+               Error("deserializeJson() failed: ");
+               Error(error.f_str());
+              return ;
+            }
+            JsonArray array = doc.to<JsonArray>();
+            data[0]=  array[0].as<float>();
+            data[1]=  array[1].as<float>();
+            data[2]=  array[2].as<float>();
+     }
+      void Write(){
+            const size_t CAPACITY = JSON_ARRAY_SIZE(3);
+            StaticJsonDocument<CAPACITY> doc;
+            JsonArray array = doc.to<JsonArray>();
+            array.add(data[0]);
+            array.add(data[1]);
+            array.add(data[2]);
+           // value = serializeJson(doc,);
+     }
 };
 
 // 
@@ -173,7 +227,7 @@ class Var_SCHEDULING : public Var_String
         time_a = TimeSpan(a_secs);
 
 
-        Log("VAR SCHEDULING INIT DA:" ,time_da.totalseconds ()," A:" ,time_a.totalseconds ());
+        Log(F("VAR SCHEDULING INIT DA:") ,time_da.totalseconds ()," A:" ,time_a.totalseconds ());
       }
 
      void OnCloudWrite(BlynkParam &param){
@@ -203,7 +257,7 @@ class Var_SCHEDULING : public Var_String
         EEPROM_Write(eprom_da,(long)time_da.totalseconds ());
         EEPROM_Write(eprom_a,(long)time_a.totalseconds ());
 
-        Debug("ON SCHEDULING ", pin,value,time_da.totalseconds (),time_a.totalseconds ()  );
+        Debug(F("ON SCHEDULING "), pin,value,time_da.totalseconds (),time_a.totalseconds ()  );
 
     }
 };

@@ -8,7 +8,99 @@
  
  Created 2018-1-3
  By Jason <jason.ling@dfrobot.com@dfrobot.com>
- 
+ 3.
+ 66225.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  GNU Lesser General Public License.
  See <http://www.gnu.org/licenses/> for details.
  All above must be included in any redistribution.
@@ -18,11 +110,12 @@
 #define GRAVITY_TDS_H
 
 #include "Arduino.h"
+//#include "Virtual_Elements.h"
 
 #define ReceivedBufferLength 15
 #define TdsFactor 0.5  // tds = ec / 2
 
-class GravityTDS
+class GravityTDS //: public Var_Real
 {
 public:
     GravityTDS();
@@ -33,8 +126,11 @@ public:
     void setPin(int pin); 
     void setTemperature(float temp);  //set the temperature and execute temperature compensation
     void setAref(float value);  //reference voltage on ADC, default 5.0V on Arduino UNO
+    void setKValue(float value){
+      kValue=value;
+    }
     void setAdcRange(float range);  //1024 for 10bit ADC;4096 for 12bit ADC
-    void setKvalueAddress(int address); //set the EEPROM address to store the k value,default address:0x08
+ //   void setKvalueAddress(int address); //set the EEPROM address to store the k value,default address:0x08
     float getKvalue(); 
     float getTdsValue();
     float getEcValue();
@@ -44,7 +140,7 @@ private:
     float aref;  // default 5.0V on Arduino UNO
     float adcRange;
     float temperature;
-    int kValueAddress;     //the address of the K value stored in the EEPROM
+    //int kValueAddress;     //the address of the K value stored in the EEPROM
     char cmdReceivedBuffer[ReceivedBufferLength+1];   // store the serial cmd from the serial monitor
     byte cmdReceivedBufferIndex;
  

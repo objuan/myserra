@@ -201,7 +201,7 @@ class Variable(models.Model):
     class StartupMode(models.TextChoices):
         NONE = '', _('None')
         DB = 'db', _('Db')
-        HARDWARE = 'hd', _('Hardware')
+        HARDWARE = 'hw', _('Hardware')
 
     startupMode = models.CharField(
         max_length=2,

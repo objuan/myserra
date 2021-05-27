@@ -76,6 +76,8 @@ class BoardManager():
         logger.info ("------INIT ARDUINO-----------")
 
         for b in Board.objects.all():
+                logger.info ("Start "+str(b.name))
+
                 if (not b.usb_address in  arduino_map):
                     a= ArduinoClient(b.usb_address,115200,self.shared_memory)
                     arduino_map[b.usb_address] =  a

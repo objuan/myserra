@@ -3,7 +3,7 @@
  *
  */
 
-#include <BlynkSimpleStream.h>
+
 #include "config.h"
 #include "common.h"
 #include <ArduinoJson.h>
@@ -34,14 +34,15 @@ class Leds
         ledSwitch =  manager.addSolenoidValve(LED_SWITCH_VPIN,  LEDS_SOLENOID_PIN);
       
         enable = manager.addVarBool(LED_ENABLE_VPIN,true,EPROM_LED_ENABLE) ;
-        scheduler= manager.Add(new Var_LED_SCHEDULING()) ;
+        scheduler= (Var_LED_SCHEDULING*)manager.Add(new Var_LED_SCHEDULING()) ;
     }
     
   
     void Logic()
     {
       if (enable->get())
-      {
+      {   
+
           DateTime now = currentDateTime();
           TimeSpan dayTime = TimeSpan(0,now.hour(), now.minute(),0);
 
@@ -54,12 +55,12 @@ class Leds
 
               if (isEnabled)
              {
-                Debug("ACTIVE");
+                Debug(F("ACTIVE"));
                 ledSwitch->Open();
               }
               else
               {
-                Debug("DISABLED");
+                Debug(F("DISABLED"));
                 ledSwitch->Close();
               }
           }
@@ -71,7 +72,7 @@ class Leds
           if (isEnabled)
           {
               isEnabled=false;
-                  Debug("DISABLED");
+                  Debug(F("DISABLED"));
                   ledSwitch->Close();
           }
       }

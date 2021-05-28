@@ -10,7 +10,7 @@
 #define TIME
 */
 // -----------
-//4#define LAB
+#define LAB
 //#define TIME
 
 #include <SoftwareSerial.h>
@@ -37,7 +37,10 @@ DateTime lastTime;
 byte WaterFlowSensor::_pulseCount[3];
 int WaterFlowSensor::_pulseIndex;
 
-VirtualElementManager manager;
+VirtualElementManager manager("MAIN", &Serial,true);
+
+VirtualElementManager manager_lab("LAB",&LabSerial,false);
+
 //ActionManager actions;
 
 #ifdef CENTRALINA
@@ -55,8 +58,7 @@ SolenoidValve *v1;
 
 //#define DATETIME_ACTUAL_VPIN  120
 #define DATETIME_SET_VPIN  121
-
-//Var_String *date;
+#define LAB_SYNC_VPIN 135
 
 //===================================
 
@@ -77,6 +79,19 @@ class Var_SetDateTime : public Var_String
     }
 };
 
+class Var_LabSync: public Var_String
+{
+  public:
+
+     Var_LabSync() : Var_String(LAB_SYNC_VPIN){}
+
+     void OnCloudWrite(BlynkParam &param){
+        value = param.asString();
+        Debug(F("ON LAB SYNC "), pin , " ",value);
+
+    }
+};
+
 void setup() {
   //Serial.begin(9600);
   Serial.begin(115200);
@@ -86,8 +101,6 @@ void setup() {
  
    LabSerial.begin(9600);
    
-//  com.Register(CMD_PING, OnPing);
-
    clock_time=millis();
 
     Wire.begin();
@@ -101,7 +114,7 @@ void setup() {
  #endif
 
  #ifdef LAB
-    lab = new Lab(manager);
+    lab = new Lab(manager,manager_lab);
  #endif
     
     // date
@@ -109,6 +122,7 @@ void setup() {
    // date = manager.addVarString(DATETIME_ACTUAL_VPIN,"");
     manager.Add(new Var_SetDateTime());
 
+    manager_lab.Add(new Var_LabSync());
  
      //cloudWrite(0,"INIT");
      // vasca1 = new Vasca (manager,60,95.5,EPROM_VASCA1_LEVEL);
@@ -147,8 +161,8 @@ void loop()
 
   if (clock_time - last_time> 1000)
   {
-     LabSerial.println(clock_time);
-  LabSerial.println("tick");
+     //LabSerial.println(clock_time);
+     //LabSerial.println("tick");
 
  
     last_time = clock_time;
@@ -162,6 +176,7 @@ void loop()
     #endif
 
     manager.tick();
+    manager_lab.tick();
     //actions.tick();
   
  #ifdef CENTRALINA
@@ -187,6 +202,7 @@ void loop()
   else
   {
     manager.fast_tick();
+    manager_lab.fast_tick();
  #ifdef LAB
      if (lab!=NULL)
       lab->LogicFast();

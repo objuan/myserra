@@ -25,7 +25,6 @@ class VirtualElement
 {
 public:
   Stream *serial;
-  bool fromWeb;;
   // virtual pin
   int pin;
   virtual VirtualElement_Type getType() {  return VirtualElement_Type::NONE ;  }
@@ -43,10 +42,7 @@ public:
     
     template <typename... Args>
    void cloudWrite(int pin, Args... values) {
-     char mem[BLYNK_MAX_SENDBYTES];
-    if (fromWeb)
-    {
-      Debug("WEB",pin);
+      char mem[BLYNK_MAX_SENDBYTES];
         BlynkParam cmd(mem, 0, sizeof(mem));
         cmd.add_multi(values...);
 
@@ -55,17 +51,14 @@ public:
         serial->print(" ");
         serial->print(cmd.asStr());
          serial->print("\n");
-    }
-    else
-    {
-    
+     /*   char mem[BLYNK_MAX_SENDBYTES];
         BlynkParam cmd(mem, 0, sizeof(mem));
         cmd.add(F("vw"));
         cmd.add(pin);
         cmd.add_multi(values...);
         cmd.add(F("\n"));
         serial->write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-    }
+        */
    }
 
 };
@@ -184,7 +177,7 @@ class Var_Real : public VirtualElement_Real
         cloudWrite(this->pin, this->value );
       }
      }
-     void OnCloudAskValue(){
+     virtual void OnCloudAskValue(){
         cloudWrite(this->pin,this->value);
      }
      virtual void OnCloudWrite(BlynkParam &param){

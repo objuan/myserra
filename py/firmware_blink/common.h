@@ -88,7 +88,7 @@ void Debug(Args... values) {
 //#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
 
 template <typename... Args>
-void cloudWrite(int pin, Args... values) {
+void _cloudWrite(int pin, Args... values) {
        // Debug("writew",pin);
         char mem[BLYNK_MAX_SENDBYTES];
         BlynkParam cmd(mem, 0, sizeof(mem));

@@ -87,18 +87,49 @@ void Debug(Args... values) {
 //#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
 //#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
 
+/*
+template <typename Arg, typename... Args>
+void Serialize(Stream& stream,Arg&& arg, Args&&... rest)
+{
+    stream.print(std::forward<Arg>(arg)) ;
+  
+  // str+= s;
+  // if constexpr (sizeof...(rest) > 0) {
+    //  Serialize(str,rest...);
+   //}
+}
+*/
+
+
+template <typename ...TailType>
+    void _println(Stream& stream,const String &head, TailType&&... tail)
+    {
+        stream.println(head);
+       // _println((tail)...);
+    }
+
 template <typename... Args>
-void cloudWrite(int pin, Args... values) {
+void cloudWrite(Stream& stream,int pin, Args... values) {
        // Debug("writew",pin);
-        char mem[BLYNK_MAX_SENDBYTES];
+       /* char mem[BLYNK_MAX_SENDBYTES];
         BlynkParam cmd(mem, 0, sizeof(mem));
         cmd.add(F("vw"));
         cmd.add(pin);
         cmd.add_multi(values...);
         cmd.add(F("\n"));
-        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
-    }
+        stream.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+*/
+        char mem[BLYNK_MAX_SENDBYTES];
+        BlynkParam cmd(mem, 0, sizeof(mem));
+        cmd.add_multi(values...);
+
+        stream.print("_vw ");
+        stream.print(pin);
+        stream.print(" ");
+        stream.print(cmd.asStr());
+         stream.print("\n");
+      // _println(stream,values...);
+ }
 
 
 class movingAvg

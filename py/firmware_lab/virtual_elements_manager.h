@@ -14,12 +14,10 @@ class VirtualElementManager
 {
     VirtualElement* list[MAX_VARS];
     int count=0;
-    String id;
     Stream* serial;
     char mem[MAX_RECEIVE_BUFFER]; 
-    bool fromWeb;
 public:
-  VirtualElementManager(const char* id,Stream* serial,bool fromWeb):serial(serial),id(id),fromWeb(fromWeb){
+  VirtualElementManager(Stream* serial):serial(serial){
      full_str="";
      
    }
@@ -86,7 +84,6 @@ public:
     if (count == MAX_VARS)
       Error("TOO VARS");
      ele->serial=serial; 
-     ele->fromWeb=fromWeb;
     list[count++] = ele;
     return ele;
   }
@@ -99,21 +96,24 @@ public:
 
  void Process(String &str)
  { 
-         Debug(id,"<<" , str);
+         Debug("<<" , str);
     
          if (str.startsWith(F("CMD PING_REQ"))) {
             COMMAND(F("PING_ACQ"));
          }
     
-          if (str.startsWith("vw ")) {
+       //  if (str.startsWith("_vw _vw")) 
+       ///   str = str.substring(4);
+         
+          if (str.startsWith("_vw ")) {
     
              //Debug("<<" , str);
              if ( str.endsWith(F("\n")))
               str = str.substring(0,str.length()-1);
              
             
-             int idx = str.indexOf(" ",3);
-             int pin = str.substring(3,idx).toInt();
+             int idx = str.indexOf(" ",4);
+             int pin = str.substring(4,idx).toInt();
              String _s=str.substring(idx+1);
     
           //  Debug("W" , pin , _s );
@@ -126,13 +126,13 @@ public:
           
               pars.add(_s);
               
-          //   Debug("PIN2" , pin , pars.asInt());
+             //Debug("PIN2" , pin , pars.asInt());
     
               VirtualElement *ele = Find(pin);
               if (ele!=NULL)
                 ele->OnCloudWrite(pars);
               else
-                Warn(id,"pin not found " , pin);
+                Warn("pin not found " , pin);
                 
          // pars.
            // VirtualReq req;
@@ -140,9 +140,9 @@ public:
            // GetVWriteHandler(pin)(req,pars);
             
           }
-          if (str.startsWith(F("vr "))) {
+          if (str.startsWith(F("_vr "))) {
            
-             int pin = str.substring(3).toInt();
+             int pin = str.substring(4).toInt();
           
             // Debug("R" , pin );
     
@@ -159,8 +159,7 @@ public:
    
   
   }
-
- 
+  
   int incomingByte = 0;
   String full_str;
   
@@ -178,16 +177,10 @@ public:
       if (incomingByte == '\n')
       {
         full_str+= '\0';
-       // if (fromWeb)
-         Process(full_str);
-       //  else
-       //   ProcessB(full_str);
+        Process(full_str);
         full_str="";
-        if (fromWeb)
-        {
-          serial->println(F("ACK"));
-          serial->flush();
-        }
+        //serial->println(F("ACK"));
+       // serial->flush();
 
       }
       else

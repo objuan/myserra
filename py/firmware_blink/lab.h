@@ -14,6 +14,7 @@
 #define LAB_PH_VOLTAGE_VPIN 144
 #define LAB_PH_REF_4_VPIN 145
 #define LAB_PH_REF_6_VPIN 146
+#define LAB_DISTANCE_VPIN 147
 
 enum BridgMode
 {
@@ -92,30 +93,38 @@ class Lab
     Var_Real *var_ph_voltage;
     Var_Real *var_ph_ref_4;
     Var_Real *var_ph_ref_6;
+    Var_Real *var_distance;
 
   public:
   
     Lab(VirtualElementManager &manager,VirtualElementManager &manager_lab) : manager_lab(manager_lab)
     {
+      // params
+      
       var_k = new Var_Real_Bridge(manager_lab,WRITE,LAB_EC_K_VPIN);
       manager.Add(var_k);
 
+      var_ph_ref_4 = new Var_Real_Bridge(manager_lab,WRITE,LAB_PH_REF_4_VPIN);
+      manager.Add(var_ph_ref_4);
+
+      var_ph_ref_6 = new Var_Real_Bridge(manager_lab,WRITE,LAB_PH_REF_6_VPIN);
+      manager.Add(var_ph_ref_6);
+
+      // outputs
       var_ec = new Var_Real_Bridge(manager_lab,READ,LAB_EC_SENSOR_VPIN);
       manager.Add(var_ec);
       
       var_temperature = new Var_Real_Bridge(manager_lab,READ,LAB_EC_TEMPERATURE_VPIN);
       manager.Add(var_temperature);
-      /*
-      var_k = manager.addVarReal(LAB_EC_K_VPIN, 1,EPROM_LAB_EC_K);
-      var_k->set(1.1);
-      var_temperature = manager.addVarReal(LAB_EC_TEMPERATURE_VPIN);
-      var_ec = (Var_EC*)manager.Add(new Var_EC(LAB_EC_SENSOR_VPIN, var_k,var_temperature));
 
-      var_ph_ref_4 = manager.addVarReal(LAB_PH_REF_4_VPIN,0,EPROM_LAB_PH_REF_4);
-      var_ph_ref_6 = manager.addVarReal(LAB_PH_REF_6_VPIN,0,EPROM_LAB_PH_REF_6);
-      var_ph_voltage = manager.addVarReal(LAB_PH_VOLTAGE_VPIN);
-      var_ph = (Var_PH*)manager.Add(new Var_PH(LAB_PH_SENSOR_VPIN, var_ph_voltage,var_ph_ref_4,var_ph_ref_6));
-    */
+      var_ph = new Var_Real_Bridge(manager_lab,READ,LAB_PH_SENSOR_VPIN);
+      manager.Add(var_ph);
+
+      var_ph_voltage = new Var_Real_Bridge(manager_lab,READ,LAB_PH_VOLTAGE_VPIN);
+      manager.Add(var_ph_voltage);
+      
+     var_distance = new Var_Real_Bridge(manager_lab,READ,LAB_DISTANCE_VPIN);
+      manager.Add(var_distance);
     }
 
     void LogicFast() {

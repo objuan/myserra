@@ -37,7 +37,7 @@ class BoardManager():
 
                     ## system message
 
-                    dt = datetime.datetime.now()
+                    dt = datetime.now()
                     memory.write(arduino,DATETIME_SET_VPIN,dt.strftime("%Y-%m-%d-%H-%M-%S"))
                     # board
 

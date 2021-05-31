@@ -1,16 +1,21 @@
 #include "config.h"
 #include "common.h"
 
-//#include <OneWire.h>
+#define DEBUG_MODE
+
+#include <OneWire.h>
 //#include <DallasTemperature.h>
+#include <MemoryFree.h>
 
 #include <SoftwareSerial.h>
-SoftwareSerial LabSerial(3,4); // RX, TX
+SoftwareSerial LabSerial(LAB_SERIAL_RX,LAB_SERIAL_TX); // RX, TX
 
 #include "virtual_elements_manager.h"
 #include "lab.h"
+VirtualElementManager *manager;
 
-VirtualElementManager manager(&LabSerial);
+char mem_send[BLYNK_MAX_SENDBYTES];
+char in_buffer[MAX_RECEIVE_BUFFER]; 
 
 Lab *lab=NULL;
 int i_time=0;
@@ -22,13 +27,15 @@ unsigned long clock_time=0;
 void setup(void)
 { 
   // Start serial communication for debugging purposes
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   LabSerial.begin(9600);
-  
-   Wire.begin();
 
-    lab = new Lab(manager);
+  manager = new VirtualElementManager ("LAB",&LabSerial,false);
+  
+  // Wire.begin();
+
+     lab = new Lab(*manager);
 
     COMMAND(F("STARTUP"));
 }
@@ -39,9 +46,10 @@ void loop(void)
 
   if (clock_time - last_time> 1000)
   {
-     manager.tick();
+     manager->tick();
      last_time = clock_time;
 
+    COMMAND(F("MEMORY "),freeMemory());
      cloudWrite(LabSerial,LAB_SYNC_VPIN,clock_time);
      
     if (lab!=NULL)
@@ -51,7 +59,7 @@ void loop(void)
   }
   else
   { 
-   //  manager.fast_tick();
+     manager->fast_tick();
   
      if (lab!=NULL)
       lab->LogicFast();

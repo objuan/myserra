@@ -7,20 +7,33 @@
 #include "virtual_elements.h"
 #include "sensors.h"
 
-#define MAX_VARS 32
-#define MAX_RECEIVE_BUFFER BLYNK_MAX_SENDBYTES
+#include <MemoryFree.h>
 
+#define MAX_VARS 32
+
+//extern char in_buffer[MAX_RECEIVE_BUFFER]; 
 class VirtualElementManager
 {
     VirtualElement* list[MAX_VARS];
     int count=0;
     String id;
     Stream* serial;
-    char mem[MAX_RECEIVE_BUFFER]; 
+  //  char mem[MAX_RECEIVE_BUFFER]; 
+    char in_buffer[MAX_RECEIVE_BUFFER]; 
+    int mem_len=0;
+  
+    int  in_buffer_len=0;
+    
     bool fromWeb;
+
+    int incomingByte = 0;
+  
+    //String in_buffer="123456789123456789123456789";
+
+  
 public:
   VirtualElementManager(const char* id,Stream* serial,bool fromWeb):serial(serial),id(id),fromWeb(fromWeb){
-     full_str="";
+    /// full_str="";
      
    }
    Switch *addSwitch(int virtual_pin,int arduino_pin) {
@@ -88,6 +101,7 @@ public:
      ele->serial=serial; 
      ele->fromWeb=fromWeb;
     list[count++] = ele;
+    ele->start();
     return ele;
   }
   VirtualElement *Find(int pin)
@@ -97,42 +111,73 @@ public:
       return NULL;
   }
 
- void Process(String &str)
+ void Process(char *buffer,int len)
  { 
-         Debug(id,"<<" , str);
+        //Debug(id,"<" ,len);
+
+
+       // if ( str.endsWith("\n"))
+       //       str = str.substring(0,str.length()-1); // tolgo \n e |
+        
+      //   if ( str.endsWith("|"))
+       //      str = str.substring(0,str.length()-1);
+        
+        // if (str.startsWith(F("CMD PING_REQ"))) {
+          //  COMMAND(F("PING_ACQ"));
+        // }
     
-         if (str.startsWith(F("CMD PING_REQ"))) {
-            COMMAND(F("PING_ACQ"));
-         }
-    
-          if (str.startsWith("vw ")) {
-    
+         // if (str.startsWith("vw")) {
+         if (buffer[0] == 'v' && buffer[1] == 'w')
+         {
+              char num[4];
+              int num_len;
+              
              //Debug("<<" , str);
-             if ( str.endsWith(F("\n")))
-              str = str.substring(0,str.length()-1);
+             int i = -1;
+             for( i=3;i<len;i++)
+             {
+                if (buffer[i] == 32 || buffer[i] == 0 ) break;
+                else num[num_len++] = buffer[i] ;
+                
+             }
+             // Debug("idx" , i );
              
             
-             int idx = str.indexOf(" ",3);
-             int pin = str.substring(3,idx).toInt();
-             String _s=str.substring(idx+1);
+              num[num_len] = '\0';
+              int  pin;
+              pin = atoi(num);
+
+              
+             BlynkParam pars(buffer+i+1, 0,len-i-1);
     
-          //  Debug("W" , pin , _s );
+             Debug(id, " << " ,pin ,"=",  pars.asString());
+                 
+           //  int idx = str.indexOf(" ",3);
+           //  int pin = str.substring(3,idx).toInt();
+           //  String _s=str.substring(idx+1);
+    
+         //    Debug("W" , pin , _s );
     
           //  BlynkParamAllocated pars(_s.length());
           //  pars.add(_s);
     
         
-             BlynkParam pars(this->mem, 0, sizeof(this->mem));
+          //   BlynkParam pars(mem, 0, sizeof(mem));
           
-              pars.add(_s);
+           //   pars.add(_s);
               
           //   Debug("PIN2" , pin , pars.asInt());
+           //  Debug("WD" , pin , pars.asString());
     
               VirtualElement *ele = Find(pin);
               if (ele!=NULL)
-                ele->OnCloudWrite(pars);
+              {
+               
+                 ele->OnCloudWrite(pars);
+              }
               else
-                Warn(id,"pin not found " , pin);
+                 Warn(id,F("pin not found ") , pin);
+                
                 
          // pars.
            // VirtualReq req;
@@ -140,11 +185,28 @@ public:
            // GetVWriteHandler(pin)(req,pars);
             
           }
-          if (str.startsWith(F("vr "))) {
+          if (buffer[0] == 'v' && buffer[1] == 'r')
+          {
+            
+              char num[4];
+              int num_len;
+              
+             //Debug("<<" , str);
+             int i = -1;
+             for( i=3;i<len;i++)
+             {
+                if (buffer[i] == 32) break;
+                else num[num_len++] = buffer[i] ;
+                
+             }
+              num[num_len] = '\0';
+              int  pin;
+              pin = atoi(num);
+              
            
-             int pin = str.substring(3).toInt();
+           //  int pin = str.substring(3).toInt();
           
-            // Debug("R" , pin );
+             Debug("vr " , pin );
     
              VirtualElement *ele = Find(pin);
               if (ele!=NULL)
@@ -153,6 +215,7 @@ public:
             //VirtualReq req;
            // req.pin = pin;
           //  GetVReadHandler(pin)(req);
+          
             
           }
       
@@ -160,38 +223,57 @@ public:
   
   }
 
- 
-  int incomingByte = 0;
-  String full_str;
-  
+
   void fast_tick()
   {
-     ///Debug("..");
+    // Debug(id,"..");
 
     while (serial->available() > 0 ) 
     {
       incomingByte = serial->read();
      // Serial.flush();
       //String c = String((char)incomingByte);
-      //Debug (incomingByte);
-       
-      if (incomingByte == '\n')
+
+     // if (incomingByte == '\0') incomingByte= '|';
+
+      //if (id =="MAIN")
+      //  Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
+
+      if (incomingByte == 1) // end block
       {
-        full_str+= '\0';
-       // if (fromWeb)
-         Process(full_str);
-       //  else
-       //   ProcessB(full_str);
-        full_str="";
-        if (fromWeb)
+         if (fromWeb)
         {
           serial->println(F("ACK"));
           serial->flush();
         }
-
       }
-      else
-        full_str = full_str + (char )incomingByte;
+      else 
+      {
+        if (incomingByte == '\n')
+        {
+           //Debug("in");
+           in_buffer[in_buffer_len] = '\0';
+          
+           Process(in_buffer,in_buffer_len);
+            
+          in_buffer_len=0;
+          /*if (fromWeb)
+          {
+            serial->println(F("ACK"));
+            serial->flush();
+          }
+  */
+        }
+        else
+        {
+          #ifdef DEBUG_MODE
+     //     if (in_buffer_len >= MAX_RECEIVE_BUFFER)
+       ///       Error(F("MRB"));
+          #endif
+            in_buffer[in_buffer_len++] = (char )incomingByte;
+          //  Debug(in_buffer);
+        }
+      }
      //
     }
   }

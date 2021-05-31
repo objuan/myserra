@@ -24,7 +24,8 @@ enum VirtualElement_Type
 class VirtualElement
 {
 public:
-  Stream *serial;
+  Stream *serial=NULL;
+  bool fromWeb;;
   // virtual pin
   int pin;
   virtual VirtualElement_Type getType() {  return VirtualElement_Type::NONE ;  }
@@ -32,6 +33,9 @@ public:
    VirtualElement(int pin){
        this->pin=pin;
    }
+    virtual void start()
+    {
+    }
     virtual void tick()
     {
     }
@@ -42,7 +46,10 @@ public:
     
     template <typename... Args>
    void cloudWrite(int pin, Args... values) {
-      char mem[BLYNK_MAX_SENDBYTES];
+   //  char mem[BLYNK_MAX_SENDBYTES];
+   /* if (fromWeb)
+    {
+      Debug("WEB",pin);
         BlynkParam cmd(mem, 0, sizeof(mem));
         cmd.add_multi(values...);
 
@@ -51,14 +58,21 @@ public:
         serial->print(" ");
         serial->print(cmd.asStr());
          serial->print("\n");
-     /*   char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+    }
+    else*/
+    {
+ #ifdef DEBUG_MODE
+    if (serial==NULL)
+        Error(F("serial null"));
+#endif
+    
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("vw"));
         cmd.add(pin);
         cmd.add_multi(values...);
         cmd.add(F("\n"));
         serial->write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-        */
+    }
    }
 
 };
@@ -177,7 +191,7 @@ class Var_Real : public VirtualElement_Real
         cloudWrite(this->pin, this->value );
       }
      }
-     virtual void OnCloudAskValue(){
+     void OnCloudAskValue(){
         cloudWrite(this->pin,this->value);
      }
      virtual void OnCloudWrite(BlynkParam &param){
@@ -249,13 +263,15 @@ class Var_SCHEDULING : public Var_String
         time_da = TimeSpan(da_secs);
         time_a = TimeSpan(a_secs);
 
+     }
+     void start(){
 
         Log(F("VAR SCHEDULING INIT DA:") ,time_da.totalseconds ()," A:" ,time_a.totalseconds ());
       }
 
      void OnCloudWrite(BlynkParam &param){
         value = param.asString();
-
+/*
         // DynamicJsonDocument doc(1024);
         StaticJsonDocument<400> doc;
         DeserializationError error = deserializeJson(doc, value);
@@ -281,7 +297,7 @@ class Var_SCHEDULING : public Var_String
         EEPROM_Write(eprom_a,(long)time_a.totalseconds ());
 
         Debug(F("ON SCHEDULING "), pin,value,time_da.totalseconds (),time_a.totalseconds ()  );
-
+*/
     }
 };
 

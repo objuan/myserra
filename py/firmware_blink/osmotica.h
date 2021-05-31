@@ -52,6 +52,7 @@ class Osmotica
   
   public:
     Osmotica(VirtualElementManager &manager){
+      
         top_state=  manager.addSwitch(TOP_SWITCH_VPIN,        OSMOTICA_TOP_SWITCH_PIN);
         fill_state =  manager.addSwitch(FILL_SWITCH_VPIN,     OSMOTICA_FILL_SWITCH_PIN);
         danger_state = manager.addSwitch(DANGER_SWITCH_VPIN,  OSMOTICA_DANGER_SWITCH_PIN);
@@ -62,7 +63,6 @@ class Osmotica
         water_enable = manager.addVarBool(WATER_ENABLE_VPIN,true) ;
         in_water_state= manager.addVarString(WATER_STATE_VPIN,STATE_IDDLE) ;
 
-   
     }
     
     bool isFull()
@@ -77,6 +77,7 @@ class Osmotica
 
     void Logic()
     {
+
       if (water_enable->get())
       {
   

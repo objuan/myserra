@@ -11,6 +11,7 @@ import threading
 from .ws_service import GetConn
 from pymitter import EventEmitter
 import traceback
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -47,10 +48,15 @@ class VirtualPin:
     def get(self):
         return self.value
 
+
+    def set(self,val):
+        self.value=val
+        print ("[SET] " + str(self.pin) +"="+self.value)
+
     #
     def read(self,client):
-        c = "_vr "+ str(self.pin)
-        client.write(c.encode())
+        c = str(self.pin)
+        client.write("vr",c)
 
     def write(self,client,val):
       
@@ -59,8 +65,8 @@ class VirtualPin:
         self.send(client)
 
     def send(self,client):
-        c = "_vw "+ str(self.pin) +" "+self.value
-        client.write(c.encode())
+        c = str(self.pin) +" "+self.value
+        client.write("vw",c)
 
     #def onConnect(self,con):
     #    if (self.mode == VirtualPinMode.READ_WRITE ):
@@ -79,12 +85,17 @@ class SharedMemory:
     def get(self,name):
         return self.data[name].get()
 
+    def set(self,arduino,pin,val):
+       self.data[pin].set(val)
+
     def read(self,arduino,pin_list):
         for c in pin_list:
            self.data[c].read(arduino)  
 
     def write(self,arduino,pin,val):
        self.data[pin].write(arduino,val)
+
+  
 
 '''
 '''
@@ -155,12 +166,14 @@ class ArduinoClient:
     port = "COM7"
     baud_rate = 9600
     end_param='\x00'
+    end_block='\x01'
     isOpen=False
     isReady=False
     _isReady=None
     connection=None
     ancora=True
     messageQueue = []
+    messageTime= None
     currentMessage = None
    
     def __init__(self,port,baud_rate,memory):
@@ -185,8 +198,8 @@ class ArduinoClient:
         t = threading.Thread(target=self.tick,args=[],daemon=True)
         t.start() 
 
-        #t1 = threading.Thread(target=self.send_tick,args=[],daemon=True)
-        #t1.start() 
+        t1 = threading.Thread(target=self.tick_ping,args=[],daemon=True)
+        t1.start() 
         #self.run();
 
     def stop(self):
@@ -197,17 +210,68 @@ class ArduinoClient:
     #def con(self):
     #    return self.connection
 
-    def write(self,buffer):
+    def addMessage(self,cmd,buffer):
+        out_buffer = cmd.encode()
+        out_buffer = out_buffer + (self.end_param.encode())
+        out_buffer = out_buffer + ( buffer.encode())
+        out_buffer = out_buffer + (self.end_param.encode())
+        out_buffer = out_buffer + (b'\n')
+
+        #print("--------",len(out_buffer))
+        s=0
+        e=0
+        while e != len(out_buffer):
+            e = s+32
+            #print(s,e)
+            if (e >= len(out_buffer))  :
+                e = len(out_buffer)
+
+            self.messageQueue.append(out_buffer[s:e])
+            print ("add", out_buffer[s:e])
+                       
+            s=e
+
+
+        print (out_buffer)
+        '''
+                #self.connection.write(cmd.encode())
+                #self.connection.write(self.end_param.encode())
+                #self.connection.flush()
+                b = buffer.encode()
+                #print(b)
+                if (len(b) < 32):
+                    self.connection.write(buffer.encode())
+                    self.connection.write(self.end_param.encode())
+                    self.connection.write(b'\n')
+                    self.connection.flush()
+                 else:
+                    print("--------",len(b))
+                    s=0
+                    e=0
+                    while e != len(b):
+                      
+                        e = s+32
+                        print(s,e)
+                        if (e >= len(b))  :
+                            e = len(b)
+
+                        print (b[s:e])
+                        self.connection.write(b[s:e])
+                        s=e
+                
+                    self.connection.write(b'\n')
+                    self.connection.flush()
+        '''
+
+    def write(self,cmd,buffer):
         with self._lock:
-            #print("Send", buffer)
-            if (self.currentMessage == None):
-                self.currentMessage=buffer
-                print("Send", buffer)
-                self.connection.write(buffer)
-                self.connection.write(b'\n')
-                self.connection.flush()
-            else:
-                self.messageQueue.append(buffer)
+            #print("Send", buffer,self.currentMessage)
+         
+            self.addMessage(cmd,buffer)
+           
+                #self._write(cmd,buffer)
+        if (self.currentMessage == None):
+               self.onACK()
 
     def onACK(self):
         with self._lock:
@@ -215,21 +279,36 @@ class ArduinoClient:
                 self.currentMessage=None
 
             if (len( self.messageQueue)>0):
-                        msg = self.messageQueue[0]
-                        self.currentMessage=msg
-                        #print("Send queue ", msg)
-                        del self.messageQueue[0]
-                        self.connection.write(msg)
-                        self.connection.write(b'\n')
-                        self.connection.flush()
+                    msg = self.messageQueue[0]
+                    self.currentMessage=msg
+                    del self.messageQueue[0]
+                    print ("send",msg)
+                    self.messageTime = datetime.now()
+                    self.connection.write(msg)
+                    self.connection.write(self.end_block.encode())
+                    #self.connection.write(b'\n')
+                    self.connection.flush()
 
+                    '''
+                        msg_arr = self.messageQueue[0]
+                        self.currentMessage=msg_arr
+                        print("Send queue ", msg_arr)
+                        del self.messageQueue[0]
+                        #self._write(msg_arr[0],msg_arr[1])
+                    '''
 
     def ping(self):
-        #if ( self.isOpen):
-        #    self.connection.write("CMD PING_REQ\n".encode())
         pass
-        #if ( self.isOpen):
-        #    self.connection.
+    
+    def tick_ping(self):
+        while self.ancora:
+          if (self.currentMessage!=None ):
+                seconds_elapsed  =datetime.now() - self.messageTime
+                if (seconds_elapsed > 10):
+                    print("ERROR TIMEOUT")
+                    self.currentMessage=None
+
+       
 
    
     def tick(self):
@@ -244,8 +323,11 @@ class ArduinoClient:
                     logger.info("Connected  at "+str(self.port) )
                 else:
                     #while True:
+                  
                     while self.connection.in_waiting > 0:
-                        line = self.connection.readline().decode('utf-8').rstrip()
+                        l = self.connection.readline()
+                        #print("<=",l)
+                        line = l.decode('utf-8').rstrip()
                         #print("<=",line)
                         if (line.startswith("ACK")):
                             self.onACK()
@@ -258,12 +340,12 @@ class ArduinoClient:
                             pin = int(args[1])
                             #print ("pin = " + str(pin))
                             #if (self.isReady):
-                            self.memory.write(self,pin,args[2].rstrip())
+                            self.memory.set(self,pin,args[2].rstrip())
 
                             self.onMemory.emit("onWrite",pin,self.memory.get(pin))
                         else:
                             if (line.startswith("CMD")):
-                                #logger.info(line)
+                                logger.info(line)
                                 command = line[4:]
                                 args = command.split(sep=self.end_param)
 

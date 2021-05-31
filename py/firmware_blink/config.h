@@ -2,6 +2,8 @@
 #ifndef Config_
 #define Config_
 
+#define DEBUG_MODE
+#define MAX_RECEIVE_BUFFER 128
 
 // SWITCHS
 #ifdef MEGA
@@ -50,7 +52,7 @@
   // lab 
 
   #define LAB_EC_SENSOR_PIN A1
-   #define LAB_TEMPERATURE_PIN 2
+   #define LAB_TEMPERATURE_PIN 5
    #define LAB_PH_SENSOR_PIN A0
 
 #endif

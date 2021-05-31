@@ -22,9 +22,9 @@ unsigned long long atoll(String s)
 #include "BlynkParam.h"
 #include <EEPROM.h>
 
-#include <Wire.h>
-#define DS1307_ADDRESS 0x68
-byte zero = 0x00; //workaround for issue #527
+//#include <Wire.h>
+#//define DS1307_ADDRESS 0x68
+//byte zero = 0x00; //workaround for issue #527
 #include "RTClib.h"
 
 #define SOLENOID_ON LOW
@@ -33,14 +33,18 @@ byte zero = 0x00; //workaround for issue #527
 #define RELE_ON LOW
 #define RELE_OFF HIGH
 
-void Com_Tick();
+//void Com_Tick();
 
-extern DateTime lastTime;
+//extern DateTime lastTime;
 
+extern DateTime resetTime;
+extern DateTime systemTime;
+
+extern char mem_send[BLYNK_MAX_SENDBYTES];
+        
 template <typename... Args>
 void Log(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("[LOG] "));
         cmd.add_multi(values...);
         cmd.add(F("\n"));
@@ -48,8 +52,7 @@ void Log(Args... values) {
     }
 template <typename... Args>
 void Debug(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("[DEBUG] "));
         cmd.add_multi(values...);
         cmd.add(F("\n"));
@@ -57,8 +60,7 @@ void Debug(Args... values) {
     }
     template <typename... Args>
  void Warn(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("[WARN] "));
         cmd.add_multi(values...);
          cmd.add(F("\n"));
@@ -66,8 +68,7 @@ void Debug(Args... values) {
     }
     template <typename... Args>
  void Error(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("[ERROR] "));
         cmd.add_multi(values...);
          cmd.add(F("\n"));
@@ -76,8 +77,7 @@ void Debug(Args... values) {
     
   template <typename... Args>
  void COMMAND(Args... values) {
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
          cmd.add(F("CMD"));
         cmd.add_multi(values...);
          cmd.add(F("\n"));
@@ -87,49 +87,28 @@ void Debug(Args... values) {
 //#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
 //#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
 
-/*
-template <typename Arg, typename... Args>
-void Serialize(Stream& stream,Arg&& arg, Args&&... rest)
-{
-    stream.print(std::forward<Arg>(arg)) ;
-  
-  // str+= s;
-  // if constexpr (sizeof...(rest) > 0) {
-    //  Serialize(str,rest...);
-   //}
-}
-*/
-
-
-template <typename ...TailType>
-    void _println(Stream& stream,const String &head, TailType&&... tail)
-    {
-        stream.println(head);
-       // _println((tail)...);
-    }
-
 template <typename... Args>
-void cloudWrite(Stream& stream,int pin, Args... values) {
+void _cloudWrite(int pin, Args... values) {
        // Debug("writew",pin);
-       /* char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("vw"));
         cmd.add(pin);
         cmd.add_multi(values...);
         cmd.add(F("\n"));
-        stream.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-*/
-        char mem[BLYNK_MAX_SENDBYTES];
-        BlynkParam cmd(mem, 0, sizeof(mem));
+        Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
+    }
+template <typename... Args>
+void cloudWrite(Stream &serial,int pin, Args... values) {
+       // Debug("writew",pin);
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
+        cmd.add(F("vw"));
+        cmd.add(pin);
         cmd.add_multi(values...);
-
-        stream.print("_vw ");
-        stream.print(pin);
-        stream.print(" ");
-        stream.print(cmd.asStr());
-         stream.print("\n");
-      // _println(stream,values...);
- }
+        cmd.add(F("\n"));
+        serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
+    }
 
 
 class movingAvg
@@ -200,7 +179,9 @@ byte bcdToDec(byte val)  {
 }
 
 DateTime currentDateTime(){
-
+  systemTime = DateTime(resetTime.unixtime() + (int)(float(millis())/1000));
+  return systemTime;
+/*
   // Reset the register pointer
   Wire.beginTransmission(DS1307_ADDRESS);
   Wire.write(zero);
@@ -221,6 +202,7 @@ DateTime currentDateTime(){
     lastTime = DateTime(year,month,monthDay,hour,minute,second);
   }
   return lastTime;
+  */
   /*
   Serial.print(month);
   Serial.print("/");
@@ -236,8 +218,11 @@ DateTime currentDateTime(){
   */
 
 }
-void setDateTime(const DateTime &dt){
 
+void setDateTime(const DateTime &dt){
+    resetTime = dt;
+    systemTime = dt;
+/*
   byte second =      dt.second(); //0-59
   byte minute =      dt.minute(); //0-59
   byte hour =        dt.hour(); //0-23
@@ -247,6 +232,7 @@ void setDateTime(const DateTime &dt){
   int y =  dt.year();
   if (y > 100) y = y- 2000;
   byte year  =      y; //0-99
+*/
 
  /* Serial.print(month);
   Serial.print("/");
@@ -260,7 +246,9 @@ void setDateTime(const DateTime &dt){
   Serial.print(":");
   Serial.println(second);
   */
+
   
+  /*
   Wire.beginTransmission(DS1307_ADDRESS);
   Wire.write(zero); //stop Oscillator
 
@@ -275,6 +263,7 @@ void setDateTime(const DateTime &dt){
   Wire.write(zero); //start 
 
   Wire.endTransmission();
+  */
 
 }
 // YYYY-DD-MM-HH-mm-SS

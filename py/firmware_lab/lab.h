@@ -20,6 +20,7 @@
 #define LAB_PH_VOLTAGE_VPIN 144
 #define LAB_PH_REF_4_VPIN 145
 #define LAB_PH_REF_6_VPIN 146
+#define LAB_DISTANCE_VPIN 147
 
 //Temperature chip i/o
 OneWire ds(LAB_TEMPERATURE_PIN);  // on digital pin 2
@@ -181,8 +182,8 @@ class Var_EC: public Var_Real
               this->ecValue25  =  this->ecValue / (1.0+0.02*(this->temperature-25.0));  //temperature compensation
               this->tdsValue = ecValue25 * TdsFactor;
               */
-              //Serial.print("voltage:");
-              //Serial.print(averageVoltage,2);
+            //  Serial.print("voltage:");
+             // Serial.println(averageVoltage,2);
               //Serial.print("V   ");
              // Serial.print("TDS Value:");
               //Serial.print(tdsValue,0);
@@ -244,13 +245,15 @@ class Lab
     Var_Real *var_ph_voltage;
     Var_Real *var_ph_ref_4;
     Var_Real *var_ph_ref_6;
+
+    DistanceSensor *distance;
   
      
   public:
     Lab(VirtualElementManager &manager)
     {
       var_k = manager.addVarReal(LAB_EC_K_VPIN, 1,EPROM_LAB_EC_K);
-      var_k->set(1.1);
+    //  var_k->set(1.1);
       var_temperature = manager.addVarReal(LAB_EC_TEMPERATURE_VPIN);
       var_ec = (Var_EC*)manager.Add(new Var_EC(LAB_EC_SENSOR_VPIN, var_k,var_temperature));
 
@@ -258,16 +261,18 @@ class Lab
       var_ph_ref_6 = manager.addVarReal(LAB_PH_REF_6_VPIN,0,EPROM_LAB_PH_REF_6);
       var_ph_voltage = manager.addVarReal(LAB_PH_VOLTAGE_VPIN);
       var_ph = (Var_PH*)manager.Add(new Var_PH(LAB_PH_SENSOR_VPIN, var_ph_voltage,var_ph_ref_4,var_ph_ref_6));
-    
+
+      distance = (DistanceSensor*)manager.Add(new DistanceSensor(LAB_DISTANCE_VPIN,LAB_RANGE_TRIGGER_PIN,LAB_RANGE_ECHO_PIN));
     }
 
     void LogicFast() {
-       // var_ec->tickFast();
-      //  var_ph->tickFast();
+        var_ec->tickFast();
+        var_ph->tickFast();
     }
 
   int i=0;
     void Logic() {
+
       
       // GravityTDS &gravityTds = *_gravityTds;
       //  gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
@@ -280,12 +285,12 @@ class Lab
            
       //var_temperature->set(sensors.getTempCByIndex(0));
 
-      var_temperature->set(i++);
-     // var_temperature->set(getTemp());
+    //  var_temperature->set(i++);
+      var_temperature->set(getTemp());
 
      // ecValue = var_ec->get();
     
-      Debug(F("EC "), var_ec->get(), " k:",var_k->get(),F(" temp:"), var_temperature->get(),F(" phv:"), var_ph_voltage->get(),F(" ph:"), var_ph->get());
+      Debug(F("EC "), var_ec->get(), " k:",var_k->get(),F(" temp:"), var_temperature->get(),F(" phv:"), var_ph_voltage->get(),F(" 4:") ,var_ph_ref_4->get(),F(" 6:"),var_ph_ref_6->get(),F(" ph:"), var_ph->get()," d:" , distance->get());
 
       // Serial.print(tdsValue,0);
       // Serial.println("ppm");

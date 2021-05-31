@@ -4,21 +4,25 @@
  */
 
 // -----------
-/*
-#define MEGA
-#define CENTRALINA
+
+//#define MEGA
+//#define CENTRALINA
 #define TIME
-*/
+
 // -----------
 #define LAB
 //#define TIME
 
+#ifdef LAB
 #include <SoftwareSerial.h>
 SoftwareSerial LabSerial(3,4); // RX, TX
+#endif
 
 #include "common.h"
-DateTime lastTime;
+DateTime systemTime;
+DateTime resetTime;
 
+#include <MemoryFree.h>
 #include "virtual_elements_manager.h"
 #include "sensors.h"
 
@@ -37,12 +41,12 @@ DateTime lastTime;
 byte WaterFlowSensor::_pulseCount[3];
 int WaterFlowSensor::_pulseIndex;
 
+
 VirtualElementManager manager("MAIN", &Serial,true);
-
-VirtualElementManager manager_lab("LAB",&LabSerial,false);
-
-//ActionManager actions;
-
+VirtualElementManager *manager_lab;
+char mem_send[BLYNK_MAX_SENDBYTES];
+//char in_buffer[MAX_RECEIVE_BUFFER]; 
+ 
 #ifdef CENTRALINA
 Osmotica *osmotica=NULL;
 Vasca *vasca1=NULL;
@@ -71,11 +75,14 @@ class Var_SetDateTime : public Var_String
      Var_SetDateTime() : Var_String(DATETIME_SET_VPIN){}
 
      void OnCloudWrite(BlynkParam &param){
+ 
         value = param.asString();
+           Debug("ll",value);
+           
         DateTime dt = ParseDateTime(value);
         setDateTime( dt);
         Debug(F("ON SET DATETIME "), pin , dt.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
-
+    
     }
 };
 
@@ -96,17 +103,23 @@ void setup() {
   //Serial.begin(9600);
   Serial.begin(115200);
   Serial.setTimeout(2000);
+
+  Log(F("STARTING"));
+
   //osmotica_setup();
  // lab_setup();
- 
+ #ifdef LAB
    LabSerial.begin(9600);
-   
+   manager_lab = new VirtualElementManager("LAB",&LabSerial,false);
+#endif
+
    clock_time=millis();
 
-    Wire.begin();
+//Wire.begin();
+
  //   setDateTime(new DateTime(2021,5,20,16,43,0));
    // setDateTime( DateTime(2021,5,20,16,43,0));
-
+ 
  #ifdef CENTRALINA
     osmotica = new Osmotica(manager);
     giardino = new Giardino(manager);
@@ -114,15 +127,16 @@ void setup() {
  #endif
 
  #ifdef LAB
-    lab = new Lab(manager,manager_lab);
+    lab = new Lab(manager,*manager_lab);
  #endif
-    
+
     // date
 
    // date = manager.addVarString(DATETIME_ACTUAL_VPIN,"");
     manager.Add(new Var_SetDateTime());
 
-    manager_lab.Add(new Var_LabSync());
+  if (manager_lab!=NULL)
+    manager_lab->Add(new Var_LabSync());
  
      //cloudWrite(0,"INIT");
      // vasca1 = new Vasca (manager,60,95.5,EPROM_VASCA1_LEVEL);
@@ -150,6 +164,7 @@ Var_String *water_state= manager.addVarString(101) ;
 
 int i_time=0;
 unsigned long last_time=0;
+unsigned long last_time1=0;
 
 // the loop function runs over and over again forever
 void loop() 
@@ -159,24 +174,31 @@ void loop()
   //return;
   clock_time=millis();
 
+  
+  if (clock_time - last_time1> 10000)
+  {
+     last_time1 = clock_time;
+
+     #ifdef TIME
+    DateTime now = currentDateTime();
+
+    COMMAND(F("MEMORY "),freeMemory());
+    COMMAND(F("RUN_TIME "),clock_time);
+    COMMAND(F("DATE "),now.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
+    #endif
+  }
+  
   if (clock_time - last_time> 1000)
   {
      //LabSerial.println(clock_time);
      //LabSerial.println("tick");
 
- 
     last_time = clock_time;
     //Com_Tick();
 
-    #ifdef TIME
-    DateTime now = currentDateTime();
-     
-    COMMAND(F("RUN_TIME "),clock_time);
-    COMMAND(F("DATE "),now.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
-    #endif
-
     manager.tick();
-    manager_lab.tick();
+    if (manager_lab!=NULL)
+      manager_lab->tick();
     //actions.tick();
   
  #ifdef CENTRALINA
@@ -202,7 +224,8 @@ void loop()
   else
   {
     manager.fast_tick();
-    manager_lab.fast_tick();
+    if (manager_lab!=NULL)
+      manager_lab->fast_tick();
  #ifdef LAB
      if (lab!=NULL)
       lab->LogicFast();

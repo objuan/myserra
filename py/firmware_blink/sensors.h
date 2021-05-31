@@ -14,14 +14,18 @@ public:
    VirtualElement_Type getType() {return VirtualElement_Type::SWITCH ; }
 
    Switch(int virtual_pin,int arduino_pin) : VirtualElement_Bool(virtual_pin),arduino_pin(arduino_pin){
-        pinMode(arduino_pin, INPUT);
+      // avoid write here
+   }
+
+   void start(){
+       pinMode(arduino_pin, INPUT);
         cloudWrite(this->pin,digitalRead(this->arduino_pin));
    }
 
     void OnCloudAskValue(){
         cloudWrite(this->pin,digitalRead(this->arduino_pin));
     }
-   void tick(){
+    void tick(){
       int v = digitalRead(this->arduino_pin);
 
       //Debug("Switch", this->pin,v);
@@ -41,9 +45,14 @@ public:
    VirtualElement_Type getType() {return VirtualElement_Type::SOLENOID_VALVE ; }
 
    SolenoidValve(int virtual_pin,int arduino_pin) : VirtualElement_Bool(virtual_pin),arduino_pin(arduino_pin){
-        pinMode(arduino_pin, OUTPUT);
-        digitalWrite(arduino_pin, SOLENOID_OFF);
+       
    }
+   void start(){
+     pinMode(arduino_pin, OUTPUT);
+     digitalWrite(arduino_pin, SOLENOID_OFF);
+   }
+   
+   
    void Open(){
       Debug("SolenoidValve Open ",pin, " ",arduino_pin);
       digitalWrite(arduino_pin, SOLENOID_ON);
@@ -78,8 +87,12 @@ public:
    VirtualElement_Type getType() {return VirtualElement_Type::PUMP ; }
 
    Pump(int virtual_pin,int arduino_pin) : VirtualElement_Bool(virtual_pin),arduino_pin(arduino_pin){
-        pinMode(arduino_pin, OUTPUT);
+       
    }
+    void start(){
+       pinMode(arduino_pin, OUTPUT);
+    }
+    
    void OnCloudWrite(BlynkParam &param){
          if (param.asInt()==1)
          {
@@ -116,16 +129,18 @@ public:
 
    VirtualElement_Type getType() {return VirtualElement_Type::DISTANCE ; }
 
-   DistanceSensor(int virtual_pin, int TRIG_PIN,int ECHO_PIN) : VirtualElement_Real(virtual_pin){
-      speed_Of_Sound = 331.1 +(0.606 * temp_In_C);  
+   DistanceSensor(int virtual_pin, int TRIG_PIN,int ECHO_PIN) : VirtualElement_Real(virtual_pin),TRIG_PIN(TRIG_PIN),ECHO_PIN(ECHO_PIN){
+   }
+     
+    void start(){
+       speed_Of_Sound = 331.1 +(0.606 * temp_In_C);  
       // Calculate the distance that sound travels in one microsecond in Centimeters
-      distance_Per_uSec = speed_Of_Sound / 10000.0;
-      this->TRIG_PIN=TRIG_PIN;
-       this->ECHO_PIN=ECHO_PIN;
-      
+       distance_Per_uSec = speed_Of_Sound / 10000.0;
+       
        pinMode(TRIG_PIN,OUTPUT);
        pinMode(ECHO_PIN,INPUT);
-   }
+    }
+    
    void OnCloudAskValue(){
         cloudWrite(this->pin,distanceCm);
     }
@@ -185,10 +200,13 @@ public:
     VirtualElement_Type getType() {return VirtualElement_Type::WATER_FLOW ; }
 
    WaterFlowSensor(int virtual_pin, int SENSOR_PIN,int SENSOR_INTERRUPT) : VirtualElement_Real(virtual_pin){
-      
-        this->SENSOR_PIN=SENSOR_PIN;
+       this->SENSOR_PIN=SENSOR_PIN;
         this->SENSOR_INTERRUPT=digitalPinToInterrupt(SENSOR_PIN);//SENSOR_INTERRUPT;
 
+   }
+
+   void start(){
+     
         //digitalPinToInterrupt
        
         pinMode(SENSOR_PIN, INPUT);

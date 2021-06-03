@@ -4,7 +4,7 @@
          style="max-width: 90rem;">
             <b-card-text>
                 <table>
-                    <tr>
+                    <tr v-if="!compact">
                         <td>
                              <b-button variant="success" @click="newSwitch()">Add Switch</b-button>
                         </td>
@@ -19,10 +19,16 @@
                                 
                         </td>
                         <td>
-                            address
+                            address win
+                         </td>
+                        
+                         <td><b-form-input  v-model="board.usb_address_usb" placeholder="Address WIN" type="text"></b-form-input>
+                         </td>
+                         <td>
+                            address lx
                          </td>
                          
-                         <td><b-form-input  v-model="board.usb_address" placeholder="Address" type="text"></b-form-input>
+                         <td><b-form-input  v-model="board.usb_address_lx" placeholder="Address WIN" type="text"></b-form-input>
                          </td>
                          <td>
                               <b-button variant="success" @click="saveBoard()">Set</b-button>
@@ -37,30 +43,30 @@
                 </table>
                 <table style="width:100%" border=1>
                     <tr>
-                        <td></td>
+                        <td  v-if="!compact"></td>
                         <td>ID</td>
                         <td>name</td>
-                        <td>desc</td>
+                        <td  v-if="!compact">desc</td>
                         <td>pin</td>
-                        <td>type</td>
+                        <td  v-if="!compact">type</td>
                         <td>state</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr v-for="(sw, index) in switch_list" :key="index">
-                        <td> <b-button variant="danger" @click="deleteSwitch(sw)">X</b-button></td>
+                        <td  v-if="!compact"> <b-button variant="danger" @click="deleteSwitch(sw)">X</b-button></td>
                        <td>{{sw.id}}</td>
                        <td>
                          <b-form-input  v-model="sw.name" placeholder="Enter  name" type="text"></b-form-input>
                        </td>
-                       <td>
+                       <td  v-if="!compact">
                              <b-form-input  v-model="sw.description" placeholder="Enter  desc" type="text"></b-form-input>
                        </td>
                        <td>
                             <b-form-input  v-model="sw.pin" placeholder="Enter  PIN" type="number"></b-form-input>
                        </td>
                       
-                       <td>
+                       <td  v-if="!compact">
                               <b-dropdown :text="sw.switchType.name" class="m-md-2" >
                                 <b-dropdown-item  @click="onSelectType(sw,s)" v-for="(s, index) in switch_type_list" :key="index" 
                                         >{{s.name}}</b-dropdown-item>
@@ -83,7 +89,7 @@
                 </table>
             </b-card-text>
         </b-card>
-         <VarList :board="board"/>
+         <VarList :board="board" :compact="compact"/>
     </div>
 </template>
 
@@ -98,6 +104,11 @@
             board: {
                 type: Object,
                 required: true,
+            },
+            compact: {
+                type: Boolean,
+                required: false,
+                default : false
             },
         },
         

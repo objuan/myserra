@@ -112,13 +112,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Rome'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -155,7 +155,10 @@ LOGGING = {
         },
         'web': {
             'format': '{"time": "%(asctime)s","name":"%(name)s","level":"%(levelname)s","message":"%(message)s}"}'
-        }
+        },
+		'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        },
     },
     'handlers': {
         'console': {
@@ -167,11 +170,19 @@ LOGGING = {
 			'formatter': 'web'
 			
         },
+		'file': {
+            'level': 'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+			'maxBytes': 1024*1024*5, # 5 MB
+			'backupCount': 5,
+            'filename': './serra.log',
+			'formatter': 'file'
+        },
     },
 
 	'loggers': {
 		'centralina': {
-			'handlers': ['console','web'],
+			'handlers': ['console','web','file'],
 			'level': 'DEBUG'
 		},
 		'daphne': {

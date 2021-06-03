@@ -38,6 +38,7 @@ unsigned long long atoll(String s)
 //extern DateTime lastTime;
 
 extern DateTime resetTime;
+extern unsigned long resetMills;
 extern DateTime systemTime;
 
 extern char mem_send[BLYNK_MAX_SENDBYTES];
@@ -179,7 +180,7 @@ byte bcdToDec(byte val)  {
 }
 
 DateTime currentDateTime(){
-  systemTime = DateTime(resetTime.unixtime() + (int)(float(millis())/1000));
+  systemTime = DateTime(resetTime.unixtime() + (int)(float(millis() - resetMills)/1000));
   return systemTime;
 /*
   // Reset the register pointer
@@ -222,6 +223,7 @@ DateTime currentDateTime(){
 void setDateTime(const DateTime &dt){
     resetTime = dt;
     systemTime = dt;
+    resetMills = millis();
 /*
   byte second =      dt.second(); //0-59
   byte minute =      dt.minute(); //0-59

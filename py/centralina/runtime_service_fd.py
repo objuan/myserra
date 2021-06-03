@@ -23,13 +23,13 @@ def ConnectBoards():
     
     def Connect(board):
         try:
-            Connect_Event("CONNECTING " + board.usb_address)    
+            Connect_Event("CONNECTING " + board.usb_address())    
 
             #arduino = Arduino(board.usb_address)
             arduino = Arduino(Arduino.AUTODETECT)
             RegisterArduino(board.usb_address,arduino)
-            logger.info ("CONNECTED"  + board.usb_address)
-            Connect_Event("CONNECTED "+ board.usb_address)    
+            logger.info ("CONNECTED"  + board.usb_address())
+            Connect_Event("CONNECTED "+ board.usb_address())    
             
             #inizializzo i pin in ingrresso
          
@@ -44,13 +44,13 @@ def ConnectBoards():
             return True
 
         except Exception  as e:
-            logger.error ("ERROR CONNETTING " + board.usb_address+ " "+str(e))    
+            logger.error ("ERROR CONNETTING " + board.usb_address()+ " "+str(e))    
             Connect_Event("ERROR CONNETTING")    
             return False
 
 
     for b in Board.objects.all():
-        logger.info ("BOARD " + b.name +" " + b.usb_address)
+        logger.info ("BOARD " + b.name +" " + b.usb_address())
         #board_map[b.id] = BoardControl(b)
         try:
 
@@ -96,7 +96,7 @@ def ConnectBoards():
             ping.start()
 
         except Exception  as e:
-            logger.error ("ERROR CONNETTING "+str(b.usb_address)+str(e))
+            logger.error ("ERROR CONNETTING "+str(b.usb_address())+str(e))
             
     logger.info ("----------------")
 

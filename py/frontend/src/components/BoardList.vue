@@ -3,21 +3,15 @@
   
    <b-card 
     title="Board List"
-   
     class="mb-2"
   >
     <b-card-text>
-      <div >
-        <table width="100%" border="1">
-          <tr v-for="(board, index) in boards" :key="index" >
-            <td>
-              <Board
-            :board="board" />
-            </td>
-          </tr>
-        </table>
-   
-    </div>
+     
+     <b-tabs content-class="mt-3">
+        <b-tab v-for="(board, index) in boards" :key="index"  :title="board.name" >
+          <Board :board="board" />
+        </b-tab>
+    </b-tabs>
     </b-card-text>
   </b-card>
 

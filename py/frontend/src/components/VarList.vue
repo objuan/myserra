@@ -4,24 +4,24 @@
          style="max-width: 90rem;">
             <b-card-text>
                   
-                             <b-button variant="success" @click="newVar()">Add Var</b-button>
+              <b-button  v-if="!compact" variant="success" @click="newVar()">Add Var</b-button>
                         
                 <table style="width:100%" border=1>
                     <tr>
-                        <td></td>
+                        <td v-if="!compact"></td>
                         <td></td>
                         <td>ID</td>
                         <td>name</td>
-                        <td>desc</td>
+                        <td v-if="!compact">desc</td>
                         <td>pin</td>
-                        <td>type</td>
-                        <td>save</td>
-                        <td>startup</td>
+                        <td v-if="!compact">type</td>
+                        <td v-if="!compact">save</td>
+                        <td v-if="!compact">startup</td>
                         <td>value</td>
                         <td></td>
                     </tr>
                     <tr v-for="(sw, index) in var_list" :key="index">
-                        <td>
+                        <td v-if="!compact">
                             
                              <b-button :v-b-modal="'modal-1'" variant="danger" >X</b-button>
                              
@@ -36,30 +36,40 @@
                         </td>
                        <td>{{sw.id}}</td>
                        <td>
-                         <b-form-input  v-model="sw.name" placeholder="Enter  name" type="text"></b-form-input>
+                           <div  v-if="!compact">
+                            <b-form-input  v-model="sw.name" placeholder="Enter  name" type="text"></b-form-input>
+                          </div>
+                           <div  v-if="compact">
+                           {{sw.name}}
+                          </div>
                        </td>
-                       <td>
+                       <td v-if="!compact">
                              <b-form-input  v-model="sw.description" placeholder="Enter  desc" type="text"></b-form-input>
                        </td>
                        <td>
+                           <div  v-if="!compact">
                             <b-form-input  v-model="sw.pin" placeholder="Enter  PIN" type="number"></b-form-input>
+                         </div>
+                           <div  v-if="compact">
+                           {{sw.pin}}
+                          </div>
                        </td>
                       
-                       <td>
+                       <td v-if="!compact">
                          
                            <b-dropdown :text="sw.varType" class="m-md-2" >
                                 <b-dropdown-item  @click="onSelectType(sw,s)" v-for="(s, index) in var_type_list" :key="index" 
                                         >{{s}}</b-dropdown-item>
                                 </b-dropdown>
                        </td>
-                        <td>
+                        <td v-if="!compact">
                          
                               <b-dropdown :text="sw.saveMode" class="m-md-2" >
                                 <b-dropdown-item   @click="onSelectSavewMode(sw,s)"  v-for="(s, index) in var_saveMode_list" :key="index" 
                                         >{{s}}</b-dropdown-item>
                                 </b-dropdown>
                        </td>
-                         <td>
+                         <td v-if="!compact">
                             <b-dropdown :text="sw.startupMode" class="m-md-2" >
                                 <b-dropdown-item   @click="onSelectStartupMode(sw,s)"  v-for="(s, index) in var_startup_list" :key="index" 
                                         >{{s}}</b-dropdown-item>
@@ -93,6 +103,11 @@
             board: {
                 type: Object,
                 required: true,
+            },
+             compact: {
+                type: Boolean,
+                required: false,
+                default : false
             },
         },
         

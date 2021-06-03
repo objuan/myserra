@@ -21,7 +21,7 @@ Lab *lab=NULL;
 int i_time=0;
 unsigned long last_time=0;
 unsigned long clock_time=0;
-
+unsigned long last_time1=0;
 #define LAB_SYNC_VPIN 135
 
 void setup(void)
@@ -29,7 +29,7 @@ void setup(void)
   // Start serial communication for debugging purposes
   Serial.begin(115200);
 
-  LabSerial.begin(9600);
+  LabSerial.begin(57600);
 
   manager = new VirtualElementManager ("LAB",&LabSerial,false);
   
@@ -44,14 +44,20 @@ void loop(void)
 {
    clock_time=millis();
 
+  if (clock_time - last_time1> 10000)
+  {
+      last_time1 = clock_time;
+
+     COMMAND(F("MEMORY "),freeMemory());
+     cloudWrite(LabSerial,LAB_SYNC_VPIN,clock_time);
+  
+  }
+  
   if (clock_time - last_time> 1000)
   {
      manager->tick();
      last_time = clock_time;
 
-    COMMAND(F("MEMORY "),freeMemory());
-     cloudWrite(LabSerial,LAB_SYNC_VPIN,clock_time);
-     
     if (lab!=NULL)
      lab->Logic();
 

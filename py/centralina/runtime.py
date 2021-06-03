@@ -2,7 +2,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from enum import Enum
-from pyfirmata2 import  INPUT,OUTPUT
+#from pyfirmata2 import  INPUT,OUTPUT
 from .ws_service import *
 import json
 import logging
@@ -48,6 +48,8 @@ class BoardControl():
 
     # sampling rate: 10Hz
     samplingRate = 10
+    var_event_map = {}
+    sw_event_map = {}
 
     def __init__(self,board,client):
         self.board=board
@@ -68,11 +70,19 @@ class BoardControl():
                 sw.setPinValue(value)
                 Switch_Event(sw,"STATE " + sw.state)
 
+            if (sw.id in self.sw_event_map):
+                    for f in self.sw_event_map[sw.id ]:
+                        f(sw.state)
+
         for var in self.board.variable_set.all():
             if (pin == var.pin):
                 #print("onReadV  ",var.pin,value)
                 var.setPinValue(value)
                 Var_Event(var,"")
+                #proxy events
+                if (var.id in self.var_event_map):
+                    for f in self.var_event_map[var.id ]:
+                        f(value)
                 
                 
         #print("CREATE BOARD CONTROLLER ", model)
@@ -109,7 +119,17 @@ class BoardControl():
                 self.client.read(var.pin)
 
       
+    def register_var(self,var_id,hook):
+        #print("reg",var_id,hook)
+        if (not var_id in  self.var_event_map):
+            self.var_event_map[var_id] = []
+        self.var_event_map[var_id].append(hook)
 
+    def register_sw(self,sw_id,hook):
+        #print("reg",var_id,hook)
+        if (not sw_id in  self.sw_event_map):
+            self.sw_event_map[sw_id] = []
+        self.sw_event_map[sw_id].append(hook)
 
     def reconnect(self):
         global memory

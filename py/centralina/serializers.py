@@ -19,7 +19,8 @@ class BoardSerializer(serializers.ModelSerializer):
         print(validated_data)
         instance.name = validated_data.get('name', instance.name)
         instance.description = validated_data.get('description', instance.description)
-        instance.usb_address = validated_data.get('usb_address', instance.usb_address)
+        instance.usb_address_win = validated_data.get('usb_address_win', instance.usb_address_win)
+        instance.usb_address_lx = validated_data.get('usb_address_lx', instance.usb_address_lx)
         instance.net_address = validated_data.get('net_address', instance.net_address)
         instance.wifi_name = validated_data.get('wifi_name', instance.wifi_name)
         instance.cpu_type = validated_data.get('cpu_type', instance.cpu_type)
@@ -29,7 +30,7 @@ class BoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ['id','name','description','cpu_type','usb_address','net_address','wifi_name','enable_cpu']
+        fields = ['id','name','description','cpu_type','usb_address_win','usb_address_lx','net_address','wifi_name','enable_cpu']
 
 
 class SwitchTypeSerializer(serializers.ModelSerializer):
@@ -96,3 +97,15 @@ class VariableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Variable
         fields = ['id','name','description','pin','value','varType','saveMode','startupMode']
+
+############### LAB ##########
+'''class WaterAnalysisSerializer(serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+
+class WaterAnalysis(models.Model):
+    tank=models.CharField(max_length=20)
+    ph =models.FloatField(default=0)
+    ec=models.FloatField(default=0)
+    temperature = models.FloatField(default=0)
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+'''

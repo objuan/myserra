@@ -51,7 +51,7 @@ class VirtualPin:
 
     def set(self,val):
         self.value=val
-        print ("[SET] " + str(self.pin) +"="+self.value)
+        #print ("[SET] " + str(self.pin) +"="+self.value)
 
     #
     def read(self,client):
@@ -61,7 +61,7 @@ class VirtualPin:
     def write(self,client,val):
       
         self.value=val
-        print ("[CLOUD] " + str(self.pin) +"="+self.value)
+        logger.debug ("[CLOUD] " + str(self.pin) +"="+self.value)
         self.send(client)
 
     def send(self,client):
@@ -227,12 +227,12 @@ class ArduinoClient:
                 e = len(out_buffer)
 
             self.messageQueue.append(out_buffer[s:e])
-            print ("add", out_buffer[s:e])
+            #print ("add", out_buffer[s:e])
                        
             s=e
 
 
-        print (out_buffer)
+        #print (out_buffer)
         '''
                 #self.connection.write(cmd.encode())
                 #self.connection.write(self.end_param.encode())
@@ -278,11 +278,12 @@ class ArduinoClient:
             if (self.currentMessage != None):
                 self.currentMessage=None
 
+
             if (len( self.messageQueue)>0):
                     msg = self.messageQueue[0]
                     self.currentMessage=msg
                     del self.messageQueue[0]
-                    print ("send",msg)
+                    #print ("send",msg)
                     self.messageTime = datetime.now()
                     self.connection.write(msg)
                     self.connection.write(self.end_block.encode())
@@ -302,15 +303,15 @@ class ArduinoClient:
     
     def tick_ping(self):
         while self.ancora:
-          if (self.currentMessage!=None ):
+          time.sleep(10)
+          if (self.currentMessage!=None and self.messageTime!=None ):
                 seconds_elapsed  =datetime.now() - self.messageTime
-                if (seconds_elapsed > 10):
+                if (seconds_elapsed.total_seconds() > 10):
                     print("ERROR TIMEOUT")
                     self.currentMessage=None
 
        
 
-   
     def tick(self):
 
         while self.ancora:
@@ -345,7 +346,7 @@ class ArduinoClient:
                             self.onMemory.emit("onWrite",pin,self.memory.get(pin))
                         else:
                             if (line.startswith("CMD")):
-                                logger.info(line)
+                                #logger.info(line)
                                 command = line[4:]
                                 args = command.split(sep=self.end_param)
 
@@ -361,7 +362,8 @@ class ArduinoClient:
                                       #print (args[1] )
                                       Time_Event("DATE",str(args[1]))
                             else:
-                                logger.info(line)
+                                pass
+                                #logger.info(line)
             
             except serial.SerialException as e:
                 self.isOpen=False
@@ -369,11 +371,13 @@ class ArduinoClient:
                 #e = sys.exc_info()[0]
                 print (e)
                 logger.error("Connecting .."+str(e) )
+                time.sleep(1)
 
             except Exception as e:
                 traceback.print_exc()
                 #print ("...",e.__traceback__)
                 logger.error(str(e) )
+                time.sleep(1)
 
             time.sleep(0.1)
 

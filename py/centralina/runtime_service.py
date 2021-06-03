@@ -13,7 +13,7 @@ import time
 import logging
 import traceback
 from .config import *
-
+from .logic import *
 
 logger = logging.getLogger(__name__)
 
@@ -38,9 +38,10 @@ class BoardManager():
                     ## system message
 
                     dt = datetime.now()
+
+                    print ("CURRENT DATE" , dt)
                     memory.write(arduino,DATETIME_SET_VPIN,dt.strftime("%Y-%m-%d-%H-%M-%S"))
                     # board
-
 
                     try:
                         for b in Board.objects.all():  
@@ -56,6 +57,9 @@ class BoardManager():
                                 logger.info("CONTROLLER TOTAL " + str(len(control_list)))
 
                         Connect_Event("CONNECTED AT"+str(arduino.port) )
+
+                        self.manager =  LogicManager()
+
                         
                     except Exception  as e:
                         traceback.print_exc()
@@ -70,6 +74,7 @@ class BoardManager():
                 Connect_Event("ERROR CONNETTING")    
                 return False
 
+    # entry point
     def ConnectBoards(self):
         global ancora
         ancora =True
@@ -78,9 +83,9 @@ class BoardManager():
         for b in Board.objects.all():
                 logger.info ("Start "+str(b.name))
 
-                if (not b.usb_address in  arduino_map):
-                    a= ArduinoClient(b.usb_address,115200,self.shared_memory)
-                    arduino_map[b.usb_address] =  a
+                if (not b.usb_address() in  arduino_map):
+                    a= ArduinoClient(b.usb_address(),115200,self.shared_memory)
+                    arduino_map[b.usb_address()] =  a
                     arduino_list.append(a)
                     a.start()
                 #ConnectArduino(arduino_map[b.usb_address])
@@ -120,12 +125,25 @@ class BoardManager():
                         c=c+1
                         time.sleep(1)
 
+        def DtSync():
+
+                    while ancora:
+                        time.sleep(3600)
+
+                        for arduino in arduino_list:
+                            dt = datetime.now()
+                            print ("CURRENT DATE" , dt)
+                            self.shared_memory.write(arduino,DATETIME_SET_VPIN,dt.strftime("%Y-%m-%d-%H-%M-%S"))
+                   
 
         t = threading.Thread(target=Timer,args=[],daemon=True)
         t.start()
 
         ping = threading.Thread(target=Ping,args=[],daemon=True)
         ping.start()
+
+        dt_sync = threading.Thread(target=DtSync,args=[],daemon=True)
+        dt_sync.start()
 
     def Start(self):
         self.ConnectBoards()
@@ -146,11 +164,16 @@ class BoardManager():
         arduino_list = []
         control_list = []
      
+# commentare per la migrazione
 
 main_control = BoardManager()
 main_control.Start()
 
 RegisterManager(main_control)
+
+
+
+
 
 
 

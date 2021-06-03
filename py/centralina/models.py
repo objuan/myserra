@@ -6,15 +6,23 @@ from enum import Enum
 from .ws_service import *
 import parsedatetime
 from datetime import datetime, timezone
+import os
 
 class Board(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100,default='', blank=True, null=True)
     cpu_type = models.CharField(max_length=50,default='', blank=True, null=True)
-    usb_address = models.CharField(max_length=200,default='', blank=True, null=True)
+    usb_address_win = models.CharField(max_length=200,default='', blank=True, null=True)
+    usb_address_lx = models.CharField(max_length=200,default='', blank=True, null=True)
     net_address = models.CharField(max_length=200,default='', blank=True, null=True)
     wifi_name = models.CharField(max_length=200,default='', blank=True, null=True)
     enable_cpu = models.BooleanField(default=True)
+
+    def usb_address(self):
+        if os.name == 'nt':
+            return self.usb_address_win
+        else:
+            return self.usb_address_lx
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -287,3 +295,61 @@ class VariableHistory(models.Model):
                 # Increment the timestamp by 1 µs and try again
                 self.time = str(parse_datetime(self.time) + datetime.timedelta(microseconds=1))
                 self.save_and_smear_timestamp(*args, **kwargs)
+
+#####################################
+# LAB
+#####################################
+
+class WaterAnalysis(models.Model):
+    tank=models.CharField(max_length=20)
+    ph =models.FloatField(default=0)
+    ec=models.FloatField(default=0)
+    temperature = models.FloatField(default=0)
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+  
+    @classmethod
+    def create(cls, tank,ph,ec,temperature):
+        vv = cls(tank=tank,ph=ph,ec=ec,temperature=temperature)
+        return vv
+
+    def __str__(self):
+        return "TANK "+self.tank+" ph:"+str(self.ph)+" ec:" + str(self.ec)+" temp:"+ str(self.temperature)
+
+class LabLog(models.Model):
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+    id=models.CharField(max_length=10)
+    level=models.CharField(max_length=10)
+    message=models.TextField()
+  
+    @classmethod
+    def create(cls, id,level,message):
+        vv = cls(id=id,level=level,message=message)
+        return vv
+
+    def __str__(self):
+        return "LOG "+self.id+" "+str(self.time) +" " +str(self.level)+" " + str(self.message)
+
+
+class LabAI(models.Model):
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+    tank=models.CharField(max_length=20)
+     
+    class OperationType(models.TextChoices):
+        EC_ADD = 'ec_add'
+        PH_ADD = 'ph_add'
+        WATER_ADD = 'water_add'
+    
+    operationType = models.CharField(
+        max_length=10,
+        choices=OperationType.choices,
+        default=OperationType.EC_ADD
+    )
+    lab_liters =models.FloatField(default=0)
+    estimate_tank_liters =models.FloatField(default=0)
+    start_value =models.FloatField(default=0)
+    target_value =models.FloatField(default=0)
+    final_value =models.FloatField(default=0)
+    value_to_ml_factor =models.FloatField(default=0)
+
+  
+  

@@ -5,12 +5,12 @@
 
 // -----------
 
-//#define MEGA
-//#define CENTRALINA
+#define MEGA
+#define CENTRALINA
 #define TIME
 
 // -----------
-#define LAB
+//##define LAB
 //#define TIME
 
 #ifdef LAB
@@ -21,6 +21,7 @@ SoftwareSerial LabSerial(3,4); // RX, TX
 #include "common.h"
 DateTime systemTime;
 DateTime resetTime;
+unsigned long resetMills;
 
 #include <MemoryFree.h>
 #include "virtual_elements_manager.h"
@@ -109,7 +110,7 @@ void setup() {
   //osmotica_setup();
  // lab_setup();
  #ifdef LAB
-   LabSerial.begin(9600);
+   LabSerial.begin(57600);
    manager_lab = new VirtualElementManager("LAB",&LabSerial,false);
 #endif
 

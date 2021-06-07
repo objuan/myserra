@@ -70,7 +70,8 @@ class BoardControl():
                 sw.setPinValue(value)
                 Switch_Event(sw,"STATE " + sw.state)
 
-            if (sw.id in self.sw_event_map):
+           
+            if (sw.id in self.sw_event_map and sw.pin == pin):
                     for f in self.sw_event_map[sw.id ]:
                         f(sw.state)
 
@@ -80,7 +81,7 @@ class BoardControl():
                 var.setPinValue(value)
                 Var_Event(var,"")
                 #proxy events
-                if (var.id in self.var_event_map):
+                if (var.id in self.var_event_map and var.pin == pin):
                     for f in self.var_event_map[var.id ]:
                         f(value)
                 
@@ -95,9 +96,10 @@ class BoardControl():
             logger.info ("SWITCH START " + sw.name + " " +str(sw.switchType.mode))
             self.client.setPinMode(sw.pin,VirtualPinMode.DIGITAL)
 
-            if (sw.switchType.mode=="I"):
-               self.client.read(sw.pin)
-
+            if (sw.switchType.mode=="I" or sw.startupMode=='hw'):
+                self.client.read(sw.pin)
+            if ( sw.startupMode=='db'):
+                 self.client.write(sw.pin,sw.pin_value)
             '''
             if (sw.switchType.mode=="O"):
                 #arduino.digital[sw.pin].mode = OUTPUT

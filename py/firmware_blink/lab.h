@@ -2,6 +2,8 @@
    Created by marco cecchini
 
 */
+#ifndef __LAB
+#define __LAB
 
 #include "config.h"
 #include "common.h"
@@ -19,7 +21,8 @@
 enum BridgMode
 {
   READ=0,
-  WRITE
+  WRITE,
+  READ_WRITE
 };
 class Var_Real_Bridge;
 class Var_Real_Read: public Var_Real
@@ -39,6 +42,10 @@ class Var_Real_Write: public Var_Real
      }
    // void OnCloudWrite(BlynkParam &param);
 };
+
+
+// ===============================================
+
 
 class Var_Real_Bridge: public Var_Real
 {
@@ -137,3 +144,5 @@ class Lab
     }
 
 };
+
+#endif

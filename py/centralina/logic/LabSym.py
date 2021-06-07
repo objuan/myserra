@@ -26,8 +26,8 @@ class LabSym:
         self.Log("=== SYM START ===")
         setSymMode(True)
         self.lab.distance_empty.set(30)
-        self.lab.ph.set(7)
-        self.lab.ec.set(600)
+        self.lab.ph.set(6)
+        self.lab.ec.set(2000)
         self.lab.temperature.set(19)
 
     ####################################
@@ -44,7 +44,22 @@ class LabSym:
         v = delta * (percent / 100)
         self.Log("[SYM] FILL DELTA EC", delta," with  ",v)
         self.lab.ec.set(self.lab.ec.get() +  v)
-        
+         
+    def fillPH(self,delta,percent):
+        v = delta * (percent / 100)
+        self.Log("[SYM] FILL DELTA PH ", delta," with  ",v)
+        self.lab.ph.set(self.lab.ph.get() +  v)
+       
+    def fillWater(self,litres):
+
+        distanceToDO = litres * 1000 / self.lab.area
+
+        self.Log("[SYM] FILL WATER  ", litres, " dist :" ,distanceToDO)
+        #L =  (self.distance_empty.get() * self.area) / 1000
+
+        self.lab.distance.set(distanceToDO)
+        self.lab.ec.set(self.lab.target_ec)
+
     def tick(self):
         #print("[SYM] ", self.state  ,  self.lab.fillPencent(),"%")
 

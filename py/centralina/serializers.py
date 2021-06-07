@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from centralina.models import Board ,Switch,SwitchType,Variable
+from centralina.models import *
 from datetime import datetime
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -56,6 +56,7 @@ class SwitchSerializer(serializers.ModelSerializer):
         instance.pin = validated_data.get('pin', instance.pin)
         #instance.on_hi = validated_data.get('on_hi', instance.on_hi)
         _switchType = validated_data.get('switchType')
+        instance.startupMode = validated_data.get('startupMode', instance.startupMode)
         #print(validated_data)
         #print(_switchType)
         #nn = s["name"]
@@ -70,7 +71,7 @@ class SwitchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Switch
-        fields = ['id','name','description','pin','state','switchType','pin_value']
+        fields = ['id','name','description','pin','state','switchType','pin_value','startupMode']
 
 
 class VariableSerializer(serializers.ModelSerializer):
@@ -109,3 +110,10 @@ class WaterAnalysis(models.Model):
     temperature = models.FloatField(default=0)
     time = models.DateTimeField(primary_key=True, default=datetime.now)
 '''
+
+
+class LabPumpCalibrateSerializer(serializers.ModelSerializer):
+ 
+    class Meta:
+        model = LabPumpCalibrate
+        fields = ['time','id','time_secs','filled_ml','ml_at_seconds']

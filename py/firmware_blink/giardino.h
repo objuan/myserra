@@ -36,6 +36,11 @@ class Giardino
       
         perimetrale_enable = manager.addVarBool(PERIMETRALE_ENABLE_VPIN,true,EPROM_GIARDINO_PERIMETRALE_ENABLE) ;
         scheduler= (Var_PERIMETRALE_SCHEDULING*) manager.Add(new Var_PERIMETRALE_SCHEDULING()) ;
+
+         #ifndef MEGA
+        scheduler-> time_da = 72000; // 6
+        scheduler->time_a = 72000 + 60*15; // 20
+#endif
     }
     
   

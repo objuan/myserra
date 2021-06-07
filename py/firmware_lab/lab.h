@@ -151,6 +151,7 @@ class Var_EC: public Var_Real
 
     void tickFast()
     {
+    
           static unsigned long analogSampleTimepoint = millis();
            if(millis()-analogSampleTimepoint > 40U)     //every 40 milliseconds,read the analog value from the ADC
            {
@@ -252,6 +253,8 @@ class Lab
   public:
     Lab(VirtualElementManager &manager)
     {
+     // return;
+      
       var_k = manager.addVarReal(LAB_EC_K_VPIN, 1,EPROM_LAB_EC_K);
     //  var_k->set(1.1);
       var_temperature = manager.addVarReal(LAB_EC_TEMPERATURE_VPIN);
@@ -266,6 +269,7 @@ class Lab
     }
 
     void LogicFast() {
+      //return;
         var_ec->tickFast();
         var_ph->tickFast();
     }
@@ -273,7 +277,7 @@ class Lab
   int i=0;
     void Logic() {
 
-      
+      // return;
       // GravityTDS &gravityTds = *_gravityTds;
       //  gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
       //  gravityTds.update();  //sample and calculate

@@ -12,11 +12,19 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
+_logicManager=None
+
+def GetLab():
+   global _logicManager
+   return _logicManager.lab
+
 class LogicManager:
    def __init__(self):
 
       self.chrono = Chrono()
       self.lab = Lab("lab1")
+      global _logicManager
+      _logicManager = self
 
       #########
 
@@ -29,7 +37,7 @@ class LogicManager:
       t.start() 
         
       ##### test
-      if True:
+      if False:
          self.lab.startSym()
          self.lab.setTarget(self.tank1,6,1000,10,10)
          self.lab.cmd_tank_analyze()
@@ -42,4 +50,4 @@ class LogicManager:
    def tick(self):
         while(self.ancora):
             self.lab.tick()
-            time.sleep(1)
+            time.sleep(0.1)

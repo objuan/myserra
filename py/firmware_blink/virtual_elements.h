@@ -64,6 +64,7 @@ public:
  #ifdef DEBUG_MODE
     if (serial==NULL)
         Error(F("serial null"));
+
 #endif
     
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
@@ -72,6 +73,8 @@ public:
         cmd.add_multi(values...);
         cmd.add(F("\n"));
         serial->write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+
+       // Debug(".. ",pin);
     }
    }
 
@@ -142,6 +145,7 @@ class Var_Bool : public VirtualElement_Bool
      virtual void OnCloudWrite(BlynkParam &param){
         value = param.asInt();
         Debug(F("ON SET BOOL "), pin , value);
+         cloudWrite(this->pin,this->value);
         if (EPROM_ADDRESS!=-1)
           EEPROM_Write(EPROM_ADDRESS,(byte)this->value);
     }
@@ -270,11 +274,12 @@ class Var_SCHEDULING : public Var_String
       }
 
      void OnCloudWrite(BlynkParam &param){
-      /*
+        return;
+        
         value = param.asString();
-
+        Debug("PARSE JSON:", value);
         // DynamicJsonDocument doc(1024);
-        StaticJsonDocument<400> doc;
+        StaticJsonDocument<MAX_RECEIVE_BUFFER*2> doc;
         DeserializationError error = deserializeJson(doc, value);
       
         // Test if parsing succeeds.
@@ -290,15 +295,19 @@ class Var_SCHEDULING : public Var_String
          String a_hh = doc["a"]["HH"];
          String a_mm = doc["a"]["mm"];
          
-         Debug("da_hh",da_hh);
+       
          time_da = TimeSpan(3600 *  da_hh.toInt() + 60 * da_mm.toInt());
          time_a = TimeSpan(3600 *  a_hh.toInt() + 60 * a_mm.toInt());
 
+        Debug("da",da_hh," ",da_mm);
+          Debug("a",a_hh," ",a_mm);
+
+  
         EEPROM_Write(eprom_da,(long)time_da.totalseconds ());
         EEPROM_Write(eprom_a,(long)time_a.totalseconds ());
 
         Debug(F("ON SCHEDULING "), pin,value,time_da.totalseconds (),time_a.totalseconds ()  );
-*/
+
     }
 };
 

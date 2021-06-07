@@ -35,6 +35,11 @@ class Leds
       
         enable = manager.addVarBool(LED_ENABLE_VPIN,true,EPROM_LED_ENABLE) ;
         scheduler= (Var_LED_SCHEDULING*)manager.Add(new Var_LED_SCHEDULING()) ;
+
+  #ifndef MEGA
+        scheduler-> time_da = 21600; // 6
+        scheduler->time_a = 72000; // 20
+#endif
     }
     
   
@@ -42,13 +47,15 @@ class Leds
     {
       if (enable->get())
       {   
-
+      
           DateTime now = currentDateTime();
           TimeSpan dayTime = TimeSpan(0,now.hour(), now.minute(),0);
 
           bool _isEnabled =  ( dayTime.totalseconds() >= scheduler->time_da.totalseconds ()
                         && dayTime.totalseconds() < scheduler->time_a.totalseconds ());
 
+  //Debug("k",dayTime.totalseconds()," ",scheduler->time_da.totalseconds ()," ",scheduler->time_a.totalseconds ());
+  
           if (_isEnabled!=isEnabled)
           {
             isEnabled=_isEnabled;

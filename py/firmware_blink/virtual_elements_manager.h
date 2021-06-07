@@ -9,7 +9,7 @@
 
 #include <MemoryFree.h>
 
-#define MAX_VARS 32
+#define MAX_VARS 36
 
 //extern char in_buffer[MAX_RECEIVE_BUFFER]; 
 class VirtualElementManager
@@ -97,7 +97,7 @@ public:
   
   VirtualElement* Add(VirtualElement *ele){
     if (count == MAX_VARS)
-      Error("TOO VARS");
+      Serial.println("TOO VARS");
      ele->serial=serial; 
      ele->fromWeb=fromWeb;
     list[count++] = ele;
@@ -236,8 +236,8 @@ public:
 
      // if (incomingByte == '\0') incomingByte= '|';
 
-      //if (id =="MAIN")
-      //  Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
+     // if (id =="MA")
+      ///Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
 
       if (incomingByte == 1) // end block
       {

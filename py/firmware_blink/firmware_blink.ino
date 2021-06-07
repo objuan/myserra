@@ -5,13 +5,13 @@
 
 // -----------
 
-#define MEGA
+//#define MEGA
 #define CENTRALINA
-#define TIME
+//#define TIME
 
 // -----------
-//##define LAB
-//#define TIME
+//#define LAB
+#define TIME
 
 #ifdef LAB
 #include <SoftwareSerial.h>
@@ -37,13 +37,14 @@ unsigned long resetMills;
 
 #ifdef LAB
 #include "lab.h"
+#include "pumps.h"
 #endif
 
 byte WaterFlowSensor::_pulseCount[3];
 int WaterFlowSensor::_pulseIndex;
 
 
-VirtualElementManager manager("MAIN", &Serial,true);
+VirtualElementManager manager("MA", &Serial,true);
 VirtualElementManager *manager_lab;
 char mem_send[BLYNK_MAX_SENDBYTES];
 //char in_buffer[MAX_RECEIVE_BUFFER]; 
@@ -57,13 +58,14 @@ Leds *leds=NULL;
 
 #ifdef LAB
 Lab *lab=NULL;
+Pumps *pumps=NULL;
 #endif
-WaterFlowSensor *s1;
-SolenoidValve *v1;
+//WaterFlowSensor *s1;
+//SolenoidValve *v1;
 
 //#define DATETIME_ACTUAL_VPIN  120
 #define DATETIME_SET_VPIN  121
-#define LAB_SYNC_VPIN 135
+#define LAB_SYNC_VPIN 1
 
 //===================================
 
@@ -129,6 +131,7 @@ void setup() {
 
  #ifdef LAB
     lab = new Lab(manager,*manager_lab);
+    pumps = new Pumps(manager,*manager_lab);
  #endif
 
     // date
@@ -175,7 +178,7 @@ void loop()
   //return;
   clock_time=millis();
 
-  
+  // cloudWrite(LabSerial,1,"pippo");
   if (clock_time - last_time1> 10000)
   {
      last_time1 = clock_time;
@@ -186,6 +189,11 @@ void loop()
     COMMAND(F("MEMORY "),freeMemory());
     COMMAND(F("RUN_TIME "),clock_time);
     COMMAND(F("DATE "),now.timestamp(DateTime::timestampOpt::TIMESTAMP_FULL));
+    #endif
+    //cloudWrite(LabSerial,1,"pippo");
+    # ifdef LAB
+    //SCOMMAND(LabSerial,F("RUN_TIME "),clock_time);
+     cloudWrite(LabSerial,LAB_SYNC_VPIN,clock_time);
     #endif
   }
   

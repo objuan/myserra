@@ -3,7 +3,7 @@ import abc
 import logging
 import traceback
 logger = logging.getLogger(__name__)
-from ..models import Board,Switch,SwitchType,Variable,LabLog
+from ..models import *
 from enum import Enum
 from datetime import datetime
 
@@ -28,6 +28,7 @@ class ProxySwitch:
         #print ( self.var)
         self.sw.board.get_controller().register_sw(self.sw.id,self.onWrite)
         self.name = self.sw.name
+        self.id=sw_id
         if (self.sw.state == "open"):
                 self.state = SWState.OPEN
         else:
@@ -40,12 +41,12 @@ class ProxySwitch:
         return self.state == SWState.OPEN
 
     def open(self):
-        self.state=SWState.OPEN
+        #self.state=SWState.OPEN
         print("SW ", self.sw.name,self.state)
         if (not lab_symmode):
                 self.sw.command("open" )
     def close(self):
-        self.state=SWState.CLOSE
+        #self.state=SWState.CLOSE
         print("SW ", self.sw.name, self.state)
         if (not lab_symmode):
                 self.sw.command("close" )
@@ -64,6 +65,12 @@ class ProxySwitch:
 class Pump(ProxySwitch):
     def __init__(self,sw_id):
         ProxySwitch.__init__(self, sw_id) 
+        try:
+            self.calib = LabPumpCalibrate.objects.get(id=sw_id)
+        except:
+            logger.error("calib not found "+str( sw_id))
+            self.calib = LabPumpCalibrate()
+
     def __str__(self):
         return "PUMP " +self.name
 
@@ -89,7 +96,7 @@ class ProxyVar:
     ## FROM ARDUINO
     def onWrite(self,value):
         if (not lab_symmode):
-            print(">>SET ", self.var.name, value)
+            #print(">>SET ", self.var.name, value)
             self.value = value
             
 class ECMeter:
@@ -206,11 +213,17 @@ class StateMachine(metaclass=abc.ABCMeta):
         pass
   
     def Log(self,*args):
-        LabDebug("[STA " + self.name  +  "]" , args)
+        LabDebug("[STA " + self.name  +  "]" , *args)
+    def Debug(self,*args):
+        LabDebug("[STA " + self.name  +  "]" , *args)
 
     def pushAction(self , action):
         #self.Log("Add",action.name)
         self.actions.append(action)
+
+    def insertAction(self , action):
+        #self.Log("Add",action.name)
+        self.actions.insert(0,action)
 
     def cmd_wait(self,seconds,onEnd=None):
         self.pushAction( Action("WAIT",seconds))
@@ -225,6 +238,9 @@ class StateMachine(metaclass=abc.ABCMeta):
         self.cmd_open(pump)
         self.cmd_wait( seconds)
         self.cmd_close(pump)
+
+    def cmd_open_millilitres(self,pump,ml):
+        self.cmd_open_ms(pump,ml / pump.calib.ml_at_seconds)
 
     #######################
  
@@ -244,11 +260,11 @@ class StateMachine(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     def execute(self,action):
-        self.Log("Execute sub " ,action.name)
+        #self.Log("Execute sub " ,action.name)
 
         if (action.name== "WAIT"):
             self.Log("WAITING ",action.value)
-            self.waitingTime = action.value
+            self.waitingTime = float(action.value)
             self.waitingStart = datetime.now()
             #self.setState("WAITING")
         elif (action.name== "OPEN"):
@@ -265,7 +281,7 @@ class StateMachine(metaclass=abc.ABCMeta):
 
     ### end action
     def end(self,action):
-        self.Log("End " , action.__str__())
+        self.Debug("End " , action.__str__())
         #self.setState("IDDLE")
         self.current_action =None
 

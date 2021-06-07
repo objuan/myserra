@@ -1,3 +1,3 @@
 from .LogicManager import * 
 
-__all__ = ['LogicManager']
+__all__ = ['LogicManager','GetLab']

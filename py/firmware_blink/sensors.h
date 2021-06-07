@@ -50,19 +50,25 @@ public:
    void start(){
      pinMode(arduino_pin, OUTPUT);
      digitalWrite(arduino_pin, SOLENOID_OFF);
+     value=0;
    }
-   
-   
+
    void Open(){
       Debug("SolenoidValve Open ",pin, " ",arduino_pin);
       digitalWrite(arduino_pin, SOLENOID_ON);
+      value=1;
       cloudWrite(this->pin,1);    
    }
+   
    void Close(){
     Debug("SolenoidValve Close ",pin, " ",arduino_pin);
       digitalWrite(arduino_pin, SOLENOID_OFF);
+      value=0;
       cloudWrite(this->pin,0);    
    }
+   void OnCloudAskValue(){
+        cloudWrite(this->pin,value);
+    }
    void OnCloudWrite(BlynkParam &param){
          //Debug("OnCloudWrite", param.asInt());
          if (param.asInt()==1)
@@ -91,16 +97,21 @@ public:
    }
     void start(){
        pinMode(arduino_pin, OUTPUT);
+       value=0;
     }
-    
+   void OnCloudAskValue(){
+        cloudWrite(this->pin,value);
+    }
    void OnCloudWrite(BlynkParam &param){
          if (param.asInt()==1)
          {
             digitalWrite(arduino_pin, RELE_ON);
+             value=1;
             Debug("Pump " ,pin, "ON");
          }
          else
          {
+           value=0;
             digitalWrite(arduino_pin, RELE_OFF);
             Debug("Pump " ,pin, "OFF");
          }

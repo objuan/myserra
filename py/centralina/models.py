@@ -98,6 +98,16 @@ class Switch(models.Model):
     )
     pin_value = models.BooleanField(default=False)
 
+    class StartupMode(models.TextChoices):
+        DB = 'db', _('Db')
+        HARDWARE = 'hw', _('Hardware')
+
+    startupMode = models.CharField(
+        max_length=2,
+        choices=StartupMode.choices,
+        default=StartupMode.HARDWARE
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #print ("board",self.board)
@@ -350,6 +360,33 @@ class LabAI(models.Model):
     target_value =models.FloatField(default=0)
     final_value =models.FloatField(default=0)
     value_to_ml_factor =models.FloatField(default=0)
+
+class LabPumpCalibrate(models.Model):
+    time = models.DateTimeField(primary_key=True, default=datetime.now)
+    id=models.IntegerField(default=0)
+    time_secs=models.IntegerField(default=0)
+    filled_ml=models.IntegerField(default=0)
+    # calcolato
+    ml_at_seconds=models.FloatField(default=0)
+
+
+class WaterAdditive(models.Model):
+    name=models.CharField(max_length=20)
+    description=models.CharField(max_length=50)
+
+    class WaterAdditiveType(models.TextChoices):
+        PH_DOWN = 'PH_DOWN'
+        PH_UP= 'PH_UP'
+        FERTILIZER = 'FERTILIZER'
+        WATER_WELL = 'WATER_WELL'
+        WATER_OSMOTIC = 'WATER_OSMOTIC'
+    
+    additiveType = models.CharField(
+        max_length=15,
+        choices=WaterAdditiveType.choices,
+        default=WaterAdditiveType.PH_DOWN
+    )
+
 
   
   

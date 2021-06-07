@@ -59,7 +59,7 @@ public:
       cloudWrite(this->pin,1);    
    }
    void Close(){
-    Debug("SolenoidValve Close ",pin, " ",arduino_pin);
+      Debug("SolenoidValve Close ",pin, " ",arduino_pin);
       digitalWrite(arduino_pin, SOLENOID_OFF);
       cloudWrite(this->pin,0);    
    }
@@ -68,13 +68,15 @@ public:
          if (param.asInt()==1)
          {
             digitalWrite(arduino_pin, SOLENOID_ON);
-            Debug("SolenoidValve " ,pin, "ON");
+            Debug("SolenoidValve " ,pin , "ON p:" , arduino_pin);
          }
          else
          {
             digitalWrite(arduino_pin, SOLENOID_OFF);
-            Debug("SolenoidValve " ,pin, "OFF");
+            Debug("SolenoidValve " ,pin , "OFF p:", arduino_pin);
          }
+
+          //cloudWrite(this->pin,param.asInt());    
     }
 };
 

@@ -338,13 +338,17 @@ void EEPROM_Write(int p_address, float value)
         EEPROM.write(p_address++, *p++);
 }
 
-float EEPROM_ReadFloat(int p_address)
+float EEPROM_ReadFloat(int _p_address)
 {
+    int p_address = _p_address;
     float  value = 0.0;
     byte* p = (byte*)(void*)&value;
     for (int i = 0; i < sizeof(value); i++)
         *p++ = EEPROM.read(p_address++);
-    Log(F("Load ROM "), p_address,"=",value);
+    if (value<= -9999 ||  value > 9999)
+      value=0;
+    
+    Log(F("Load ROM "), _p_address,"=",value);
     return value;
 }
 #endif

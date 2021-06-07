@@ -22,7 +22,7 @@
                             address win
                          </td>
                         
-                         <td><b-form-input  v-model="board.usb_address_usb" placeholder="Address WIN" type="text"></b-form-input>
+                         <td><b-form-input  v-model="board.usb_address_win" placeholder="Address WIN" type="text"></b-form-input>
                          </td>
                          <td>
                             address lx
@@ -49,6 +49,7 @@
                         <td  v-if="!compact">desc</td>
                         <td>pin</td>
                         <td  v-if="!compact">type</td>
+                        <td  v-if="!compact">startup</td>
                         <td>state</td>
                         <td></td>
                         <td></td>
@@ -71,6 +72,9 @@
                                 <b-dropdown-item  @click="onSelectType(sw,s)" v-for="(s, index) in switch_type_list" :key="index" 
                                         >{{s.name}}</b-dropdown-item>
                                 </b-dropdown>
+                       </td>
+                        <td  v-if="!compact">
+                             <b-form-select v-model="sw.startupMode" :options="['db','hw']"></b-form-select>
                        </td>
                        <td class="static">
                               <p style="width: 8rem;" v-bind:class="{ 'bg-success': sw.state=='open', 'bg-danger':  sw.state!='open'} ">
@@ -97,6 +101,7 @@
     import axios from 'axios';
     import Vue from 'vue'
     import VarList from './VarList.vue'
+     import {RegisterSwitch} from './common'
 
     export default {
         name: "Board",
@@ -119,7 +124,6 @@
             return {
                 switch_list: [],
                 switch_type_list: [],
-                selected_switch : {},
             };
         },
         watch: {
@@ -132,7 +136,7 @@
                 }
         },
         methods: {
-              connect_event: function() {
+              /*connect_event: function() {
                     var self=this;
                     var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
                     
@@ -144,9 +148,12 @@
                         {
                             console.log( e.data);
                             let idx = self.switch_list.findIndex((x) => x.id === sw.id) ;
-                             console.log(  self.switch_list[idx].name);
-                            self.switch_list[idx].state = sw.state;
-                            self.switch_list[idx].pin_value = sw.pin_value;
+                            if (idx!=-1)
+                            {
+                                console.log( self.switch_list[idx].name);
+                                self.switch_list[idx].state = sw.state;
+                                self.switch_list[idx].pin_value = sw.pin_value;
+                            }
                         }
                     };
 
@@ -160,15 +167,31 @@
                         ws.close();
                     };
             },
-
+*/
             load: function() {
-                //console.log(this.board);
-                this.connect_event();
-
+                console.log("Load",this.board);
+                //this.connect_event();
+                var self=this;
                 axios.get('/api/board_switchs/'+this.board.id).then(
                     response => {
-                    this.switch_list = response.data;
-                    this.selected_switch = this.switch_list[0];
+                        this.switch_list = response.data;
+
+                        console.log("Load",this.switch_list );
+
+                        for(var i=0;i<this.switch_list.length;i++)
+                         {
+                              RegisterSwitch(this.switch_list[i].id, function(v) {
+                                    //console.log( "var", e.data);
+                                  
+                                    console.log(v);
+                                    let idx = self.switch_list.findIndex((x) => x.id === v.id) ;
+
+                                    console.log("sw", idx, self.switch_list,v);
+                                     if (idx!=-1)
+                                       self.switch_list[idx].value = v.value;
+                                });
+
+                         }
                     }
                 );
               axios.get('/api/switchType/').then(
@@ -216,7 +239,7 @@
                         console.log(idx,response.data);
                     }
              );
-               // selected_switch = value;
+ 
             },
             onSelectType: function(sw,sw_type) {
                     console.log ("select" , sw,sw_type);

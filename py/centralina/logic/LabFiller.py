@@ -23,10 +23,14 @@ class LabFiller(StateMachine):
         self.ec_in = [Pump(LAB_EC_IN_A),Pump(LAB_EC_IN_B)]
         self.ph_in = Pump(LAB_PH_IN)
         self.mixer = Pump(LAB_MIX_PUNP)
+        self.water_in = Pump(LAB_WATER_IN)
+
         pass
 
     def Log(self,*args):
         LabInfo("[LAB "+ self.name  +  "]" ,*args)
+    def Debug(self,*args):
+        LabDebug("[LAB "+ self.name  +  "]" ,*args)
 
     def exit(self):
         self.end(self.current_action)
@@ -51,45 +55,76 @@ class LabFiller(StateMachine):
         min = self.lab.target_ph - (self.lab.target_ph * self.lab.ph_tolerance_perc) / 100
         max = self.lab.target_ph + (self.lab.target_ph * self.lab.ph_tolerance_perc) / 100
         self.Log("Check PH", self.lab.currentAnalysis.ph," [", min,"-",max,"]")
-        return self.lab.currentAnalysis.ph < min # or self.lab.currentAnalysis.ph > max
+        return self.lab.currentAnalysis.ph > max # or self.lab.currentAnalysis.ph > max
+
+    def addWater(self):
+        if (self.needWaterFill()):
+            
+            litres = self.lab.ia.getAddWater()
+
+            self.Log("FILL WATER", " litres:" , litres)
+
+            #self.cmd_open_ms(self.ph_in, litres* LAB_PUMP_6MM_ML_PER_SECONDS)
+            #self.cmd_open_ms(self.mixer, LAB_MIXER_TIME_SECS)
+
+            try:
+                self.lab.sym.fillWater(litres)
+            except AttributeError:
+                pass
+
+            #recursion, at begin
+            self.insertAction(Action(LabFillerAction.WATER_ADD))
+            #self.cmd_water_add()
+        else:
+            self.end(self.current_action) #non exit
+#
 
     def addEC(self):
         if (self.needECFill()):
-            #while self.needECFill():
-            litres = self.lab.litres()
-            ec_delta =  self.lab.target_ec - self.lab.currentAnalysis.ec
-            self.Log("sync EC", self.lab.currentAnalysis.ec," TARGET", self.lab.target_ec," Lt:",litres, " delta:",ec_delta)
             #compute
-            # X : ec_delta = LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML : 1000
-
             comp_ml_list = self.lab.ia.getAddEC()
-            '''
-            ec_1000_per_litro = (ec_delta * LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML) / 1000
-            ml_a = ec_1000_per_litro * litres 
-
-            ec_1000_per_litro = (ec_delta * LAB_ATAMI_EC_B_1000_X_LITRO_IN_ML) / 1000
-            ml_b = ec_1000_per_litro * litres 
-            '''
 
             self.Log("FILL EC", "A ml:" , comp_ml_list[0]," B ml:",comp_ml_list[1])
 
             ## ACTIONS #####
             for index,com_ml in enumerate(comp_ml_list):
-                self.cmd_open_ms(self.ec_in[index], com_ml* LAB_PUMP_6MM_ML_PER_SECONDS)
+                self.cmd_open_millilitres(self.ec_in[index], com_ml)
                 self.cmd_open_ms(self.mixer, LAB_MIXER_TIME_SECS)
 
             try:
+                ec_delta =  self.lab.target_ec - self.lab.currentAnalysis.ec
                 self.lab.sym.fillEC(ec_delta,50)
             except AttributeError:
                 pass
 
             #recursion
-            self.cmd_ec_add()
+            self.insertAction(Action(LabFillerAction.EC_ADD))
         else:
             self.exit()
-            #pass
 
+    def addPH(self):
+        if (self.needPHFill()):
+            #compute
+            ph_ml = self.lab.ia.getAddPH()
 
+            self.Log("FILL PH", ph_ml)
+
+            ## ACTIONS #####
+            self.cmd_open_millilitres(self.ph_in, ph_ml)
+            self.cmd_open_ms(self.mixer, LAB_MIXER_TIME_SECS)
+
+            try:
+                ph_delta =  self.lab.target_ph - self.lab.currentAnalysis.ph
+                self.lab.sym.fillPH(ph_delta,50)
+            except AttributeError:
+                pass
+
+            #recursion
+            #self.cmd_ph_add()
+            self.insertAction(Action(LabFillerAction.PH_ADD))
+        else:
+            self.exit()
+            
     ######## LOW LEVEL ######
 
     def cmd_ec_add(self):
@@ -105,22 +140,60 @@ class LabFiller(StateMachine):
 
     def syncEC(self,endHandler):
         self.endHandler=endHandler
+        self.cmd_water_add()
         self.cmd_ec_add()
         pass
 
+    def syncPH(self,endHandler):
+        self.endHandler=endHandler
+        self.cmd_ph_add()
+        pass
     
      ######### VIRTUALS ####
 
     def onExecute(self, action: Action):
 
-        self.Log("Execute " , action)
+        self.Debug("Execute " , action)
         if (action.name == LabFillerAction.EC_ADD):
             self.end(action)
             self.addEC()
-           
+        elif (action.name == LabFillerAction.PH_ADD):
+            self.end(action)
+            self.addPH()
+        elif (action.name == LabFillerAction.WATER_ADD):
+            self.end(action)
+            self.addWater()
+
     def onTickAction(self, action: Action):
         pass
 
     def onTick(self):
         pass
     
+    ################### CALIBRATE
+
+    def pumpById(self,id):
+        if (id == self.ec_in[0].id):
+            return self.ec_in[0] 
+        if (id == self.ec_in[1].id):
+            return self.ec_in [1]
+        if (id == self.ph_in.id):
+            return self.ph_in 
+
+    def calibrate(self,data):
+        self.Log(" CALIBRATE", data)
+        pump = self.pumpById(data['id'])
+      
+        seconds = data['time_secs']
+        self.Log(" pump", pump,seconds)
+
+        self.cmd_open_ms(pump, seconds)
+
+    def test_time_pump(self,data):
+        
+        pump = self.pumpById(data['id'])
+        ml = int(data['calib_test_ml'])
+
+        self.Log("TEST TIME PUMP", pump.name , "ml:", ml)
+
+        self.cmd_open_millilitres(pump,ml)

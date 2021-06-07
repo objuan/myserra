@@ -63,6 +63,7 @@
 
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {StartVar,StartSwitch} from './components/common'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -136,6 +137,9 @@ export default {
   created() {
     
     this.connect_event();
+ 
+    StartVar();
+    StartSwitch();
   },
 }
 // =======

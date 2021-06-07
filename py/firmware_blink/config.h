@@ -3,7 +3,11 @@
 #define Config_
 
 #define DEBUG_MODE
+#ifdef MEGA
 #define MAX_RECEIVE_BUFFER 128
+#else
+#define MAX_RECEIVE_BUFFER 64
+#endif
 
 // SWITCHS
 #ifdef MEGA
@@ -31,17 +35,14 @@
   #define LAB_TEMPERATURE_PIN 2
     #define LAB_PH_SENSOR_PIN A0
 
-#else
-  #define OSMOTICA_TOP_SWITCH_PIN  4  // interruttore acqua piena
-  #define OSMOTICA_FILL_SWITCH_PIN  5  // interruttore inizzio acqua piena
-  #define OSMOTICA_DANGER_SWITCH_PIN  6  // interruttore acqua bassa per pompa
+#else // UNO
+  #define OSMOTICA_TOP_SWITCH_PIN  5  // interruttore acqua piena
+  #define OSMOTICA_FILL_SWITCH_PIN  6  // interruttore inizzio acqua piena
+  #define OSMOTICA_DANGER_SWITCH_PIN  7  // interruttore acqua bassa per pompa
   
   // eletrovalvola ingresso acqua
-  #define OSMOTICA_WATER_IN_SOLENOID_PIN 7   // eletrovalvola acqua in ingresso 
-  #define OSMOTICA_WATER_OUT_RELE_PIN  9    //   rele pompa di uscita
-
-  //POZZO
-  #define POZZO_SOLENOID_PIN 8
+  #define OSMOTICA_WATER_IN_SOLENOID_PIN 8   // eletrovalvola acqua in ingresso 
+  #define OSMOTICA_WATER_OUT_RELE_PIN 9   //   rele pompa di uscita
 
   // LEDS
   #define LEDS_SOLENOID_PIN 10
@@ -49,6 +50,9 @@
    // GIARDINO
   #define PERIMETRALE_SOLENOID_PIN 11
 
+  //POZZO
+  #define POZZO_SOLENOID_PIN 12
+  
   // lab 
 
   #define LAB_EC_SENSOR_PIN A1

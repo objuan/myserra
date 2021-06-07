@@ -84,7 +84,16 @@ void Debug(Args... values) {
          cmd.add(F("\n"));
         Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
     }
-        
+    template <typename... Args>
+    void SCOMMAND(Stream &serial,Args... values) {
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
+         cmd.add(F("CMD"));
+        cmd.add_multi(values...);
+         cmd.add(F("\n"));
+        serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+    }
+
+             
 //#define CLOUD_ON_WRITE(pin)      VIRTUAL_WRITE_2(pin)
 //#define CLOUD_ASK_VALUE(pin)       VIRTUAL_READ_2(pin)
 

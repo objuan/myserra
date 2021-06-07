@@ -59,20 +59,9 @@
 
     export default {
         name: "timedswitch",
-        props: {
-             vswitch: {
-                type: Number,
-                required: true,
-            },
-            venable: {
-                type: Number,
-                required: true,
-            },
-             vscheduler: {
-                type: Number,
-                required: true,
-            },
-        },
+        props: ['vswitch','venable','vscheduler']
+           
+        ,
         
         components: {
                 VueTimepicker 

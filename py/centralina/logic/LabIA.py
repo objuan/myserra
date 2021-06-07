@@ -62,3 +62,38 @@ class LabIA:
 
         return ret
         #self.Log("FILL EC", "A ml:" , ml_a," B ml:",ml_b)
+
+    def getAddPH(self):
+
+        litres = self.lab.litres()
+        ph_delta =  self.lab.target_ph - self.lab.currentAnalysis.ph
+        self.Log("sync PH", self.lab.currentAnalysis.ph," TARGET", self.lab.target_ph," Lt:",litres, " delta:",ph_delta)
+        
+       
+         #compute
+        # X : ec_delta = LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML : 1000
+        ph_1_per_litro = (ph_delta * LAB_PH_DOWN_1_ML_PER_LITRES / 1000) 
+            #ec_1000_per_litro = (ec_delta * LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML) / 1000
+            #ml_a = ec_1000_per_litro * litres 
+        ml = ph_1_per_litro * litres 
+
+        self.Log("PH ","ph.fact:",ph_1_per_litro,"  ml:",ml)
+
+        return ml
+
+    def getAddWater(self):
+ 
+        litres = self.lab.litres()
+        ec_delta =    self.lab.currentAnalysis.ec-self.lab.target_ec
+        self.Log("sync EC WATER", self.lab.currentAnalysis.ec," TARGET", self.lab.target_ec," Lt:",litres, " delta:",ec_delta)
+         
+         #compute
+        # X : ec_delta = LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML : 1000
+        factor = (ec_delta * LAB_WATER_EC_1000_X_LITRO_IN_LITRES / 1000) 
+            #ec_1000_per_litro = (ec_delta * LAB_ATAMI_EC_A_1000_X_LITRO_IN_ML) / 1000
+            #ml_a = ec_1000_per_litro * litres 
+        litersToAdd = factor * litres 
+
+        self.Log("WATER ","water.fact:",factor,"  litersToAdd:",litersToAdd)
+
+        return litersToAdd

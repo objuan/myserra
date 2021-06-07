@@ -112,7 +112,7 @@ public:
 
  void Process(char *buffer,int len)
  { 
-        // Debug(id,"<<" , buffer,len);
+         Debug(id,"<<" , buffer,len);
 
 
        // if ( str.endsWith("\n"))
@@ -139,7 +139,7 @@ public:
                 else num[num_len++] = buffer[i] ;
                 
              }
-              Debug("idx" , i );
+             // Debug("idx" , i );
             // return;
             
               num[num_len] = '\0';
@@ -184,7 +184,7 @@ public:
            // GetVWriteHandler(pin)(req,pars);
             
           }
-          if (buffer[0] == 'v' && buffer[1] == 'r')
+          else if (buffer[0] == 'v' && buffer[1] == 'r')
           {
             
               char num[4];
@@ -192,9 +192,9 @@ public:
               
              //Debug("<<" , str);
              int i = -1;
-             for( i=3;i<len;i++)
+            for( i=3;i<len;i++)
              {
-                if (buffer[i] == 32) break;
+                if (buffer[i] == 32 || buffer[i] == 0 ) break;
                 else num[num_len++] = buffer[i] ;
                 
              }
@@ -217,6 +217,8 @@ public:
           
             
           }
+          else 
+            Serial.println(buffer);
       
    
   
@@ -235,7 +237,7 @@ public:
 
      // if (incomingByte == '\0') incomingByte= '|';
      
-    //  Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
+      //Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
 
       if (incomingByte == '\n')
       {

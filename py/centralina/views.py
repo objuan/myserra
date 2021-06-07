@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from .models import Board,Switch,SwitchType,Variable
+from .models import *
 from django.http import HttpResponse, JsonResponse
-from centralina.serializers import BoardSerializer,SwitchSerializer,SwitchTypeSerializer,VariableSerializer
+from centralina.serializers import *
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+from .logic import *
 #from django_socketio import events
 
 from .runtime_service import BoardManager
@@ -314,3 +315,49 @@ def var_manage(request, pk):
     else:
         return HttpResponse(status=404)
 
+
+@csrf_exempt
+def lab_manage(request, cmd):
+    print ("lab "+str(cmd))
+   
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        print("post ",data)
+        print (GetLab())
+        GetLab().command(cmd,data)
+        return HttpResponse('')
+
+
+@csrf_exempt
+def switch_calibrate(request, pk):
+    #print ('ddddddd',pk)
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        cal = LabPumpCalibrate.objects.get(id=pk)
+    except LabPumpCalibrate.DoesNotExist:
+        cal = LabPumpCalibrate()
+        cal.id = pk
+        #return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = LabPumpCalibrateSerializer(cal)
+        return JsonResponse(serializer.data)
+
+    if request.method == 'PUT': #save
+        print("put")
+        data = JSONParser().parse(request)
+        print("put ",data)
+
+        cal.time_secs =  data['time_secs']
+        cal.filled_ml =  data['filled_ml']
+        cal.ml_at_seconds =  float(cal.filled_ml)  /  float(cal.time_secs )
+        cal.save()
+        #c = LabPumpCalibrate()
+        # c.id = 
+
+        return HttpResponse('')
+
+    else:
+        return HttpResponse(status=404)

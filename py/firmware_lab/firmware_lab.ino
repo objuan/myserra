@@ -12,17 +12,33 @@ SoftwareSerial LabSerial(LAB_SERIAL_RX,LAB_SERIAL_TX); // RX, TX
 
 #include "virtual_elements_manager.h"
 #include "lab.h"
+#include "pumps.h"
 VirtualElementManager *manager;
 
 char mem_send[BLYNK_MAX_SENDBYTES];
 char in_buffer[MAX_RECEIVE_BUFFER]; 
 
 Lab *lab=NULL;
+Pumps *pumps=NULL;
+
 int i_time=0;
 unsigned long last_time=0;
 unsigned long clock_time=0;
 unsigned long last_time1=0;
-#define LAB_SYNC_VPIN 135
+#define LAB_SYNC_VPIN 1
+
+class Var_LabSync: public Var_String
+{
+  public:
+
+     Var_LabSync() : Var_String(LAB_SYNC_VPIN){}
+
+     void OnCloudWrite(BlynkParam &param){
+        value = param.asString();
+        Debug(F("ON LAB SYNC "), pin , " ",value);
+
+    }
+};
 
 void setup(void)
 { 
@@ -36,14 +52,17 @@ void setup(void)
   // Wire.begin();
 
      lab = new Lab(*manager);
+     pumps = new Pumps(*manager);
 
+    manager->Add(new Var_LabSync());
+  
     COMMAND(F("STARTUP"));
 }
 
 void loop(void)
 {
    clock_time=millis();
-
+  
   if (clock_time - last_time1> 10000)
   {
       last_time1 = clock_time;
@@ -60,6 +79,7 @@ void loop(void)
 
     if (lab!=NULL)
      lab->Logic();
+     pumps->Logic();
 
      i_time++;
   }

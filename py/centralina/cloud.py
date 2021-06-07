@@ -51,7 +51,7 @@ class VirtualPin:
 
     def set(self,val):
         self.value=val
-        #print ("[SET] " + str(self.pin) +"="+self.value)
+        logger.debug ("[SET] " + str(self.pin) +"="+self.value)
 
     #
     def read(self,client):
@@ -339,7 +339,7 @@ class ArduinoClient:
                             #i = line.index(self.end_param,3)
                             #pin = int(line[3:i])
                             pin = int(args[1])
-                            #print ("pin = " + str(pin))
+                            #print ("wv pin = " + str(pin))
                             #if (self.isReady):
                             self.memory.set(self,pin,args[2].rstrip())
 
@@ -363,7 +363,7 @@ class ArduinoClient:
                                       Time_Event("DATE",str(args[1]))
                             else:
                                 pass
-                                #logger.info(line)
+                                logger.debug(line)
             
             except serial.SerialException as e:
                 self.isOpen=False

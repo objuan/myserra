@@ -5,6 +5,7 @@ from . import ws_service
 
 websocket_urlpatterns = [
     re_path(r'ws/log/', ws_service.LogConsumer.as_asgi()),
+    re_path(r'ws/lablog/', ws_service.LabLogConsumer.as_asgi()),
     re_path(r'ws/connection/', ws_service.ConnectionConsumer.as_asgi()),
     re_path(r'ws/switch/', ws_service.SWEventConsumer.as_asgi()),
     re_path(r'ws/var/', ws_service.VarEventConsumer.as_asgi()),

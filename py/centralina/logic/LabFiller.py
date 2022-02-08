@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 class LabFillerAction(Enum):
      EC_ADD = 'EC_ADD'
      PH_ADD = 'PH_ADD'
-     WATER_ADD = 'WATER_ADD'
+     WATER_ADD = 'WATER_ADD',
+     CALIB_WEIGHT_START = 'CALIB_WEIGHT_START',
+     CALIB_WEIGHT_END = 'CALIB_WEIGHT_END'
 
 class LabFiller(StateMachine):
   
@@ -20,7 +22,7 @@ class LabFiller(StateMachine):
         StateMachine.__init__(self,lab.name+"_FIL")
         self.lab=lab
         self.endHandler=None
-        self.ec_in = [Pump(LAB_EC_IN_A),Pump(LAB_EC_IN_B)]
+        self.ec_in = [PumpWeight(LAB_EC_IN_A,LAB_EC_IN_A_WEIGHT),Pump(LAB_EC_IN_B)]
         self.ph_in = Pump(LAB_PH_IN)
         self.mixer = Pump(LAB_MIX_PUNP)
         self.water_in = Pump(LAB_WATER_IN)
@@ -136,6 +138,12 @@ class LabFiller(StateMachine):
     def cmd_water_add(self):
         self.pushAction(Action(LabFillerAction.WATER_ADD))
 
+    def cmd_calib_weight_start(self,pump):
+        self.pushAction(Action(LabFillerAction.CALIB_WEIGHT_START,pump))
+        
+    def cmd_calib_weight_end(self,pump):
+        self.pushAction(Action(LabFillerAction.CALIB_WEIGHT_END,pump))
+
     ######## HI LEVEL ########
 
     def syncEC(self,endHandler):
@@ -163,6 +171,23 @@ class LabFiller(StateMachine):
         elif (action.name == LabFillerAction.WATER_ADD):
             self.end(action)
             self.addWater()
+        elif (action.name == LabFillerAction.CALIB_WEIGHT_START):
+            self.end(action)
+            args = action.value
+            weight = args[0].weight.value
+            self.Log("weight calib.. END start weight: " ,weight+ "gr")
+            args[0].calib.filled_gr_start = float(weight) - float(args[1])
+            #print(args[0].calib)
+            args[0].calib.save()
+        elif (action.name == LabFillerAction.CALIB_WEIGHT_END):
+            self.end(action)
+            args = action.value
+            weight = args[0].weight.value
+            self.Log("weight calib.. END weight: " ,weight+ "gr")
+            args[0].calib.filled_gr_end = float(weight) - float(args[1])
+            args[0].calib.gr_at_seconds =  float( args[0].calib.filled_gr_end)  /  float(args[2] )
+            #print(args[0].calib)
+            args[0].calib.save()
 
     def onTickAction(self, action: Action):
         pass
@@ -183,11 +208,20 @@ class LabFiller(StateMachine):
     def calibrate(self,data):
         self.Log(" CALIBRATE", data)
         pump = self.pumpById(data['id'])
-      
+
         seconds = data['time_secs']
         self.Log(" pump", pump,seconds)
 
-        self.cmd_open_ms(pump, seconds)
+        if (pump.calib.calibrateType =="TIME"):
+            self.cmd_open_ms(pump, seconds)
+        else:
+        
+           self.Log("weight calib.. start weight: " , pump.weight.value+ "gr")
+           self.cmd_open_ms(pump, seconds)
+           self.cmd_calib_weight_start([pump, pump.weight.value,seconds])
+           self.cmd_wait(10) ## acqua tirna giù
+           self.cmd_calib_weight_end([pump, pump.weight.value,seconds])
+
 
     def test_time_pump(self,data):
         
@@ -195,5 +229,6 @@ class LabFiller(StateMachine):
         ml = int(data['calib_test_ml'])
 
         self.Log("TEST TIME PUMP", pump.name , "ml:", ml)
-
         self.cmd_open_millilitres(pump,ml)
+      
+

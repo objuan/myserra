@@ -96,7 +96,7 @@
     import axios from 'axios';
      import {RegisterVar} from './common'
     //import Vue from 'vue'
-
+  
 
     export default {
         name: "Vars",
@@ -143,16 +143,16 @@
                     response => {
                        
                          this.var_list = response.data;
-                         console.log("vars",this.var_list )
+                         //console.log("vars",this.var_list )
                          for(var i=0;i<this.var_list.length;i++)
                          {
                               RegisterVar(this.var_list[i].id, function(v) {
                                     //console.log( "var", e.data);
                                   
-                                    console.log(v);
+                                    //console.log(v);
                                     let idx = self.var_list.findIndex((x) => x.id === v.id) ;
 
-                                    console.log("var", idx, self.var_list,v);
+                                    //console.log("var", idx, self.var_list,v);
                                      if (idx!=-1)
                                        self.var_list[idx].value = v.value;
                                 });

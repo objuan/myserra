@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import BoardList from './components/BoardList'
 import Centralina from './components/Centralina'
 import Giardino from './components/Giardino'
+import Semenzario from './components/Semenzario'
 import Log from './components/Log'
 
 // import some global styles
@@ -20,7 +21,8 @@ const routes = [
   { path: '/centralina', alias: '/', component: Centralina },
   { path: '/boardlist',  component: BoardList },
   { path: '/giardino',  component: Giardino },
-  { path: '/log', component: Log }
+  { path: '/log', component: Log },
+  { path: '/semenzario',  component: Semenzario }
 ]
 
 // Create the router instance and pass the `routes` option

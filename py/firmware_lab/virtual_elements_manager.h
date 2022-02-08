@@ -112,7 +112,7 @@ public:
 
  void Process(char *buffer,int len)
  { 
-         Debug(id,"<<" , buffer,len);
+         //Debug(id,"<<" , buffer,len);
 
 
        // if ( str.endsWith("\n"))
@@ -236,8 +236,9 @@ public:
       //String c = String((char)incomingByte);
 
      // if (incomingByte == '\0') incomingByte= '|';
-     
-      //Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory(),fromWeb ? "w":"n");
+      if (incomingByte < 200)
+      {
+      //Debug (id, " ", incomingByte," l:",in_buffer_len," m:",freeMemory());
 
       if (incomingByte == '\n')
       {
@@ -262,6 +263,7 @@ public:
         #endif
           in_buffer[in_buffer_len++] = (char )incomingByte;
         //  Debug(in_buffer);
+      }
       }
      //
     }

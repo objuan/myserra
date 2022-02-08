@@ -2,7 +2,7 @@
 #define _Sensors
 
 #include "virtual_elements.h"
-
+#include "HX711.h"
 
 // =====================================================
 
@@ -321,4 +321,57 @@ public:
       }
    }
 };
+
+class WeightSensor : public VirtualElement_Real
+{
+private:
+  int SCK_PIN;
+  int DT_PIN;
+  
+  int updateTime_ms = 2000;
+  unsigned long lastTime=0;
+
+  // 2. Adjustment settings
+  const long LOADCELL_OFFSET = 83468;
+  const long LOADCELL_DIVIDER = 1719;
+
+  
+  HX711 loadcell;
+  
+public:
+
+   VirtualElement_Type getType() {return VirtualElement_Type::DISTANCE ; }
+
+   WeightSensor(int virtual_pin, int SCK_PIN,int DT_PIN) : VirtualElement_Real(virtual_pin),SCK_PIN(SCK_PIN),DT_PIN(DT_PIN){
+      loadcell.begin(DT_PIN, SCK_PIN);
+      loadcell.set_offset(LOADCELL_OFFSET);
+       loadcell.set_scale(LOADCELL_DIVIDER);
+   }
+     
+   void start(){
+      
+    }
+    
+   void OnCloudAskValue(){
+       cloudWrite(this->pin,value);
+    }
+    
+   void tick(){
+        unsigned long  t =  millis();
+       // if (t - lastTime > updateTime_ms)
+        if (loadcell.wait_ready_timeout(1000)) 
+        {
+          lastTime = t;
+          value = loadcell.get_units(10);
+          
+        //  Serial.print("Weight1: ");
+         // Serial.println(value, 2);
+          //value = loadcell.get_units(10);
+          cloudWrite(this->pin,value);
+        }
+        
+   }
+};
+
+
 #endif

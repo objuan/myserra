@@ -5,12 +5,12 @@
 
 // -----------
 
-//#define MEGA
-#define CENTRALINA
+#define MEGA
+//#define CENTRALINA
 //#define TIME
 
 // -----------
-//#define LAB
+#define LAB
 #define TIME
 
 #ifdef LAB
@@ -64,7 +64,7 @@ Pumps *pumps=NULL;
 //SolenoidValve *v1;
 
 //#define DATETIME_ACTUAL_VPIN  120
-#define DATETIME_SET_VPIN  121
+#define DATETIME_SET_VPIN  20
 #define LAB_SYNC_VPIN 1
 
 //===================================
@@ -138,10 +138,10 @@ void setup() {
 
    // date = manager.addVarString(DATETIME_ACTUAL_VPIN,"");
     manager.Add(new Var_SetDateTime());
-
+   Log(F("s"));
   if (manager_lab!=NULL)
     manager_lab->Add(new Var_LabSync());
- 
+    Log(F("s"));
      //cloudWrite(0,"INIT");
      // vasca1 = new Vasca (manager,60,95.5,EPROM_VASCA1_LEVEL);
 
@@ -224,8 +224,8 @@ void loop()
 
 
  #ifdef LAB
-    if (lab!=NULL)
-      lab->Logic();
+   // if (lab!=NULL)
+   //  lab->Logic();
 #endif
 
     i_time++;
@@ -236,8 +236,8 @@ void loop()
     if (manager_lab!=NULL)
       manager_lab->fast_tick();
  #ifdef LAB
-     if (lab!=NULL)
-      lab->LogicFast();
+    // if (lab!=NULL)
+    //  lab->LogicFast();
  #endif
   }
 

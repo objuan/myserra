@@ -6,7 +6,7 @@ from enum import Enum
 from .ws_service import *
 import json
 import logging
-from .cloud import VirtualPinMode
+from .cloud import VirtualPinMode,VirtualPinFilter_PercentCut
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +80,7 @@ class BoardControl():
                 #print("onReadV  ",var.pin,value)
                 var.setPinValue(value)
                 Var_Event(var,"")
+                #print("pin",pin)
                 #proxy events
                 if (var.id in self.var_event_map and var.pin == pin):
                     for f in self.var_event_map[var.id ]:
@@ -95,7 +96,7 @@ class BoardControl():
         for sw in self.board.switch_set.all():
             logger.info ("SWITCH START " + sw.name + " " +str(sw.switchType.mode))
             self.client.setPinMode(sw.pin,VirtualPinMode.DIGITAL)
-
+           
             if (sw.switchType.mode=="I" or sw.startupMode=='hw'):
                 self.client.read(sw.pin)
             if ( sw.startupMode=='db'):
@@ -119,6 +120,9 @@ class BoardControl():
                 self.client.write(var.pin, var.value)
             elif  (var.startupMode =="hw") :
                 self.client.read(var.pin)
+
+            if (var.id == 20) : # TODO , distance filter
+                self.client.setFilter(var.pin,VirtualPinFilter_PercentCut(2))
 
       
     def register_var(self,var_id,hook):

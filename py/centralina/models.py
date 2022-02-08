@@ -365,9 +365,25 @@ class LabPumpCalibrate(models.Model):
     time = models.DateTimeField(primary_key=True, default=datetime.now)
     id=models.IntegerField(default=0)
     time_secs=models.IntegerField(default=0)
+    #readed
     filled_ml=models.IntegerField(default=0)
+    filled_gr_end=models.IntegerField(default=0)
+    filled_gr_start=models.IntegerField(default=0)
+    
+    class CalibrateType(models.TextChoices):
+        TIME = 'TIME'
+        WEIGHT = 'WEIGHT'
+    
+    calibrateType = models.CharField(
+        max_length=10,
+        choices=CalibrateType.choices,
+        default=CalibrateType.TIME
+    )
+
     # calcolato
     ml_at_seconds=models.FloatField(default=0)
+    gr_at_seconds=models.FloatField(default=0)
+    gr_lost=models.IntegerField(default=0)
 
 
 class WaterAdditive(models.Model):

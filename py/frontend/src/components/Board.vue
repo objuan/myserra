@@ -28,11 +28,17 @@
                             address lx
                          </td>
                          
-                         <td><b-form-input  v-model="board.usb_address_lx" placeholder="Address WIN" type="text"></b-form-input>
+                         <td><b-form-input  v-model="board.usb_address_lx" placeholder="Address LX" type="text"></b-form-input>
                          </td>
                          <td>
-                              <b-button variant="success" @click="saveBoard()">Set</b-button>
+                              Net Address
                               
+                          </td>
+                           <td><b-form-input  v-model="board.net_address" placeholder="Net Address" type="text"></b-form-input>
+                         </td>
+
+                         <td>
+                              <b-button variant="success" @click="saveBoard()">Set</b-button> 
                           </td>
                            <td>
                               <b-button variant="danger" @click="cmdBoard('restart')">Restart</b-button>
@@ -176,7 +182,7 @@
                     response => {
                         this.switch_list = response.data;
 
-                        console.log("Load",this.switch_list );
+                        //console.log("Load",this.switch_list );
 
                         for(var i=0;i<this.switch_list.length;i++)
                          {

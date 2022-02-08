@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from centralina.logic.Semenzario import *
 from django.http import HttpResponse, JsonResponse
 from centralina.serializers import *
 from rest_framework import viewsets
@@ -7,6 +8,8 @@ from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .logic import *
+import urllib.request
+
 #from django_socketio import events
 
 from .runtime_service import BoardManager
@@ -351,8 +354,14 @@ def switch_calibrate(request, pk):
         print("put ",data)
 
         cal.time_secs =  data['time_secs']
+        cal.calibrateType =  data['calibrateType']
+
         cal.filled_ml =  data['filled_ml']
         cal.ml_at_seconds =  float(cal.filled_ml)  /  float(cal.time_secs )
+
+        #cal.filled_gr =  data['filled_gr']
+        #cal.gr_at_seconds =  float(cal.filled_gr)  /  float(cal.time_secs )
+
         cal.save()
         #c = LabPumpCalibrate()
         # c.id = 
@@ -361,3 +370,21 @@ def switch_calibrate(request, pk):
 
     else:
         return HttpResponse(status=404)
+
+
+
+@csrf_exempt
+def semenzario_api(request,):
+    print ('semenzario_api')
+ 
+    try:
+        if request.method == 'GET':
+            sem =  Semenzario()
+            sem.update()
+            #serializer = LabPumpCalibrateSerializer(cal)
+            return JsonResponse(sem.data, safe=False)
+        else:
+            return HttpResponse(status=404)
+    except Board.DoesNotExist:
+            return HttpResponse(status=404)
+

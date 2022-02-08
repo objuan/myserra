@@ -5,6 +5,8 @@
             <b-card-text>
                <timedswitch vswitch="7" venable="10" vscheduler="9" />
                 
+                <timedswitch vswitch="17" venable="24" vscheduler="23" />
+              
             </b-card-text>
         </b-card>
     </div>

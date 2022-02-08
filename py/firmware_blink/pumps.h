@@ -93,25 +93,21 @@ void Bool_Read::OnCloudWrite(BlynkParam &param){
     
 class Pumps
 {
-   VirtualElementManager &manager_lab;
-  
+    
   public:
-     Pumps(VirtualElementManager &manager,VirtualElementManager &manager_lab) : manager_lab(manager_lab)
+     Pumps(VirtualElementManager &manager,VirtualElementManager &manager_lab) 
     {
       // params
       
       manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_TANK_1_IN_VPIN));
       manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_TANK_1_OUT_VPIN));
-      manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_EC_IN_1_VPIN));
-      manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_EC_IN_2_VPIN));
-      manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_PH_IN_VPIN));
+     //manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_EC_IN_1_VPIN));
+     // manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_EC_IN_2_VPIN));
+     // manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_PH_IN_VPIN));
       manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_MIX_UP_VPIN));
-      manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_WATER_IN_VPIN));
+      //manager.Add( new Bool_Proxy(manager_lab,READ_WRITE,LAB_SWITCH_WATER_IN_VPIN));
 
     }
 
-    void Logic()
-    {
-    }
     
 };

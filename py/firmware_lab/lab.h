@@ -22,9 +22,12 @@
 #define LAB_PH_REF_6_VPIN 146
 #define LAB_DISTANCE_VPIN 147
 
+#define LAB_WEIGHT_1_VPIN 149
+
 //Temperature chip i/o
 OneWire ds(LAB_TEMPERATURE_PIN);  // on digital pin 2
 //DallasTemperature sensors(&ds);// Pass our oneWire reference to Dallas Temperature.
+
 
 class Var_PH: public Var_Real
 {
@@ -248,6 +251,8 @@ class Lab
     Var_Real *var_ph_ref_6;
 
     DistanceSensor *distance;
+
+    WeightSensor* weight;
   
      
   public:
@@ -266,6 +271,9 @@ class Lab
       var_ph = (Var_PH*)manager.Add(new Var_PH(LAB_PH_SENSOR_VPIN, var_ph_voltage,var_ph_ref_4,var_ph_ref_6));
 
       distance = (DistanceSensor*)manager.Add(new DistanceSensor(LAB_DISTANCE_VPIN,LAB_RANGE_TRIGGER_PIN,LAB_RANGE_ECHO_PIN));
+
+      weight =  (WeightSensor*)manager.Add(new WeightSensor(LAB_WEIGHT_1_VPIN,LAB_CARICO_1_DT_PIN,LAB_CARICO_1_SCK_PIN));
+
     }
 
     void LogicFast() {

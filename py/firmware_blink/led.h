@@ -9,9 +9,9 @@
 #include <ArduinoJson.h>
 // constants 
 
-#define LED_SWITCH_VPIN  135  // eletrovalvola acqua perime7rale
-#define LED_SCHEDULING_VPIN  136  // json scheduling
-#define LED_ENABLE_VPIN 137  // 
+#define LED_SWITCH_VPIN  120  // eletrovalvola acqua perime7rale
+#define LED_SCHEDULING_VPIN  122  // json scheduling
+#define LED_ENABLE_VPIN 121  // 
 
 class Var_LED_SCHEDULING : public Var_SCHEDULING
 {
@@ -54,7 +54,7 @@ class Leds
           bool _isEnabled =  ( dayTime.totalseconds() >= scheduler->time_da.totalseconds ()
                         && dayTime.totalseconds() < scheduler->time_a.totalseconds ());
 
-  //Debug("k",dayTime.totalseconds()," ",scheduler->time_da.totalseconds ()," ",scheduler->time_a.totalseconds ());
+ // Debug("k",dayTime.totalseconds()," ",scheduler->time_da.totalseconds ()," ",scheduler->time_a.totalseconds ());
   
           if (_isEnabled!=isEnabled)
           {

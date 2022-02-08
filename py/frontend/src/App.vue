@@ -29,6 +29,7 @@
           <b-nav-item  to="/centralina" exact exact-active-class="active">Centralina</b-nav-item>
           <b-nav-item  to="/boardlist" exact exact-active-class="active">Boards</b-nav-item>
           <b-nav-item  to="/giardino" exact exact-active-class="active">Giardino</b-nav-item>
+          <b-nav-item  to="/semenzario" exact exact-active-class="active">Seme</b-nav-item>
           <b-nav-item to="/log" exact exact-active-class="active">Log </b-nav-item>
           <b-nav-item to="/admin/" exact exact-active-class="active">Admin </b-nav-item>
         </b-nav>

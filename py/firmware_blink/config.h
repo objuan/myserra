@@ -27,7 +27,8 @@
   #define LEDS_SOLENOID_PIN 31
  
   // GIARDINO
-  #define PERIMETRALE_SOLENOID_PIN 35
+  #define GIARDINO_PERIMETRALE_SOLENOID_PIN 23
+  #define GIARDINO_ERBA_SOLENOID_PIN 22
 
   // LAB 
 
@@ -69,11 +70,15 @@
 #define EPROM_GIARDINO_SCHEDULING_A 6 // 4 byte
 #define EPROM_GIARDINO_PERIMETRALE_ENABLE 10 // 1 byte
 
-#define EPROM_LED_SCHEDULING_DA 12 // 4 byte
-#define EPROM_LED_SCHEDULING_A 16 // 4 byte
-#define EPROM_LED_ENABLE 20 // 1 byte
+#define EPROM_ERBA_SCHEDULING_DA 12 // 4 byte
+#define EPROM_ERBA_SCHEDULING_A 16 // 4 byte
+#define EPROM_ERBA_ENABLE 20 // 1 byte
 
-#define EPROM_LAB_EC_K 24 // 4
-#define EPROM_LAB_PH_REF_4 28 // 4
-#define EPROM_LAB_PH_REF_6 32 // 4
+#define EPROM_LED_SCHEDULING_DA 22 // 4 byte
+#define EPROM_LED_SCHEDULING_A 26 // 4 byte
+#define EPROM_LED_ENABLE 30 // 1 byte
+
+#define EPROM_LAB_EC_K 32 // 4
+#define EPROM_LAB_PH_REF_4 36 // 4
+#define EPROM_LAB_PH_REF_6 40 // 4
 #endif

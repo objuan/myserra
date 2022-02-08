@@ -12,12 +12,12 @@ export function StartVar()
 
         //varMap={}
 
-        var self=this;
+        //var self=this;
         var ws = new WebSocket('ws://' + window.location.host  + '/ws/var/');
         ws.onmessage = function(e) {
-            //console.log( "var", e.data);
+            console.log( "var", e.data,varMap);
             var v = JSON.parse(e.data);
-            console.log( "<<",e.data,v);
+            //console.log( "<<",e.data,v);
             //if (sw.type=="var")
             if (varMap[v.id])
             {
@@ -33,19 +33,21 @@ export function StartVar()
         };
 
         ws.onclose = function() {
+            console.error("ws onclose");
             setTimeout(function() {
                 StartVar();
             }, 1000);
         };
 
         ws.onerror = function() {
+            console.error("ws error");
             ws.close();
         };
     }
 
     export   function RegisterVar(var_id,onMessage)
     {
-        console.log("register var ",var_id,onMessage);
+      //  console.log("register var ",var_id,onMessage);
 
         if (!varMap[var_id])
         {
@@ -64,12 +66,12 @@ export function StartSwitch()
 
        // swMap={}
 
-        var self=this;
+        //var self=this;
         var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
         ws.onmessage = function(e) {
-            //console.log( "var", e.data);
+            console.log( "sw", e.data);
             var v = JSON.parse(e.data);
-            console.log( "<<",e.data,v);
+            //console.log( "<<",e.data,v);
             //if (sw.type=="var")
             if (swMap[v.id])
             {
@@ -80,19 +82,21 @@ export function StartSwitch()
         };
 
         ws.onclose = function() {
+            console.error("ws onclose");
             setTimeout(function() {
                 StartSwitch();
             }, 1000);
         };
 
         ws.onerror = function() {
+            console.error("ws onerror");
             ws.close();
         };
     }
 
     export   function RegisterSwitch(sw_id,onMessage)
     {
-        console.log("register switch ",sw_id,onMessage);
+       // console.log("register switch ",sw_id,onMessage);
 
         if (!swMap[sw_id])
         {

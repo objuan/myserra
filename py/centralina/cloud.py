@@ -12,6 +12,7 @@ from .ws_service import GetConn
 from pymitter import EventEmitter
 import traceback
 from datetime import datetime
+import abc
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,20 @@ class VirtualPinMode(Enum):
      ANALOGIC = 2
      #VIRTUAL = 3
 
+class VirtualPinFilter:
+    def __init__(self):
+        pass
+    @abc.abstractmethod
+    def add(self,value):
+        """Load in the data set"""
+        raise NotImplementedError
+
+class VirtualPinFilter_PercentCut(VirtualPinFilter):
+    def __init__(self,max_percent):
+        self.max_percent=max_percent
+    def add(self,value):
+        return value
+
 #class Protocol(object):
 #    
 #    def _pack_msg(self, msg_type, *args, **kwargs):
@@ -41,6 +56,7 @@ class VirtualPin:
     pin=0
     value=None # out value
     mode = VirtualPinMode.ANALOGIC
+    filter = None
 
     def __init__(self,pin):
         self.pin=pin
@@ -51,7 +67,7 @@ class VirtualPin:
 
     def set(self,val):
         self.value=val
-        logger.debug ("[SET] " + str(self.pin) +"="+self.value)
+        #logger.debug ("[SET] " + str(self.pin) +"="+self.value)
 
     #
     def read(self,client):
@@ -139,6 +155,10 @@ class SharedClient:
     def setPinMode(self, name,mode): #VirtualPinMode.DIGITAL
          pin = self.memory.data[name]
          pin.mode = mode
+
+    def setFilter(self,name,filter):
+        pin = self.memory.data[name]
+        pin.filter=filter
 
     def read(self,pin):
         print("READ " , pin)
@@ -346,7 +366,7 @@ class ArduinoClient:
                             self.onMemory.emit("onWrite",pin,self.memory.get(pin))
                         else:
                             if (line.startswith("CMD")):
-                                #logger.info(line)
+                                logger.info(line)
                                 command = line[4:]
                                 args = command.split(sep=self.end_param)
 
@@ -363,7 +383,7 @@ class ArduinoClient:
                                       Time_Event("DATE",str(args[1]))
                             else:
                                 pass
-                                logger.debug(line)
+                                #logger.debug(line)
             
             except serial.SerialException as e:
                 self.isOpen=False

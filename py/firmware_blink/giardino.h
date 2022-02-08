@@ -10,9 +10,12 @@
 // constants 
 
 #define PERIMETRALE_SWITCH_VPIN  130  // eletrovalvola acqua perime7rale
+#define PERIMETRALE_ENABLE_VPIN  132  // eletrovalvola acqua perime7rale
 #define PERIMETRALE_SCHEDULING_VPIN  131  // json scheduling
-#define PERIMETRALE_ENABLE_VPIN 132  // 
 
+#define ERBA_SWITCH_VPIN  137  // eletrovalvola acqua perime7rale
+#define ERBA_ENABLE_VPIN  134  // eletrovalvola acqua perime7rale
+#define ERBA_SCHEDULING_VPIN  133  // json scheduling
 
 class Var_PERIMETRALE_SCHEDULING : public Var_SCHEDULING
 {
@@ -20,34 +23,58 @@ class Var_PERIMETRALE_SCHEDULING : public Var_SCHEDULING
      Var_PERIMETRALE_SCHEDULING() : Var_SCHEDULING(PERIMETRALE_SCHEDULING_VPIN,EPROM_GIARDINO_SCHEDULING_DA,EPROM_GIARDINO_SCHEDULING_A){
      }
 };
+class Var_ERBA_SCHEDULING : public Var_SCHEDULING
+{
+  public:
+     Var_ERBA_SCHEDULING() : Var_SCHEDULING(ERBA_SCHEDULING_VPIN,EPROM_ERBA_SCHEDULING_DA,EPROM_ERBA_SCHEDULING_A){
+     }
+};
 
 
 class Giardino
 {
   SolenoidValve *perimetrale ;
-  Var_SCHEDULING *scheduler;
+  SolenoidValve *erba ;
+  
+  Var_SCHEDULING *scheduler_pem;
+  Var_SCHEDULING *scheduler_erba;
+  
   Var_Bool *perimetrale_enable;
-  bool isEnabled=false;
+  Var_Bool *erba_enable;
+  
+  bool isEnabled[2];
   
   public:
     Giardino(VirtualElementManager &manager){
       
-        perimetrale =  manager.addSolenoidValve(PERIMETRALE_SWITCH_VPIN,  PERIMETRALE_SOLENOID_PIN);
-      
+        perimetrale =  manager.addSolenoidValve(PERIMETRALE_SWITCH_VPIN,  GIARDINO_PERIMETRALE_SOLENOID_PIN);
         perimetrale_enable = manager.addVarBool(PERIMETRALE_ENABLE_VPIN,true,EPROM_GIARDINO_PERIMETRALE_ENABLE) ;
-        scheduler= (Var_PERIMETRALE_SCHEDULING*) manager.Add(new Var_PERIMETRALE_SCHEDULING()) ;
+        
+        erba =  manager.addSolenoidValve(ERBA_SWITCH_VPIN,  GIARDINO_ERBA_SOLENOID_PIN);
+        erba_enable = manager.addVarBool(ERBA_ENABLE_VPIN,true,EPROM_ERBA_ENABLE) ;
+       
+        scheduler_pem= (Var_PERIMETRALE_SCHEDULING*) manager.Add(new Var_PERIMETRALE_SCHEDULING()) ;
+        scheduler_erba= (Var_ERBA_SCHEDULING*) manager.Add(new Var_ERBA_SCHEDULING()) ;
 
-         #ifndef MEGA
-        scheduler-> time_da = 72000; // 6
-        scheduler->time_a = 72000 + 60*15; // 20
+        isEnabled[0]=isEnabled[1]=false;
+
+#ifndef MEGA
+        scheduler_pem-> time_da = 72000; // 6
+        scheduler_pem->time_a = 72000 + 60*15; // 20
 #endif
     }
     
   
     void Logic()
     {
- 
-     if (perimetrale_enable->get())
+        Check(scheduler_pem,perimetrale,perimetrale_enable,0);
+        Check(scheduler_erba,erba,erba_enable,1);
+
+    }
+
+    Check(Var_SCHEDULING *scheduler,SolenoidValve *valve,Var_Bool *var_enable,int index)
+    {
+       if (var_enable->get())
       {
           DateTime now = currentDateTime();
           TimeSpan dayTime = TimeSpan(0,now.hour(), now.minute(),0);
@@ -55,31 +82,30 @@ class Giardino
           bool _isEnabled =  ( dayTime.totalseconds() >= scheduler->time_da.totalseconds ()
                         && dayTime.totalseconds() < scheduler->time_a.totalseconds ());
 
-          if (_isEnabled!=isEnabled)
+          if (_isEnabled!=isEnabled[index])
           {
-            isEnabled=_isEnabled;
+             isEnabled[index]=_isEnabled;
 
-              if (isEnabled)
+              if (isEnabled[index])
              {
                 Debug(F("ACTIVE"));
-                perimetrale->Open();
+                valve->Open();
               }
               else
               {
                 Debug(F("DISABLED"));
-                perimetrale->Close();
+                valve->Close();
               }
           }
 
       }
-      
       else
       {
-          if (isEnabled)
+          if (isEnabled[index])
           {
-              isEnabled=false;
-                  Debug(F("DISABLED"));
-                  perimetrale->Close();
+                isEnabled[index]=false;
+                Debug(F("DISABLED"));
+                valve->Close();
           }
       }
     }

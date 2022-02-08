@@ -22,7 +22,7 @@ class LogicManager:
    def __init__(self):
 
       self.chrono = Chrono()
-      self.lab = Lab("lab1")
+      self.lab = Lab(self,"lab1")
       global _logicManager
       _logicManager = self
 
@@ -43,6 +43,10 @@ class LogicManager:
          self.lab.cmd_tank_analyze()
          
         
+   def tabkByID(self,id):
+        if (str(id) == "1"):
+            return self.tank1
+     
    def stop(self):
         logger.info("LogicManager Stopped")
         self.ancora=False

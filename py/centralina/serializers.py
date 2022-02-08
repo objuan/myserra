@@ -116,4 +116,4 @@ class LabPumpCalibrateSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = LabPumpCalibrate
-        fields = ['time','id','time_secs','filled_ml','ml_at_seconds']
+        fields = ['time','id','time_secs','calibrateType','filled_ml','ml_at_seconds','filled_gr_start','filled_gr_end','gr_at_seconds','gr_lost']

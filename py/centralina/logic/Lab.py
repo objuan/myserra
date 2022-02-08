@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 class LabAction(Enum):
      NONE = ''
      FILL_IN = 'FILL_IN'
+     FILL_IN_LITRES = 'FILL_IN_LITRES'
      FILL_OUT = 'FILL_OUT'
+     MIX = 'MIX'
      WAIT = 'WAIT'
      ANALYZE = 'ANALYZE'
      SYNC_EC = 'SYNC_EC'
@@ -29,6 +31,7 @@ class Lab(StateMachine):
 
     ## args
     filling_percent=0
+    filling_litres=0
     waitingTime = 0
     waitingStart= None
 
@@ -42,8 +45,9 @@ class Lab(StateMachine):
     #####
     currentAnalysis = None
 
-    def __init__(self,name):
+    def __init__(self,manager,name):
          StateMachine.__init__(self,name)
+         self.manager=manager
          self.ia = LabIA(self)
          self.filler = LabFiller(self)
          self.name=name
@@ -107,9 +111,15 @@ class Lab(StateMachine):
 
     def cmd_fill_in_at(self,percent):
         self.pushAction( Action(LabAction.FILL_IN , percent)) 
+ 
+    def cmd_fill_in_litres(self,litres):
+        self.pushAction( Action(LabAction.FILL_IN_LITRES , litres)) 
 
     def cmd_fill_out(self):
         self.pushAction( Action(LabAction.FILL_OUT )) 
+
+    def cmd_mix(self,mix_secs):
+        self.pushAction( Action(LabAction.MIX,mix_secs )) 
 
     def cmd_analyze(self):
         self.pushAction( Action(LabAction.ANALYZE , 0)) 
@@ -147,6 +157,34 @@ class Lab(StateMachine):
             except AttributeError:
                 pass
 
+        elif (action.name == LabAction.FILL_IN_LITRES):
+            ## fill action
+            self.Log("FILL ",action.value,"litres" )
+            self.filling_percent=0
+            self.filling_litres=action.value 
+            self.Log("OPEN IN PUMP ")
+            self.target_tank.pump_in.open()
+            #try:
+            #   # self.sym.fillFromTank(self.filling_litres)
+            #except AttributeError:
+            #    pass
+
+
+        elif (action.name == LabAction.FILL_OUT):
+            ## fill action
+            self.Log("FILL OUT ")
+            self.Log("OPEN OUT PUMP ")
+            self.target_tank.pump_out.open()
+          
+        elif (action.name == LabAction.MIX):
+            ## fill action
+            self.Log("MIX ")
+            self.Log("OPEN MIX PUMP SECS  ",action.value)
+            self.cmd_open_ms(self.filler.mixer,action.value)
+            self.end(action)
+            #self.filler.mixer.open()
+          
+
         elif (action.name == LabAction.WAIT):
             self.Log("WAITING ",action.value )
             self.waitingTime = action.value 
@@ -175,6 +213,17 @@ class Lab(StateMachine):
         if (action.name == LabAction.FILL_IN):
                 if (self.fillPencent() >= self.filling_percent):
                     self.end(action)
+        if (action.name == LabAction.FILL_IN_LITRES):
+                self.Log(self.litres() ,self.filling_litres)
+                if (self.litres() >= self.filling_litres):
+                    self.Log("END")
+                    self.target_tank.pump_in.close()
+                    self.end(action)
+        if (action.name == LabAction.FILL_OUT):
+                self.Log(self.litres() )
+                if (self.litres() <= 0.5):
+                    self.target_tank.pump_out.close()
+                    self.end(action)
        
     def onTick(self):
         
@@ -192,3 +241,20 @@ class Lab(StateMachine):
             self.filler.calibrate(data)
         if (cmd =='test_time'):
             self.filler.test_time_pump(data)
+        if (cmd =='fill_tank'):
+            tank = self.manager.tabkByID(data['id'])
+            self.Log("FILL " , tank, " with " , float(data['litres'] ))
+            self.target_tank=tank
+            self.cmd_fill_in_litres( float(data['litres'] ))
+        if (cmd =='empty_tank'):
+            tank = self.manager.tabkByID(data['id'])
+            self.Log("EMPTY " , tank)
+            self.target_tank=tank
+            self.cmd_fill_out( )
+        if (cmd =='mix_tank'):
+            tank = self.manager.tabkByID(data['id'])
+            self.Log("MIX " , tank, 'secs' ,data['mix_secs'] )
+            self.target_tank=tank
+            self.cmd_mix( float(data['mix_secs'] ))
+
+

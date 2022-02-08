@@ -68,10 +68,10 @@ public:
 #endif
     
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
-        cmd.add(F("vw"));
+        cmd.add("vw");
         cmd.add(pin);
         cmd.add_multi(values...);
-        cmd.add(F("\n"));
+        cmd.add("\n");
         serial->write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
 
        // Debug(".. ",pin);
@@ -274,7 +274,9 @@ class Var_SCHEDULING : public Var_String
       }
 
      void OnCloudWrite(BlynkParam &param){
-        return;
+      #ifndef MEGA
+       return;
+      #endif
         
         value = param.asString();
         Debug("PARSE JSON:", value);

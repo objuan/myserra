@@ -4,6 +4,7 @@ import logging
 import traceback
 logger = logging.getLogger(__name__)
 from ..models import *
+from ..ws_service import *
 from enum import Enum
 from datetime import datetime
 
@@ -54,7 +55,7 @@ class ProxySwitch:
     ## FROM ARDUINO
     def onWrite(self,value):
         if (not lab_symmode):
-            print(">>SW ", self.sw.name, value)
+            #print(">>SW ", self.sw.name, value)
             if (value == "open"):
                 self.state = SWState.OPEN
             else:
@@ -73,6 +74,28 @@ class Pump(ProxySwitch):
 
     def __str__(self):
         return "PUMP " +self.name
+
+class PumpWeight(ProxySwitch):
+    def __init__(self,sw_id,weight_id):
+        ProxySwitch.__init__(self, sw_id) 
+        try:
+            self.weight=Variable.objects.get(pk=weight_id)
+            self.calib = LabPumpCalibrate.objects.get(id=sw_id)
+            self.sw.board.get_controller().register_var(weight_id,self.onWrite_weight)
+
+            #print ("--",self.weight,self.calib)
+        except:
+            logger.error("calib not found "+str( sw_id))
+            self.calib = LabPumpCalibrate()
+
+    ## FROM ARDUINO
+    def onWrite_weight(self,value):
+        #print ("Lk",value)
+        if (not lab_symmode):
+             self.weight.value = value
+
+    def __str__(self):
+        return "PUMP " +self.name+" "+self.weight.name
 
 ##############################################
 
@@ -170,8 +193,14 @@ def _LabLog(id,level,*args):
 
     a = LabLog.create(id,level,ret )
     a.save()
-    #print("[LOG] "+datetime.now().strftime("%Y-%m-%d-%H:%M:%S") ,actor,ret)
-    
+
+    if (GetLabLog()!=None):
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
+        GetLabLog().fire({'time': dt_string,'level':level,'msg':ret})
+        #print("[LOG] "+datetime.now().strftime("%Y-%m-%d-%H:%M:%S") ,actor,ret)
+        
 
 def LabInfo(id,*args):
     _LabLog(id,"INFO",*args)
@@ -240,7 +269,12 @@ class StateMachine(metaclass=abc.ABCMeta):
         self.cmd_close(pump)
 
     def cmd_open_millilitres(self,pump,ml):
-        self.cmd_open_ms(pump,ml / pump.calib.ml_at_seconds)
+        if (pump.calib.calibrateType =="TIME"):
+            self.cmd_open_ms(pump,ml / pump.calib.ml_at_seconds)
+        else:
+            target_weight = float(pump.weight.value) -  float(ml) # TODO ???? 
+            self.Log("Target weight: ", pump.weight.value ,"->",target_weight,"gr")
+            self.pushAction( Action("WAIT_WEIGHT",[pump,target_weight]))
 
     #######################
  
@@ -276,6 +310,11 @@ class StateMachine(metaclass=abc.ABCMeta):
             self.Log("CLOSE ",action.value.name)
             action.value.close()
             self.end(action)
+        elif (action.name== "WAIT_WEIGHT"):
+            self.Log("OPEN WEIGHT",action.value[0].name)
+            action.value[0].open()
+            pass
+
         else:
             self.onExecute(action)
 
@@ -302,6 +341,15 @@ class StateMachine(metaclass=abc.ABCMeta):
             
             if (self.current_action.name == "WAIT"):
                 if (datetime.now() - self.waitingStart ).total_seconds() >= self.waitingTime:
+                    self.end(self.current_action)
+            elif (self.current_action.name== "WAIT_WEIGHT"):
+                pump = self.current_action.value[0]
+                target_weight = self.current_action.value[1]
+                weight = float(pump.weight.value)
+                self.Log("Read weight: ",weight,"/",target_weight)
+                if (weight <= target_weight):
+                    self.Log("CLOSE")
+                    pump.close()
                     self.end(self.current_action)
             else:
                 self.onTickAction(self.current_action )

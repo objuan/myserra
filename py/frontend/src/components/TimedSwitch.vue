@@ -15,14 +15,14 @@
                               <b-button variant="success" @click="manualSwitch(sw_switch)">Manual Switch</b-button>
                         </td>
                     </tr>
-                    <tr v-if="scheduling  && var_abilitato" >
+                    <tr v-if="scheduling  && var_enable" >
                         <td>
                             <i>Scheduling </i>
                         </td>
                          <td :title="JSON.stringify(scheduling)">
-                           <b-button  variant="success" @click="toggle(var_abilitato)" >Toggle</b-button>
-                           <div v-bind:class="[var_abilitato.value=='True' ? openClass : closeClass]">
-                               {{var_abilitato.value=="True" ? "Enabled" : "Disabled"}}  
+                           <b-button  variant="success" @click="toggle(var_enable)" >Toggle</b-button>
+                           <div v-bind:class="[var_enable.value=='True' ? openClass : closeClass]">
+                               {{var_enable.value=="True" ? "Enabled" : "Disabled"}}  
                           </div>
                         </td>
                         <td>
@@ -56,6 +56,7 @@
     import VueTimepicker from 'vue2-timepicker'
     import 'vue2-timepicker/dist/VueTimepicker.css'
    // import GetVarConnection from './common'
+   import {RegisterVar,RegisterSwitch} from './common'
 
     export default {
         name: "timedswitch",
@@ -72,7 +73,7 @@
                  closeClass: 'text-danger',
                  sw_switch : null,
                  var_scheduling:null,
-                 var_abilitato : null,
+                 var_enable : null,
                  scheduling : null,
                    da: {    HH: '10',   mm: '05' },
                    a : {    HH: '20',   mm: '08' },
@@ -105,47 +106,17 @@
              },
               connect_event: function() {
                     var self=this;
-                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/switch/');
-                    
-                    ws.onmessage = function(e) {
-                        var sw = JSON.parse(e.data);
-                        if (sw.type=="sw")
-                        {
-                            self.sw_switch = sw;
-                        }
-                    };
+                    RegisterSwitch(this.vswitch, function(sw) {
+                        self.sw_switch = sw;
+                    });
 
-                    ws.onclose = function() {
-                        setTimeout(function() {
-                        self.connect_event();
-                        }, 1000);
-                    };
-
-                    ws.onerror = function() {
-                        ws.close();
-                    };
             },
             connect_var: function() {
-                    var self=this;
-                    var ws = new WebSocket('ws://' + window.location.host  + '/ws/var/');
-                    
-                    ws.onmessage = function(e) {
-                        var sw = JSON.parse(e.data);
-                        if (sw.type=="var")
-                        {
-                            self.var_abilitato = sw;
-                        }
-                    };
-
-                    ws.onclose = function() {
-                        setTimeout(function() {
-                        self.connect_var();
-                        }, 1000);
-                    };
-
-                    ws.onerror = function() {
-                        ws.close();
-                    };
+                var self=this;
+                RegisterVar(this.venable, function(v) {
+                     self.var_abilitato = v;
+                });
+                   
             },
 
             
@@ -174,9 +145,9 @@
                             var a =self.var_scheduling.value.replaceAll('\'',"\"");
                             console.log(a);
                             try{
-                            self.scheduling= JSON.parse( a);
-                            self.da = self.scheduling.da;
-                            self.a = self.scheduling.a;
+                                self.scheduling= JSON.parse( a);
+                                self.da = self.scheduling.da;
+                                self.a = self.scheduling.a;
                             } catch(e) {
                                 alert(e); // error in the above string (in this case, yes)!
                                 self.scheduling = {};

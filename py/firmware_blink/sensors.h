@@ -70,7 +70,7 @@ public:
         cloudWrite(this->pin,value);
     }
    void OnCloudWrite(BlynkParam &param){
-         //Debug("OnCloudWrite", param.asInt());
+        // Debug("OnCloudWrite", param.asInt());
          if (param.asInt()==1)
          {
             digitalWrite(arduino_pin, SOLENOID_ON);

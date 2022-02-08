@@ -1,0 +1,154 @@
+/* Comment this out to disable prints and save space */
+#define BLYNK_PRINT Serial
+
+//#define BLYNK_TEMPLATE_ID "TMPLPgelnWJW"
+//#define BLYNK_DEVICE_NAME "semensario"
+//#define BLYNK_AUTH_TOKEN "cTBbhJBp4kWOQSTiWS6cVkh0XeVXsLvz"
+#define BLYNK_AUTH_TOKEN "9Agk4hRr9jJHJKOeM80lcWimvgLoO6T1"
+
+#include <Wire.h> 
+#include "LiquidCrystal_I2C.h"
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+#include <TimeLib.h>
+#include <WidgetRTC.h>
+
+
+LiquidCrystal_I2C lcd(0x27, 16, 4);
+
+#define DHT11_PIN 12
+#include "dht11.h"
+
+
+char auth[] = BLYNK_AUTH_TOKEN;
+
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = "FilippoViola";
+char pass[] = "alicepi1";
+
+BlynkTimer timer;
+WidgetRTC rtc;
+
+String currentTime;
+String currentDate;
+
+dht11 DHT;
+
+/*
+// This function is called every time the Virtual Pin 0 state changes
+BLYNK_WRITE(V0)
+{
+  // Set incoming value from pin V0 to a variable
+  int value = param.asInt();
+
+  // Update state
+  Blynk.virtualWrite(V1, value);
+}
+
+*/
+// This function is called every time the device is connected to the Blynk.Cloud
+BLYNK_CONNECTED()
+{
+  // Change Web Link Button message to "Congratulations!"
+  //Blynk.setProperty(V3, "offImageUrl", "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations.png");
+  //Blynk.setProperty(V3, "onImageUrl",  "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations_pressed.png");
+  //Blynk.setProperty(V3, "url", "https://docs.blynk.io/en/getting-started/what-do-i-need-to-blynk/how-quickstart-device-was-made");
+}
+
+
+// This function sends Arduino's uptime every second to Virtual Pin 2.
+void clockDisplay()
+{
+  // You can call hour(), minute(), ... at any time
+  // Please see Time library examples for details
+ 
+  currentTime = String(hour()) + ":" + minute() + ":" + second();
+  currentDate = String(day()) + " " + month() + " " + year();
+  
+ 
+  // Send time to the App
+  Blynk.virtualWrite(V1, currentTime);
+  // Send date to the App
+  Blynk.virtualWrite(V2, currentDate);
+}
+
+void temperature()
+{
+   int chk;
+  //Serial.print("DHT11, \t");
+  chk = DHT.read(DHT11_PIN);    // READ DATA
+  switch (chk){
+    case DHTLIB_OK:  
+                Serial.print("OK,\t"); 
+                break;
+    case DHTLIB_ERROR_CHECKSUM: 
+                Serial.print("Checksum error,\t"); 
+                break;
+    case DHTLIB_ERROR_TIMEOUT: 
+                Serial.print("Time out error,\t"); 
+                break;
+    default: 
+                Serial.print("Unknown error,\t"); 
+                break;
+  }
+
+  Blynk.virtualWrite(V3, DHT.humidity);
+  Blynk.virtualWrite(V4, DHT.temperature);
+
+  Serial.print(DHT.humidity,1);
+  Serial.print(",\t");
+  Serial.println(DHT.temperature,1);
+
+  lcd.setCursor(0,0);
+  lcd.print("Temperatura "); 
+  lcd.setCursor(13,0);
+  lcd.print(DHT.temperature); 
+  //lcd.setCursor(17,0);
+  //lcd.print("°");
+   
+  lcd.setCursor(0,1); //Defining positon to write from second row,first column .
+  lcd.print("Umidita "); 
+  lcd.setCursor(13,1);
+  lcd.print(DHT.humidity); 
+  lcd.setCursor(17,1);
+  lcd.print("%");
+  
+}
+
+
+// ================
+
+void setup()
+{
+  
+  // Debug console
+  Serial.begin(9600);
+
+  Blynk.begin(auth, ssid, pass);
+
+   // Begin synchronizing time
+  rtc.begin();
+  
+  //dht.begin();
+   
+  lcd.begin(); //Defining 16 columns and 2 rows of lcd display
+
+  //lcd.backlight(); //To Power ON /OFF the back light
+   lcd.noBacklight(); //To Power ON /OFF the back light
+
+ // Setup a function to be called every second
+  timer.setInterval(1000L, clockDisplay);
+  timer.setInterval(1000L, temperature);
+ 
+}
+
+// ================
+
+void loop()
+{
+  Blynk.run();
+
+  timer.run();
+}

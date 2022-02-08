@@ -31,6 +31,9 @@
   #define LAB_SWITCH_MIX_UP_PIN  25
   #define LAB_SWITCH_WATER_IN_PIN  26
 
+  #define LAB_CARICO_1_DT_PIN  52
+  #define LAB_CARICO_1_SCK_PIN  53
+ 
   // MEMORY
 #define EPROM_LAB_EC_K 0 // 4
 #define EPROM_LAB_PH_REF_4 4 // 4

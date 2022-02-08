@@ -355,7 +355,12 @@ float EEPROM_ReadFloat(int p_address)
     byte* p = (byte*)(void*)&value;
     for (int i = 0; i < sizeof(value); i++)
         *p++ = EEPROM.read(p_address++);
-    Log(F("Load ROM "), p_address,"=",value);
+    if (value>= -99999 && value < 99999)
+    {
+      Log(F("Load ROM "), p_address,"=",value);
+    }
+    else
+      value=0;
     return value;
 }
 #endif

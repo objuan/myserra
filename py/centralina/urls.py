@@ -19,12 +19,16 @@ urlpatterns = [
     path('switch/<int:pk>', views.switch_detail),
     path('switch/<int:pk>/cmd/<str:cmd>', views.switch_command),
     path('switch/<int:pk>/calibrate', views.switch_calibrate),
+    path('seme/', views.semenzario_api),
 
     path('switch/<int:pk>', views.switch_detail),
 
     path('var/<int:pk>/cmd/<str:cmd>', views.var_command),
     path('var/<int:pk>', views.var_manage),
+
     path('lab/<str:cmd>', views.lab_manage),
+
+    
 
 ]
 

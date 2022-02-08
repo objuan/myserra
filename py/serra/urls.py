@@ -25,6 +25,7 @@ vue_urls = [
   path('hello', views.frontend),
   path('centralina', views.frontend),
   path('giardino', views.frontend),
+  path('semenzario', views.frontend),
 
   path('another-path/', views.frontend),
   path('admin/', admin.site.urls),

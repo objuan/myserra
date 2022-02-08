@@ -172,13 +172,13 @@ public:
               VirtualElement *ele = Find(pin);
               if (ele!=NULL)
               {
-               
+              //  Debug("WD" , pin , pars.asString(),ele->pin);
                  ele->OnCloudWrite(pars);
               }
               else
                  Warn(id,F("pin not found ") , pin);
                 
-                
+             //   Debug("..");
          // pars.
            // VirtualReq req;
            // req.pin = pin;
@@ -226,6 +226,7 @@ public:
 
   void fast_tick()
   {
+
     // Debug(id,"..");
 
     while (serial->available() > 0 ) 

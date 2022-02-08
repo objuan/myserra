@@ -5,10 +5,14 @@ from channels.generic.websocket import WebsocketConsumer
 import threading
 import time
 
+_lab_log=None
 _log=None
 _conn=None
 _sw=None
 _var=None
+
+def GetLabLog():
+    return _lab_log
 
 def GetLog():
     #print("Wlog ",str(_log))
@@ -46,7 +50,7 @@ class ConnectionConsumer(WebsocketConsumer):
                     time.sleep(1)
 
     def connect(self):
-        print("WS CONNECTED")
+        print("WS CONNECTED CON")
         self.messages = []
         self.accept()
         self.Ancora=True
@@ -75,16 +79,16 @@ class VarEventConsumer(WebsocketConsumer):
         #c=0
         while self.Ancora:
                     #print("tick",c)
-                    #c=c+1
+                   # c=c+1
                     for m in self.messages:
-                        #print(m)
+                        #print("m",m)
                         self.send(m)
 
                     self.messages.clear()
                     time.sleep(1)
 
     def connect(self):
-        print("WS CONNECTED")
+        print("WS CONNECTED VAR")
         self.messages = []
         self.accept()
         self.Ancora=True
@@ -121,7 +125,7 @@ class SWEventConsumer(WebsocketConsumer):
                     time.sleep(1)
 
     def connect(self):
-        print("WS CONNECTED")
+        print("WS CONNECTED SW")
         self.messages = []
         self.accept()
         self.Ancora=True
@@ -160,7 +164,7 @@ class LogConsumer(WebsocketConsumer):
 
 
     def connect(self):
-        print("WS CONNECTED")
+        print("WS CONNECTED LOG")
         self.messages = []
         #(self.channel_layer.group_add( "room","ch"))
         self.accept()
@@ -192,3 +196,40 @@ class LogConsumer(WebsocketConsumer):
         }))
     '''
 
+
+class LabLogConsumer(WebsocketConsumer):
+    def __init__(self):
+        global _lab_log
+        WebsocketConsumer.__init__(self)
+        _lab_log=self
+
+
+    def Timer(self):
+        #c=0
+        while self.Ancora:
+                    #print("tick",c)
+                    #c=c+1
+                    for m in self.messages:
+                        #print(m)
+                        self.send(m)
+
+                    self.messages.clear()
+                    time.sleep(1)
+
+    def connect(self):
+        print("WS CONNECTED")
+        self.messages = []
+        self.accept()
+        self.Ancora=True
+        self.task= threading.Thread(target=self.Timer,args=[],daemon=True)
+        self.task.start()
+
+    #@shared_task
+    def fire(self,message):
+        #print("FIRE VAR " , message)
+        self.messages.append(str(message))
+
+    def disconnect(self, close_code):
+        print("WS DISCONNECTED")
+        self.Ancora=False
+        pass

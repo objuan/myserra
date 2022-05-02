@@ -8,8 +8,8 @@
  * ECHO - connect to digital pin 13.  Can be any digital pin
  * OUT - Not connected
  */
-const int TRIG_PIN = 12;
-const int ECHO_PIN = 13;
+const int TRIG_PIN = A1;
+const int ECHO_PIN = A0;
 float temp_In_C = 20.0;  // Can enter actual air temp here for maximum accuracy or read with sensor
 float speed_Of_Sound;          // Calculated speed of sound based on air temp
 float distance_Per_uSec;      // Distance sound travels in one microsecond at that temp

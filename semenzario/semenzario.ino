@@ -1,4 +1,14 @@
 /* Comment this out to disable prints and save space */
+
+
+#define TEMPERATURE_TARGET 23
+#define ORA_START 8
+#define ORA_FINE 20
+
+// ================
+
+
+
 #define BLYNK_PRINT Serial
 
   
@@ -22,9 +32,11 @@ ESP8266WebServer server(HTTP_REST_PORT);
 
 LiquidCrystal_I2C lcd(0x27, 16, 4);
 
-#define DHT11_PIN 12
-#include "dht11.h"
+#define DHT11_PIN D11
+#define RELE_TMP_PIN D12
+#define RELE_LUCI_PIN D13
 
+#include "dht11.h"
 
 char auth[] = BLYNK_AUTH_TOKEN;
 
@@ -33,14 +45,20 @@ char auth[] = BLYNK_AUTH_TOKEN;
 char ssid[] = "FilippoViola";
 char pass[] = "alicepi1";
 
+//char ssid[] = "GIARDINO";
+//char pass[] = "alicepi1";
+
 BlynkTimer timer;
 WidgetRTC rtc;
 
 String currentTime;
 String currentDate;
-
+bool luce_accesa = false;
 dht11 DHT;
 
+bool temp_attiva=false;
+bool en_luci=true;
+bool en_resistenza=true;
 /*
 // This function is called every time the Virtual Pin 0 state changes
 BLYNK_WRITE(V0)
@@ -62,6 +80,14 @@ BLYNK_CONNECTED()
   //Blynk.setProperty(V3, "url", "https://docs.blynk.io/en/getting-started/what-do-i-need-to-blynk/how-quickstart-device-was-made");
 }
 
+BLYNK_WRITE(V20) //Button luci
+{
+  en_luci =  param.asInt()==1;
+}
+BLYNK_WRITE(V21) //Button resistenza
+{
+   en_resistenza =  param.asInt()==1; 
+}
 
 // This function sends Arduino's uptime every second to Virtual Pin 2.
 void clockDisplay()
@@ -84,6 +110,8 @@ float _humidity;
 float mois;
 void temperature()
 {
+  // return;
+  
     mois = analogRead(A0);
 
    int chk;
@@ -137,7 +165,42 @@ void temperature()
   lcd.print(mois); 
 
 }
+int c=0;
+void switch_temperatura(bool accesa)
+{  Serial.print("tmp");
+   Serial.println(accesa);
+   digitalWrite(RELE_TMP_PIN, (accesa) ? LOW : HIGH);
+   temp_attiva = accesa;
+   int v = (temp_attiva) ? 1 : 0;
+   Blynk.virtualWrite(V7, accesa);
+   
+}
+void switch_luci(bool accesa)
+{ 
+    Serial.print("LUCI");
+  Serial.println(accesa);
+ 
+   digitalWrite(RELE_LUCI_PIN, (accesa) ? LOW : HIGH);
+   luce_accesa = accesa;
+   int v = (luce_accesa) ? 1 : 0;
+   Blynk.virtualWrite(V8, luce_accesa);
+   
+}
 
+void test_temp() {
+
+  if (temp_attiva == true){
+    switch_temperatura(true);
+   }
+  else{
+   switch_temperatura(false);
+  }
+ 
+  temp_attiva = !temp_attiva;
+
+   Serial.println(temp_attiva);
+  delay(2000);              // attende per un secondo.
+}
 
 // ================
 
@@ -157,7 +220,7 @@ void setup()
   lcd.begin(); //Defining 16 columns and 2 rows of lcd display
 
   //lcd.backlight(); //To Power ON /OFF the back light
-   lcd.noBacklight(); //To Power ON /OFF the back light
+  lcd.noBacklight(); //To Power ON /OFF the back light
 
  // Setup a function to be called every second
   timer.setInterval(1000L, clockDisplay);
@@ -165,9 +228,51 @@ void setup()
 
   pinMode(A0, INPUT);
   
+  pinMode(RELE_TMP_PIN, OUTPUT);
+  pinMode(RELE_LUCI_PIN, OUTPUT);
+  
+
+  switch_luci(false);
+  switch_temperatura(false);
+  
   restServerRouting();
   server.begin();
   Serial.println("HTTP server started");
+}
+
+void calibraTemperatura()
+{
+  if (_temperature < TEMPERATURE_TARGET && en_resistenza)
+  {
+    // troppo bassa 
+    switch_temperatura(true);
+  }
+  else if ( _temperature- TEMPERATURE_TARGET  >0.5)
+  {
+    switch_temperatura(false);
+  }
+  
+}
+
+
+
+void periodo_luci()
+{
+  int h = hour();
+
+   Blynk.virtualWrite(V9, h);
+ // Serial.print("ORA: ");
+  //Serial.println(h);
+  
+  bool accesa = (h >= ORA_START && h <= ORA_FINE)  && en_luci ;
+  if (accesa != luce_accesa)
+  {
+      luce_accesa = accesa;
+
+      switch_luci(luce_accesa);
+  }
+  
+   
 }
 
 // ========== REST ===========
@@ -180,7 +285,7 @@ void getState() {
     String temperature = String(_temperature, 1);
     String humidity = String(_humidity, 1);
     String smois = String(mois);
-    String res =  String("{\"temp\":")+  temperature+",\"humidity\":"+humidity+",\"mois\":"+smois+"}";
+    String res =  String("{\"temp\":")+  temperature+",\"humidity\":"+humidity+",\"mois\":"+smois+",\"sw_tmp\":"+((temp_attiva)? "1": "0")+",\"sw_luci\":"+((luce_accesa)? "1": "0")+"}";
     //DHT.humidity
     //DHT.temperature
     server.send(200, "text/json", res);
@@ -204,4 +309,16 @@ void loop()
   timer.run();
 
  server.handleClient();
+
+   calibraTemperatura();
+
+   periodo_luci();
+
+//  switch_luci(false);
+//  switch_temperatura(true);
+  
+   delay(1000);
+ //test_temp();
+ //switch_temperatura(true);
+ 
 }

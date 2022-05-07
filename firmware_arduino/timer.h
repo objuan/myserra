@@ -60,35 +60,50 @@ class Timer
      
 };
 
+enum SwitchMode
+{
+    OFF=0,
+    OPEN=1,
+    TIMER=2
+};
+
+
 class Switch
 {
   int pin;
   int vpin;
-  bool force;
+ // bool force;
   int lastValue;
   int value;
   Timer *timer;
+  SwitchMode mode;
+
+  static char* sw_names[];
+  
   public:
     Switch(int pin,int vpin,Timer* timer){
-      this->pin=pin;this->vpin=vpin;force=false;this->timer=timer;lastValue=-1;value=-1;
+      this->pin=pin;this->vpin=vpin;this->timer=timer;lastValue=-1;value=-1;
+      mode = TIMER;
     }
-    void forceOn(bool on){
-      this->force=on;
+    void setMode(SwitchMode mode){
+      this->mode=mode;
     }
     void tick(const DateTime &now)
     {
       // Serial.println(str_DateTime(now).c_str());
-       
-       value =  ( force || timer->isOn(now) )?  1 : 0;
 
-       virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF"));
+       if (mode == SwitchMode::OFF)
+          value=0;
+       else value =  ( mode == SwitchMode::OPEN || timer->isOn(now) )?  1 : 0;
+
+       virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF")," ( ", sw_names[mode], ")");
        
        if (value != lastValue)
        {
             lastValue=value;
             digitalWrite(pin, (value==1)  ? RELE_ON : RELE_OFF);
 
-            VirtualLog("[",str_DateTime(now).c_str(),"] ", timer->name,":",  (value==1)  ?F("OK"):F("OFF")," " );
+            VirtualLog("[",str_DateTime(now).c_str(),"] ", timer->name,":",  (value==1)  ?F("OK"):F("OFF")," ( ", sw_names[mode], ")" );
        }
     }
 };

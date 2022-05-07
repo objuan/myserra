@@ -7,6 +7,8 @@
 
 #include "Timer.h"
 
+char* Switch::sw_names[] = {"DISABLED","FORCED","TIMER"};
+
 int getSeconds(DateTime dt)
 { 
   int ss= dt.hour() * (60*60) + dt.minute () * 60 +   dt.second ();
@@ -119,3 +121,6 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
         //bool on = isMinutesInside("PIANTE",now,piante_from,piante_to);
         return on;
      }
+
+
+     

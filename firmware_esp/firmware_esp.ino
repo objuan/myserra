@@ -42,6 +42,7 @@ BlynkTimer timer;
 
 BLYNK_CONNECTED()
 {
+   Blynk.sendInternal("rtc", "sync"); //request current local time for device
   // Change Web Link Button message to "Congratulations!"
   //Blynk.setProperty(V3, "offImageUrl", "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations.png");
   //Blynk.setProperty(V3, "onImageUrl",  "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations_pressed.png");
@@ -83,6 +84,18 @@ BLYNK_WRITE(V108) {  _cloudWrite(V108,param[0].asInt()); }
 BLYNK_WRITE(V109) {  _cloudWrite(V109,param[0].asInt()); }
 BLYNK_WRITE(V110) {  _cloudWrite(V110,param[0].asInt()); }
 
+BLYNK_WRITE(InternalPinRTC) {   //check the value of InternalPinRTC  
+  long t = param.asLong();      //store time in t variable
+  //Serial.print("Unix time: ");  
+  //Serial.print(t);              //prints time in UNIX format to Serial Monitor
+  //Serial.println();
+  _cloudWrite(127,t);
+}
+
+void clockDisplay()
+{
+  Blynk.sendInternal("rtc", "sync"); 
+}
 
 // ===============================================
 
@@ -97,7 +110,7 @@ void setup() {
   Blynk.begin(auth, ssid, pass);
 
   // Setup a function to be called every second
- // timer.setInterval(1000L, clockDisplay);
+  timer.setInterval(10000L, clockDisplay);
 
   restServerRouting();
   server.begin();
@@ -112,7 +125,7 @@ unsigned long last_time1=0;
 // the loop function runs over and over again forever
 void loop() 
 {
-
+  timer.run();
   Blynk.run();
   
   server.handleClient();
@@ -120,6 +133,7 @@ void loop()
   i_time++;
 
   clock_time=millis();
+
   if (clock_time - last_time> 1000)
   {
     last_time = clock_time;

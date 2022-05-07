@@ -123,7 +123,14 @@ unsigned long clock_time=0;
 int i_time=0;
 unsigned long last_time=0;
 unsigned long last_time1=0;
+unsigned long web_time=0;
+unsigned long cpu_time=0;
 
+CLOUD_ON_WRITE(127) { 
+
+  web_time = param[0].asLong();
+  //Log("TIME ",web_time);
+}
 
 // the loop function runs over and over again forever
 void loop() 
@@ -136,6 +143,7 @@ void loop()
   i_time++;
 
   clock_time=millis();
+  
   if (clock_time - last_time> 1000)
   {
     last_time = clock_time;
@@ -144,12 +152,17 @@ void loop()
 
     i_time++;
 
+
     // 
 
     #ifdef USE_RTC
       DateTime now = rtc.now();
    #else
-     DateTime now = DateTime();
+     web_time+= (clock_time-cpu_time) / 1000;
+    cpu_time = clock_time;
+
+    DateTime now = DateTime(web_time);
+     //DateTime now = DateTime();
     #endif
     
       virtualWrite(V1,str_DateTime(now).c_str());

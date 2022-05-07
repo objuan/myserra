@@ -138,7 +138,12 @@ public:
           //   Debug("PIN2" , pin , pars.asInt());
            //  Debug("WD" , pin , pars.asString());
 
-            Blynk.virtualWriteBinary(pin,buffer+i+1,len-i);
+            if (pin == 127)
+            {
+              Blynk.sendInternal("rtc", "sync");
+            }
+            else
+              Blynk.virtualWriteBinary(pin,buffer+i+1,len-i);
     /*
               VirtualElement *ele = Find(pin);
               if (ele!=NULL)

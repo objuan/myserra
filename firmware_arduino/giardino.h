@@ -31,7 +31,7 @@ Timer timer_erba("ERBA",300);
 Switch sw_erba(ERBA_SWITCH_PIN,V2,&timer_erba);
 
 CLOUD_ON_WRITE(102) { 
-  sw_erba.forceOn(param[0].asInt() == 1);
+  sw_erba.setMode(param[0].asInt() );
   //sw_erba = param[0].asInt() == 1;
 }
 

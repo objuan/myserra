@@ -41,13 +41,13 @@ CLOUD_ON_WRITE(103) {
 
   //Serial.println("ll");
  // sw_irrigazione = param[0].asInt() == 1;
- sw_irrigazione.forceOn(param[0].asInt() == 1);
+ sw_irrigazione.setMode(param[0].asInt() );
 
  // Log("V103 ",param[0].asString());
 }
 CLOUD_ON_WRITE(104) { 
   //sw_perimetro = param[0].asInt() == 1;
-  sw_perimetro.forceOn(param[0].asInt() == 1);
+  sw_perimetro.setMode(param[0].asInt());
 }
 
 

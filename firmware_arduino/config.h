@@ -18,7 +18,7 @@
 #define RELE_ON LOW
 #define RELE_OFF HIGH
 
-#define USE_RTC
+//#define USE_RTC
 //#define MEGA
 
 //#ifdef USE_RTC

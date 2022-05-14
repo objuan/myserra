@@ -39,13 +39,15 @@ Switch sw_perimetro(PERIMETRALE_SWITCH_PIN,V4,&timer_perimetro);
 
 CLOUD_ON_WRITE(103) { 
 
-  //Serial.println("ll");
+  //Serial.println("103");
+ ///   Serial.println(param[0].asInt() );
  // sw_irrigazione = param[0].asInt() == 1;
  sw_irrigazione.setMode(param[0].asInt() );
 
  // Log("V103 ",param[0].asString());
 }
 CLOUD_ON_WRITE(104) { 
+ // Serial.println("104");
   //sw_perimetro = param[0].asInt() == 1;
   sw_perimetro.setMode(param[0].asInt());
 }

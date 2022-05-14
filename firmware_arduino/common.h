@@ -99,7 +99,7 @@ void Debug(Args... values) {
 
 template <typename... Args>
 void _cloudWrite(int pin, Args... values) {
-        Debug("writew",pin);
+        //Debug("writew",pin);
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("vw"));
         cmd.add(pin);

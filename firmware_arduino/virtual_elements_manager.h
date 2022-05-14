@@ -118,10 +118,8 @@ public:
               int  pin;
               pin = atoi(num);
 
-             BlynkParam pars(buffer+i+1, len-i);
-          
-             
-             Debug(id, " << " ,pin ,"=",  pars.asString());
+              BlynkParam pars(buffer+i+1, len-i);
+           //  Debug(id, " << " ,pin ,"=",  pars.asString());
                  
            //  int idx = str.indexOf(" ",3);
            //  int pin = str.substring(3,idx).toInt();
@@ -154,7 +152,7 @@ public:
                 
              //   Debug("..");
          // pars.
-            BlynkParam pars1(buffer+i+1,len-i);
+           // BlynkParam pars1(buffer+i+1,len-i);
             
             VirtualReq req;
             req.pin = pin;

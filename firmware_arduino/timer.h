@@ -77,12 +77,13 @@ class Switch
   int value;
   Timer *timer;
   SwitchMode mode;
+  SwitchMode oldMode;
 
   static char* sw_names[];
   
   public:
     Switch(int pin,int vpin,Timer* timer){
-      this->pin=pin;this->vpin=vpin;this->timer=timer;lastValue=-1;value=-1;
+      this->pin=pin;this->vpin=vpin;this->timer=timer;lastValue=-1;value=-1;oldMode= -1;
       mode = TIMER;
     }
     void setMode(SwitchMode mode){
@@ -94,13 +95,15 @@ class Switch
 
        if (mode == SwitchMode::OFF)
           value=0;
-       else value =  ( mode == SwitchMode::OPEN || timer->isOn(now) )?  1 : 0;
+       else 
+          value =  ( mode == SwitchMode::OPEN || timer->isOn(now) )?  1 : 0;
 
-       virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF")," ( ", sw_names[mode], ")");
-       
-       if (value != lastValue)
-       {
+       if (value != lastValue || oldMode != mode)
+       { 
+            virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF")," ( ", sw_names[mode], ")");
+     
             lastValue=value;
+            oldMode=mode;
             digitalWrite(pin, (value==1)  ? RELE_ON : RELE_OFF);
 
             VirtualLog("[",str_DateTime(now).c_str(),"] ", timer->name,":",  (value==1)  ?F("OK"):F("OFF")," ( ", sw_names[mode], ")" );

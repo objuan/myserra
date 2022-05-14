@@ -81,7 +81,7 @@ void printDateTimeln(DateTime now)
 
 void setup() {
   //Serial.begin(9600);
-  Serial.begin(57600);
+  Serial.begin(38400);
 
   
 //  osmotica_setup();
@@ -140,7 +140,7 @@ void loop()
  // Serial.println("vw 1 pippo");
 
   //cloudWrite(1,i_time);
-  i_time++;
+ // i_time++;
 
   clock_time=millis();
   
@@ -150,9 +150,10 @@ void loop()
    // cloudWrite(1,i_time);
     manager.tick();
 
-    i_time++;
+     i_time++;
 
-
+    Serial.println(freeMemory());
+    
     // 
 
     #ifdef USE_RTC
@@ -177,7 +178,7 @@ void loop()
       //lab_loop();
     
      // Debug("tick",i_time);
-      i_time++;
+      // i_time++;
        
 
 

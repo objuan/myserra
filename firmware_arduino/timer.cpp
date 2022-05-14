@@ -28,7 +28,7 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
 {
    // DateTime now = giardino_rtc->now();
     bool ok = getMinutes(now) >= getMinutes(from)   &&   getMinutes(now) <= getMinutes(to) ;
-
+/*
  #ifdef DEBUG_MODE
     Serial.print(name);
 
@@ -50,11 +50,13 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
     Serial.print(" =");
     Serial.println(ok ? "ON":"OFF");
  #endif
+ */
     return ok;
 }
 
   void Timer::startup()
   {
+    /*
       if (false)
       {
         String last = read_String(epromAddress,16);
@@ -67,6 +69,7 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
         Serial.println(openTick.c_str());
  
       }
+      */
   }
   
   
@@ -90,7 +93,7 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
               int period_relative = period_time_secs - q * (period_on_secs+period_off_secs);
               if (period_relative > period_on_secs)
                 on=false;
-              
+              /*
               Serial.print("PERIOD, TOTAL= ");
               Serial.print(period_time_secs);
               Serial.print(" Q:" );
@@ -100,6 +103,7 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
              Serial.print(" ON:" );
               Serial.print(on);
               Serial.println("");
+              */
               
            }
            else
@@ -114,8 +118,8 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime 
             myString.concat(str_DateTime(now));
       */
             openTick++;
-            writeString(epromAddress,str_DateTime(now));
-            writeString(epromAddress+50,String(openTick));
+          //  writeString(epromAddress,str_DateTime(now));
+          //  writeString(epromAddress+50,String(openTick));
         }
         
         //bool on = isMinutesInside("PIANTE",now,piante_from,piante_to);

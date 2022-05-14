@@ -105,13 +105,12 @@ char mem_send[BLYNK_MAX_SENDBYTES];
 
 void setup() {
   //Serial.begin(9600);
-  Serial.begin(57600);
+  Serial.begin(38400);
 
   Blynk.begin(auth, ssid, pass);
 
   // Setup a function to be called every second
-  timer.setInterval(10000L, clockDisplay);
-
+  timer.setInterval(60000L, clockDisplay); // uno al minuto
   restServerRouting();
   server.begin();
   Log("HTTP server started");
@@ -122,6 +121,7 @@ int i_time=0;
 unsigned long last_time=0;
 unsigned long last_time1=0;
 
+
 // the loop function runs over and over again forever
 void loop() 
 {
@@ -130,7 +130,7 @@ void loop()
   
   server.handleClient();
   
-  i_time++;
+  //i_time++;
 
   clock_time=millis();
 
@@ -141,6 +141,9 @@ void loop()
     manager.tick();
 
     i_time++;
+
+    Blynk.virtualWrite(126,i_time);
+   // _cloudWrite(126,i_time);
   }
   else
   {

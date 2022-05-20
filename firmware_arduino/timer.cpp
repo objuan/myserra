@@ -24,10 +24,10 @@ int getMinutes(DateTime dt)
   return mm;
 }
 
-bool Timer::isMinutesInside(const char *name,const DateTime &now,const DateTime &from, const  DateTime &to)
+bool Timer::isMinutesInside(const char *name,const DateTime &now,long from, long to)
 {
    // DateTime now = giardino_rtc->now();
-    bool ok = getMinutes(now) >= getMinutes(from)   &&   getMinutes(now) <= getMinutes(to) ;
+    bool ok = getSeconds(now) >= getSeconds(from)   &&   getSeconds(now) <= getSeconds(to) ;
 /*
  #ifdef DEBUG_MODE
     Serial.print(name);

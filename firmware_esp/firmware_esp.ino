@@ -17,7 +17,7 @@ ESP8266WebServer server(HTTP_REST_PORT);
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
-#include <MemoryFree.h>
+//#include <MemoryFree.h>
 #include "virtual_elements_manager.h"
 
 //#include <WidgetRTC.h>

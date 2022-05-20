@@ -34,7 +34,16 @@ CLOUD_ON_WRITE(102) {
   sw_erba.setMode(param[0].asInt() );
   //sw_erba = param[0].asInt() == 1;
 }
-
+CLOUD_ON_WRITE(105) { 
+   Serial.print("erba da :");
+   Serial.println(param[0].asLong());
+    timer_erba.dt_start = param[0].asLong();
+}
+CLOUD_ON_WRITE(106) { 
+   Serial.print("erba a :");
+   Serial.println(param[0].asLong());
+    timer_erba.dt_end = param[0].asLong();
+}
 void giardino_setup() {
   
   // initialize digital pins
@@ -44,7 +53,7 @@ void giardino_setup() {
   //digitalWrite(PERIMETRALE_SWITCH_PIN, RELE_OFF);
   digitalWrite(ERBA_SWITCH_PIN, RELE_OFF);
 
-  timer_erba.setInterval(erba_from,erba_to);
+//  timer_erba.setInterval(erba_from,erba_to);
 //  timer_perimetro.setInterval(perimetro_from,perimetro_to);
   
   

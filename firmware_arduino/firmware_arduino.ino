@@ -17,7 +17,7 @@ SoftwareSerial DebugSerial(2, 3); // RX, TX
 #include "irrigazione.h"
 //#include "lab.h"
 
-#include <MemoryFree.h>
+//#include <MemoryFree.h>
 #include "virtual_elements_manager.h"
 
 //The RTC Library needs Wire
@@ -152,7 +152,7 @@ void loop()
 
      i_time++;
 
-    Serial.println(freeMemory());
+//    Serial.println(freeMemory());
     
     // 
 

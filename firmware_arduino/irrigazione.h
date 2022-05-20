@@ -53,6 +53,28 @@ CLOUD_ON_WRITE(104) {
 }
 
 
+CLOUD_ON_WRITE(107) { 
+   Serial.print("timer_perimetro da :");
+   Serial.println(param[0].asLong());
+    timer_perimetro.dt_start = param[0].asLong();
+}
+CLOUD_ON_WRITE(108) { 
+   Serial.print("timer_perimetro a :");
+   Serial.println(param[0].asLong());
+    timer_perimetro.dt_end = param[0].asLong();
+}
+
+CLOUD_ON_WRITE(109) { 
+   Serial.print("timer_irr da :");
+   Serial.println(param[0].asLong());
+    timer_irr.dt_start = param[0].asLong();
+}
+CLOUD_ON_WRITE(110) { 
+   Serial.print("timer_irr a :");
+   Serial.println(param[0].asLong());
+    timer_irr.dt_end = param[0].asLong();
+}
+
 void irrigazione_setup() {
   
   // initialize digital pins
@@ -64,11 +86,11 @@ void irrigazione_setup() {
  
   Serial.println("Irrigazione Started");
 
-  timer_irr.setInterval(piante_from,piante_to);
+ // timer_irr.setInterval(piante_from,piante_to);
   //timer_irr.setMode(TimerMode::STEP_INTERVAL);
   timer_irr.setPeriod(piante_on_secs,piante_off_secs);
 
-   timer_perimetro.setInterval(perimetro_from,perimetro_to);
+//   timer_perimetro.setInterval(perimetro_from,perimetro_to);
   
 }
 

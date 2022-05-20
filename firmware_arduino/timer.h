@@ -13,8 +13,9 @@ class Timer
   int openTick=0;
   String name;
 
-  DateTime dt_start;
-  DateTime dt_end;
+  // in secondi da 00:00:00
+  long dt_start;
+  long dt_end;
   TimerMode mode;
   int period_on_secs;
   int period_off_secs;
@@ -36,13 +37,14 @@ class Timer
 
      void startup();
 
-    bool isMinutesInside(const char *name,const DateTime &now,const DateTime &from, const  DateTime &to);
-
+    bool isMinutesInside(const char *name,const DateTime &now,long from, long to);
+/*
      void setInterval(const DateTime &dt_start, const  DateTime &dt_end)
      {
         this->dt_start=dt_start;
         this->dt_end=dt_end;
      }
+     */
      
      void setPeriod(int on_secs,int off_secs)
      {
@@ -57,7 +59,13 @@ class Timer
      
 
      bool isOn(const DateTime &now);
-     
+
+     String _toString(){
+        return "S:"+ String(dt_start)+" E:"+ String(dt_end);
+     }
+      String toString(){
+        return "S:"+ String(dt_start)+" E:"+ String(dt_end);
+     }
 };
 
 enum SwitchMode
@@ -100,7 +108,7 @@ class Switch
 
        if (value != lastValue || oldMode != mode)
        { 
-            virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF")," ( ", sw_names[mode], ")");
+            virtualWrite(vpin, (value==1) ?  F("ON"):F("OFF")," ( ", sw_names[mode], ")",timer->toString().c_str());
      
             lastValue=value;
             oldMode=mode;

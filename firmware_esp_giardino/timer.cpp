@@ -10,7 +10,8 @@
 #include "Timer.h"
 
 
-char* Switch::sw_names[] = {"DISABLED","FORCED","TIMER"};
+char* Switch::sw_names[] = {"DISABLED","FORCED","TIMER","TIMER_SETUP"};
+
 
 int getSeconds(DateTime dt)
 { 
@@ -88,6 +89,8 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,long from, long
         }
          if (mode == TimerMode::STEP_INTERVAL)
         {
+            //Serial.print("..");
+            
            on = isMinutesInside(name.c_str(),now,dt_start,dt_end);
            if (on)
            {
@@ -95,12 +98,12 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,long from, long
               {
                   
               }
-              period_time_secs = getSeconds(now) - getSeconds(dt_start);
+              period_time_secs = getSeconds(now) - (dt_start);
               int q = (period_time_secs) / (period_on_secs+period_off_secs);
               int period_relative = period_time_secs - q * (period_on_secs+period_off_secs);
               if (period_relative > period_on_secs)
                 on=false;
-              /*
+
               Serial.print("PERIOD, TOTAL= ");
               Serial.print(period_time_secs);
               Serial.print(" Q:" );
@@ -110,7 +113,7 @@ bool Timer::isMinutesInside(const char *name,const DateTime &now,long from, long
              Serial.print(" ON:" );
               Serial.print(on);
               Serial.println("");
-              */
+              
               
            }
            else

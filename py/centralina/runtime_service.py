@@ -166,10 +166,10 @@ class BoardManager():
      
 # commentare per la migrazione
 
-main_control = BoardManager()
-main_control.Start()
+#main_control = BoardManager()
+#main_control.Start()
 
-RegisterManager(main_control)
+#RegisterManager(main_control)
 
 
 

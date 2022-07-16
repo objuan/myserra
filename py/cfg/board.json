@@ -1,0 +1,11 @@
+
+	[
+		{
+			"ID" : "MAIN",
+			"Port" :"COM10"
+		},
+		{
+			"ID" : "LAB",
+			"Port" :"COM11"
+		}
+	]

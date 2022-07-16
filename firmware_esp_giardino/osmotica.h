@@ -95,12 +95,12 @@ void loadState()
 
 bool isFull()
 {
-  return top_state==1;
+  return false;//top_state==1;
 }
 
 bool needWater()
 {
-  return fill_state==1;
+  return true;//fill_state==1;
 }
 
 // the loop function runs over and over again forever

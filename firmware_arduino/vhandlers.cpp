@@ -25,6 +25,7 @@ void VirtualRead(VirtualReq VIRTUAL_UNUSED &request)
 void VirtualWrite(VirtualReq VIRTUAL_UNUSED &request, const BlynkParam VIRTUAL_UNUSED &param)
 {
     //Warn("No handler for writing to pin ", request.pin);
+    Serial.println("ll");
 }
 
 #define VIRTUAL_ON_READ_IMPL(pin)  void VirtualRead  ## pin (VirtualReq VIRTUAL_UNUSED &req) \

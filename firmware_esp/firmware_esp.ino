@@ -21,8 +21,8 @@ ESP8266WebServer server(HTTP_REST_PORT);
 #include "virtual_elements_manager.h"
 
 //#include <WidgetRTC.h>
-//#include <SoftwareSerial.h>
-//SoftwareSerial DebugSerial(2, 3); // RX, TX
+#include <SoftwareSerial.h>
+SoftwareSerial DebugSerial(D3,D4); // RX, TX
 
 #include "config.h"
 
@@ -72,6 +72,7 @@ void restServerRouting() {
 
 // ================================
 
+/*
 BLYNK_WRITE(V100) {  _cloudWrite(V100,param[0].asInt()); }
 BLYNK_WRITE(V101) {  _cloudWrite(V101,param[0].asInt()); }
 BLYNK_WRITE(V102) {  _cloudWrite(V102,param[0].asInt()); }
@@ -84,12 +85,14 @@ BLYNK_WRITE(V108) {  _cloudWrite(V108,param[0].asInt()); }
 BLYNK_WRITE(V109) {  _cloudWrite(V109,param[0].asInt()); }
 BLYNK_WRITE(V110) {  _cloudWrite(V110,param[0].asInt()); }
 
+*/
+
 BLYNK_WRITE(InternalPinRTC) {   //check the value of InternalPinRTC  
   long t = param.asLong();      //store time in t variable
   //Serial.print("Unix time: ");  
   //Serial.print(t);              //prints time in UNIX format to Serial Monitor
   //Serial.println();
-  _cloudWrite(127,t);
+  cloudWrite_serial(DebugSerial,127,t);
 }
 
 void clockDisplay()
@@ -97,15 +100,36 @@ void clockDisplay()
   Blynk.sendInternal("rtc", "sync"); 
 }
 
+BLYNK_WRITE_DEFAULT() 
+{
+  /*
+  Serial.print("input ");
+  Serial.print(request.pin);
+  Serial.println(":");
+  // Print all parameter values
+  for (auto i = param.begin(); i < param.end(); ++i) 
+  {
+    Serial.print("* ");
+    Serial.println(i.asString());
+  }
+*/
+
+  //if (param.length() == 1)
+      cloudWrite_serial(DebugSerial,request.pin,param[0].asString());
+      
+}
+
 // ===============================================
 
-VirtualElementManager manager("MA", &Serial,true);
+VirtualElementManager manager("MA", &DebugSerial,true);
 //VirtualElementManager *manager_lab;
 char mem_send[BLYNK_MAX_SENDBYTES];
 
 void setup() {
   //Serial.begin(9600);
-  Serial.begin(38400);
+  Serial.begin(9600);
+  DebugSerial.begin(9600);
+
 
   Blynk.begin(auth, ssid, pass);
 
@@ -143,7 +167,11 @@ void loop()
     i_time++;
 
     Blynk.virtualWrite(126,i_time);
-   // _cloudWrite(126,i_time);
+
+ //  DebugSerial.println("pluto");
+   //Serial.println("pluto1");
+   
+   // cloudWrite_serial(DebugSerial,1,i_time);
   }
   else
   {

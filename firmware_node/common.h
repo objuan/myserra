@@ -42,7 +42,7 @@ extern unsigned long resetMills;
 extern DateTime systemTime;
 
 extern char mem_send[BLYNK_MAX_SENDBYTES];
-        
+       /* 
 template <typename... Args>
 void Log(Args... values) {
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
@@ -75,7 +75,7 @@ void Debug(Args... values) {
          cmd.add(F("\n"));
         Serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
     }
-    
+    */
   template <typename... Args>
  void COMMAND(Args... values) {
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
@@ -99,8 +99,7 @@ void Debug(Args... values) {
 
 template <typename... Args>
 void _cloudWrite(int pin, Args... values) {
-     //   Serial.println("_cloudWrite1");
-        
+        //Debug("writew",pin);
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("vw"));
         cmd.add(pin);
@@ -110,20 +109,14 @@ void _cloudWrite(int pin, Args... values) {
        // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
     }
 template <typename... Args>
-void cloudWrite_serial(Stream &serial,int pin, Args... values) {
-      
-       
+void cloudWrite(Stream &serial,int pin, Args... values) {
+       // Debug("writew",pin);
         BlynkParam cmd(mem_send, 0, sizeof(mem_send));
         cmd.add(F("vw"));
         cmd.add(pin);
         cmd.add_multi(values...);
         cmd.add(F("\n"));
-
-         Serial.println(cmd.asString());
-         
         serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
-      // serial.write("pippo\n");
-        
        // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
     }
 

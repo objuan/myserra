@@ -7,3 +7,22 @@ pip install djangorestframework
 npm install -g vue
 npm install -g @vue/cli
 npm install @vue/cli-service -g
+
+--- SERVER --
+ModuleNotFoundError: No module named 'async_to_sync'
+pip install async_to_sync
+
+    from channels.generic.websocket import WebsocketConsumer
+ModuleNotFoundError: No module named 'channels'
+python -m pip install -U channels
+
+ import serial
+ModuleNotFoundError: No module named 'serial'
+pip install pyserial
+
+ModuleNotFoundError: No module named 'blynklib'
+pip install blynklib
+
+ModuleNotFoundError: No module named 'pymitter'
+pip install pymitter
+pip install parsedatetime

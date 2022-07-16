@@ -80,11 +80,14 @@ public:
       return NULL;
   }
 
+/*
+ *   void BlynkWidgetWrite ## pin (BlynkReq BLYNK_UNUSED &request, const BlynkParam BLYNK_UNUSED &param)
+ */
  void Process(char *buffer,int len)
  { 
-        //Debug(id,"<" ,len);
-
-
+        BlynkParam pp(buffer,len);
+        Debug(id,"<<",pp.asString());
+ 
        // if ( str.endsWith("\n"))
        //       str = str.substring(0,str.length()-1); // tolgo \n e |
         
@@ -119,7 +122,7 @@ public:
 
              BlynkParam pars(buffer+i+1,len-i-1);
     
-             Debug(id, " << " ,pin ,"=",  pars.asString(),"|" ,num_len );
+             // Debug(id, " << " ,pin ,"=",  pars.asString(),"|" ,num_len );
                  
            //  int idx = str.indexOf(" ",3);
            //  int pin = str.substring(3,idx).toInt();

@@ -155,13 +155,14 @@ public:
              //   Debug("..");
          // pars.
            // BlynkParam pars1(buffer+i+1,len-i);
-            
+            /*
             VirtualReq req;
             req.pin = pin;
 
           // BlynkParam pars1("pppp",4);
           
             GetVWriteHandler(pin)(req, pars);
+            */
             
           }
           if (buffer[0] == 'v' && buffer[1] == 'r')

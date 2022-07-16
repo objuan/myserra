@@ -4,7 +4,9 @@
  */
 
 #include <SoftwareSerial.h>
-SoftwareSerial DebugSerial(2, 3); // RX, TX
+// occhio sulla mesa 2,3 non va
+SoftwareSerial DebugSerial(10,11); // RX, TX
+Stream *manager_serial = &DebugSerial;
 
 #include <BlynkSimpleStream.h>
 //#include <BlynkSimpleEsp8266.h>
@@ -12,10 +14,13 @@ SoftwareSerial DebugSerial(2, 3); // RX, TX
 #include "timer.h";
 #include "eprom.h"
 #include "vhandlers.h"
+
+
 //#include "osmotica.h"
-#include "giardino.h"
+//#include "giardino.h"
 #include "irrigazione.h"
 //#include "lab.h"
+
 
 //#include <MemoryFree.h>
 #include "virtual_elements_manager.h"
@@ -27,7 +32,7 @@ SoftwareSerial DebugSerial(2, 3); // RX, TX
 RTC_DS1307 rtc;
 #endif
 
-VirtualElementManager manager("esp",&Serial,true);
+VirtualElementManager manager("esp",&DebugSerial,true);
 //VirtualElementManager *manager_lab;
 char mem_send[BLYNK_MAX_SENDBYTES];
 
@@ -82,14 +87,14 @@ void printDateTimeln(DateTime now)
 void setup() {
   //Serial.begin(9600);
   Serial.begin(38400);
-
+  DebugSerial.begin(9600);
   
 //  osmotica_setup();
-  giardino_setup();
+//  giardino_setup();
   irrigazione_setup();
  // lab_setup();
  
-  virtualWrite(0,"INIT");
+//  virtualWrite(0,"INIT");
 //  com.Register(CMD_PING, OnPing);
 
 #ifdef USE_RTC
@@ -115,7 +120,13 @@ void setup() {
   
    printDateTime(rtc.now());
  #endif 
- 
+
+  Serial.println("init");
+
+
+    pinMode(6, OUTPUT);
+   digitalWrite(6, HIGH); 
+  
 }
 
 
@@ -129,12 +140,22 @@ unsigned long cpu_time=0;
 CLOUD_ON_WRITE(127) { 
 
   web_time = param[0].asLong();
-  //Log("TIME ",web_time);
+  Log("TIME ",web_time);
 }
+
+CLOUD_ON_WRITE(102) { 
+
+ 
+  Log("102");
+}
+
 
 // the loop function runs over and over again forever
 void loop() 
 {
+
+  
+  
  // return;
   
  // Serial.println("vw 1 pippo");
@@ -146,6 +167,16 @@ void loop()
   
   if (clock_time - last_time> 1000)
   {
+    
+   // DebugSerial.print("pin ");
+   // DebugSerial.println("pp aa");
+    
+    //Serial.println("pin");
+
+  //  DebugSerial.println("wv 2 4");
+    
+  //  virtualWrite_serial(DebugSerial,2,i_time);
+  
     last_time = clock_time;
    // cloudWrite(1,i_time);
     manager.tick();
@@ -154,25 +185,23 @@ void loop()
 
 //    Serial.println(freeMemory());
     
-    // 
-
     #ifdef USE_RTC
       DateTime now = rtc.now();
    #else
      web_time+= (clock_time-cpu_time) / 1000;
     cpu_time = clock_time;
 
-    DateTime now = DateTime(web_time);
+      DateTime now = DateTime(web_time);
      //DateTime now = DateTime();
     #endif
     
-      virtualWrite(V1,str_DateTime(now).c_str());
+   //   virtualWrite(V1,str_DateTime(now).c_str());
       
        // SERIAL 
       //printDateTimeln(now);
    
 //      osmotica_loop();
-      giardino_loop(now);
+  //    giardino_loop(now);
       irrigazione_loop(now);
 
       //lab_loop();
@@ -180,8 +209,6 @@ void loop()
      // Debug("tick",i_time);
       // i_time++;
        
-
-
 
     //
   }

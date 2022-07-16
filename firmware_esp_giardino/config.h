@@ -29,8 +29,8 @@
 #define VPIN_PERIMETRO_DA 107
 #define VPIN_PERIMETRO_A 108
 
-
-
+#define VPIN_TIMER_SETUP 40
+#define VPIN_TIMER_SETUP_DESC 41
 /*
 PIn WeMos D1 mini  Pin Arduino IDE
 config : "Wemos D1 R1" RICORDARE !!!!!!!!
@@ -71,15 +71,37 @@ HO MESSO IN INPUT 2,3,4 che mi sembrano + stabili
   #define WATER_IN_SOLENOID_PIN 105   // eletrovalvola acqua in ingresso 
   #define WATER_OUT_RELE_PIN 106    //   rele pompa di uscita
 #else
-  #define TOP_SWITCH_PIN  D2  // interruttore acqua piena
-  #define FILL_SWITCH_PIN  D3  // interruttore inizzio acqua piena
-  #define DANGER_SWITCH_PIN  D4  // interruttore acqua bassa per pompa
+ // #define TOP_SWITCH_PIN  D2  // interruttore acqua piena
+  //#define FILL_SWITCH_PIN  D3  // interruttore inizzio acqua piena
+  //#define DANGER_SWITCH_PIN  D4  // interruttore acqua bassa per pompa
   
   // eletrovalvola ingresso acqua
-  #define WATER_IN_SOLENOID_PIN D1   // eletrovalvola acqua in ingresso 
+  #define WATER_IN_SOLENOID_PIN D8   // eletrovalvola acqua in ingresso 
   //#define WATER_OUT_RELE_PIN D12    //   rele pompa di uscita
 #endif
 
 
+// LETTO
+
+#define VPIN_LETTO_ENABLE 21  // 
+
+#define VPIN_LETTO_POMPA_STATE 32  // 
+#define VPIN_LETTO_POMPA_CMD 33  // 
+
+#define VPIN_LETTO_1_OUT_STATE 31  // 
+#define VPIN_LETTO_1_OUT_CMD 34  // 
+
+#ifdef MEGA
+ 
+#else
+ // #define TOP_SWITCH_PIN  D2  // interruttore acqua piena
+  //#define FILL_SWITCH_PIN  D3  // interruttore inizzio acqua piena
+  //#define DANGER_SWITCH_PIN  D4  // interruttore acqua bassa per pompa
+  
+  // eletrovalvola ingresso acqua
+  #define LETTO_POMPA_PIN D4   // eletrovalvola acqua in ingresso 
+ // #define LETTO_1_OUT_PIN D3   // eletrovalvola acqua in ingresso 
+  //#define WATER_OUT_RELE_PIN D12    //   rele pompa di uscita
+#endif
 
 #endif

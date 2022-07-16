@@ -12,6 +12,7 @@ enum TimerMode
 {
   ON,
   STEP_INTERVAL
+  
 };
 
 class Timer
@@ -55,15 +56,23 @@ class Timer
         this->dt_end=dt_end;
      }
      */
-     void setPeriod(int on_secs,int off_secs)
+     void setPeriod(int on_secs,int period_secs)
      {
        this->period_on_secs=on_secs;
-       this->period_off_secs=off_secs;
+       this->period_off_secs=period_secs-period_on_secs;
      }
      
      void setMode(TimerMode mode)
      {
         this->mode=mode;
+     }
+     long getTime(const DateTime &dt)
+     {
+        return  (int)dt.second() +(int) dt.minute()*60+(int)dt.hour() * 60*60;
+     }
+     long getTime(int hh,int mm ,int ss)
+     {
+        return (int)ss + (int)mm*60+(int)hh * 60*60;
      }
      
 
@@ -90,7 +99,8 @@ enum SwitchMode : int
 {
     OFF=0,
     OPEN=1,
-    TIMER=2
+    TIMER=2,
+    TIMER_SETUP
 };
 
 

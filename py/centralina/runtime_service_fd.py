@@ -100,7 +100,7 @@ def ConnectBoards():
             
     logger.info ("----------------")
 
-ConnectBoards()
+#ConnectBoards()
 
 
 

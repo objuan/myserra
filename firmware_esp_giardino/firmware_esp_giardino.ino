@@ -24,7 +24,8 @@ ESP8266WebServer server(HTTP_REST_PORT);
 #include "giardino.h"
 #include "irrigazione.h"
 #include "perimetro.h"
-#include "osmotica.h"
+#include "letto.h"
+//#include "osmotica.h"
 
 char auth[] = BLYNK_AUTH_TOKEN;
 
@@ -96,12 +97,15 @@ void setup() {
   server.begin();
   Log("HTTP server started");
 
-  osmotica_setup();
+//  osmotica_setup();
 //  giardino_setup();
   //irrigazione_setup();
   //perimetro_setup();
+  letto_setup();
 
- //  pinMode(D2, OUTPUT);
+  // FAKE OSMOTICA
+   pinMode(WATER_IN_SOLENOID_PIN, OUTPUT);
+  digitalWrite(WATER_IN_SOLENOID_PIN, SOLENOID_ON);
   
 }
 
@@ -160,7 +164,8 @@ void loop()
      giardino_loop(now);
      irrigazione_loop(now);
     perimetro_loop(now);
-    osmotica_loop(now);
+    //osmotica_loop(now);
+    letto_loop(now);
 /*
      if ((i_time % 2) == 0)
       digitalWrite(D2, RELE_ON);
@@ -177,6 +182,30 @@ void loop()
 
 }
 
+// ================================================================================================
+
+Switch *current_timer_SW=NULL;
+int timerSetupMode = 0;
+
+BLYNK_WRITE(VPIN_TIMER_SETUP) { 
+   Serial.print("TIMER SETUP ");
+   if (current_timer_SW!=NULL)
+   {
+      if (timerSetupMode==0)
+      {
+        current_timer_SW->getTimer()->dt_start = param[0].asLong();
+        timerSetupMode=1;
+      }
+      else if (timerSetupMode==1)
+      {
+        current_timer_SW->getTimer()->dt_end = param[0].asLong();
+        timerSetupMode=0;
+        current_timer_SW=NULL;
+      }
+   }
+   
+}
+
 
  void Switch::tick(const DateTime &now)
     {
@@ -184,6 +213,14 @@ void loop()
 
        if (mode == SwitchMode::OFF)
           value=0;
+       else  if (mode == SwitchMode::TIMER_SETUP)
+       {
+            current_timer_SW = this;
+            mode = SwitchMode::OFF;
+            value=0;
+            Blynk.virtualWrite(VPIN_TIMER_SETUP_DESC, "TIMER SETUP:",timer->toString().c_str()," PRESS BEGIN");
+     
+       }
        else 
           value =  ( mode == SwitchMode::OPEN || timer->isOn(now) )?  1 : 0;
 

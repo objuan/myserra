@@ -6,13 +6,27 @@
 </head>
 <body>
    <h1>Serra</h1>
-   {{ forward_message }} 
-  
-   <form action="/ortoLungo/" method="post">
-    <button name="btn1" type="submit">Orto Lungo</button>
+   {{ ortoLungo_message }} 
+   <br/>
+   {{ ortoCasa_message }} 
+   <hr>
+   <form action="/" method="get">
+    <button name="btnu" type="submit">Update</button>
   </form>
+<hr>
+   <form action="/ortoLungo_auto/" method="post">
+    <button name="btn1" type="submit">Orto Lungo Auto</button>
+  </form>
+  <form action="/ortoLungo/" method="post">
+    <button name="btn1" type="submit">Orto Lungo Manual</button>
+  </form>
+  <hr>
+  <form action="/ortoCasa_auto/" method="post">
+    <button name="btn2" type="submit">Orto Casa Auto</button>
+	</form>
+
   <form action="/ortoCasa/" method="post">
-    <button name="btn2" type="submit">Orto Casa</button>
+    <button name="btn2" type="submit">Orto Casa Manual</button>
 	</form>
 </body>
 </html>

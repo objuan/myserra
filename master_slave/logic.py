@@ -2,6 +2,8 @@ import time
 from datetime import datetime
 from arduino import *
 
+SWITCH_HI = 0
+SWITCH_LOW = 1
 
 class Switch:
 
@@ -10,7 +12,10 @@ class Switch:
         self.name=name
         self.pin=pin
         self.open=False
+        self.timeEnabled=True
+        self.timeActive=False
         pinMode(pin, OUTPUT)
+        digitalWrite(self.pin,SWITCH_LOW)
         pass
 
     def setTime(self,start,end):
@@ -20,38 +25,50 @@ class Switch:
 
     def eval(self,datetime):
 
-        active = (datetime>= self.start and datetime<= self.end)
+        if (not self.timeEnabled):
+            return
+        
+        self.timeActive =  (datetime>= self.start and datetime<= self.end)
        
-        if ( self.open != active):
+        if ( self.open != self.timeActive):
             print(self.name," STATE ", self.open )
 
-            self.open=active
-            if (active):
-                digitalWrite(self.pin,1)
+            self.open=self.timeActive
+            if (self.timeActive):
+                digitalWrite(self.pin,SWITCH_HI)
             else:
-                digitalWrite(self.pin,0)
+                digitalWrite(self.pin,SWITCH_LOW)
 
         pass
     def toggle(self):
         print(self.name," TOGGLE " )
         self.open=not  self.open
+        self.timeEnabled=False
         if ( self.open):
-                digitalWrite(self.pin,1)
+                digitalWrite(self.pin,SWITCH_HI)
         else:
-                digitalWrite(self.pin,0)
-    
+                digitalWrite(self.pin,SWITCH_LOW)
+
+    def toggleAuto(self):
+        print(self.name," TOGGLE AUTO" )
+        self.timeEnabled=not  self.timeEnabled
+      
     def desc(self):
-        return self.name+ " state:"+ str(self.open)+" "+"start:"+str(self.start)+ "end:"+ str(self.end)
+        return self.name+ " state:"+ str(self.open)+" " \
+            +"start:"+str(self.start)+ "end:"+ str(self.end)\
+            + " timeEn:"+ str(self.timeEnabled)\
+            + " timeActive:"+ str(self.timeActive)
+
 
 # ==========
 # start time
 ortoLungo=None
-ortoLungo_PIN=2
+ortoLungo_PIN=22
 ortoLungo_start_time = "21:51:00"
 ortoLungo_end_time = "21:52:00"
 
 ortoCasa=None
-ortoCasa_PIN=3
+ortoCasa_PIN=24
 ortoCasa_start_time = "21:51:00"
 ortoCasa_end_time = "21:52:00"
 
@@ -88,7 +105,7 @@ def loop():
     _current_time = now.strftime("%H:%M:%S")
     current_time  = datetime.strptime(_current_time , "%H:%M:%S")
 
-    print(current_time)
+    #print(current_time)
 
     ortoLungo.eval(current_time)
     ortoCasa.eval(current_time)

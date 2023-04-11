@@ -9,8 +9,11 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('', include(router.urls)),
 ]
-#urlpatterns = [
-# 
+urlpatterns = [
+    path('', include(router.urls)),
+    path('config/', views.config_api),
+    path('board_api/', views.board_api)
+
 #    path('', include(router.urls)),
 ## 
 #    path('board/', views.board_list),
@@ -34,7 +37,7 @@ urlpatterns = [
 #
 #    
 #
-#]
+]
 
 #urlpatterns = [
 #    path('', views.index, name='index'),

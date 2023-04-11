@@ -8,11 +8,14 @@ from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .logic import *
+from .config import *
+
 import urllib.request
 
 #from django_socketio import events
 
 from .runtime_service import BoardManager
+from .arduino_service import ArduinoManager,getClient
 
 def index(request):
     latest_question_list = Board.objects.order_by('-name')[:5]
@@ -387,4 +390,63 @@ def semenzario_api(request,):
             return HttpResponse(status=404)
     except Board.DoesNotExist:
             return HttpResponse(status=404)
+
+@csrf_exempt
+def config_api(request,):
+    print ('config_api')
+ 
+    try:
+        if request.method == 'GET':
+            cfg =  getConfig()
+            print(getConfig())
+            #serializer = LabPumpCalibrateSerializer(cal)
+            return JsonResponse(cfg, safe=False)
+        elif request.method == 'POST': #save
+            print("POST")
+            data = JSONParser().parse(request)
+            print("POST ",data)
+            saveConfig(data)
+            return HttpResponse('')
+        else:
+            return HttpResponse(status=404)
+    except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
+
+@csrf_exempt
+def board_api(request):
+    print ('board_api')
+ 
+    try:
+        if request.method == 'GET':
+            cfg =  getConfig()
+         
+            print(getConfig())
+            #serializer = LabPumpCalibrateSerializer(cal)
+            return JsonResponse(cfg, safe=False)
+        elif request.method == 'POST': #save
+  
+            data = JSONParser().parse(request)
+            print("POST ",data,getClient())
+         
+            pin= getPin(data["id"],data["pin"])
+           
+            if (data["cmd"]== "write"):
+                print(pin,str(data["val"]))
+
+                getClient().write_raw(data["id"]+" "+str(data["pin"]),str(data["val"]))
+            else:
+                getClient().read_raw(data["id"]+" "+str(data["pin"]))
+
+            #if (pin["MODE"] == "D"):
+            #    getClient().write_raw(data["id"]+" "+str(data["pin"])," W D "+str(data["val"]))
+            #else:
+            #    getClient().write_raw(data["id"]+" W A "+ str(data["pin"]),str(data["val"]))
+         
+            return HttpResponse('OK')
+        else:
+            return HttpResponse(status=404)
+    except Board.DoesNotExist:
+            return HttpResponse(status=404)
+
 

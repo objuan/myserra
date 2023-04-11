@@ -1,8 +1,8 @@
 <template>
     <div>
-    <b-card  :header="'SWITCH: '+value.name"  >
+    <b-card  :header="'SWITCH: '+value.NAME"  >
             <b-card-text>
-                {{value.name}}
+                {{value.NAME}}
             </b-card-text>
         </b-card>
     </div>

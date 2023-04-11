@@ -18,9 +18,9 @@ Stream *manager_serial = &DebugSerial;
 //#include <MemoryFree.h>
 
 //Node node("test1",&DebugSerial,NODE_MATER);
-Node node("T",&Serial,&DebugSerial,NODE_MATER);
+Node node("MAIN",&Serial,&DebugSerial,NODE_MATER);
 
-
+/*
 String str_DateTime(const DateTime &now)
 {
     //DateTime now = rtc.now();
@@ -52,7 +52,7 @@ void printDateTimeln(DateTime now)
     printDateTime(now);
     Serial.println();
 }
-
+*/
 
 /*
  *  CONNECT DIAGRAM
@@ -73,7 +73,7 @@ void setup() {
   Serial.begin(9600);
   DebugSerial.begin(9600);
   
-  Serial.println("init");
+  Serial.println("CMD STARTUP");
 }
 
 

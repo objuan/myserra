@@ -3,7 +3,7 @@
   <div id="app">
 
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">MySerra</b-navbar-brand>
+      <b-navbar-brand href="#">MySerra1</b-navbar-brand>
        <span class="btn-success">
          <table>
            <tr>
@@ -26,12 +26,15 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-nav card-header tabs>
-          <b-nav-item  to="/centralina" exact exact-active-class="active">Centralina</b-nav-item>
+          <b-nav-item  to="/config" exact exact-active-class="active">Config</b-nav-item>
+          <b-nav-item  to="/board_test" exact exact-active-class="active">Board Test</b-nav-item>
+
+        <!--  <b-nav-item  to="/centralina" exact exact-active-class="active">Centralina</b-nav-item>
           <b-nav-item  to="/boardlist" exact exact-active-class="active">Boards</b-nav-item>
           <b-nav-item  to="/giardino" exact exact-active-class="active">Giardino</b-nav-item>
           <b-nav-item  to="/semenzario" exact exact-active-class="active">Seme</b-nav-item>
           <b-nav-item to="/log" exact exact-active-class="active">Log </b-nav-item>
-          <b-nav-item to="/admin/" exact exact-active-class="active">Admin </b-nav-item>
+          <b-nav-item to="/admin/" exact exact-active-class="active">Admin </b-nav-item>-->
         </b-nav>
 
         <!-- Right aligned nav items -->

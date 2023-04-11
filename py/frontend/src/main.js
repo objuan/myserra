@@ -8,6 +8,8 @@ import Centralina from './components/Centralina'
 import Giardino from './components/Giardino'
 import Semenzario from './components/Semenzario'
 import Log from './components/Log'
+import Config from './components/Config'
+import BoardTest from './components/BoardTest'
 
 // import some global styles
 //import './styles/style.scss'
@@ -18,7 +20,11 @@ Vue.use(VueRouter)
 
 
 const routes = [
-  { path: '/centralina', alias: '/', component: Centralina },
+  
+  { path: '/config', alias: '/', component: Config },
+  { path: '/board_test',  component: BoardTest },
+  
+  { path: '/centralina', component: Centralina },
   { path: '/boardlist',  component: BoardList },
   { path: '/giardino',  component: Giardino },
   { path: '/log', component: Log },

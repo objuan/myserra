@@ -12,6 +12,8 @@
 
 #define NODE_CMD_MODE_D 0
 #define NODE_CMD_MODE_A 1
+#define NODE_CMD_MODE_IN 2
+#define NODE_CMD_MODE_OUT 3
 
 #define NODE_CMD_SET 0
 #define NODE_CMD_READ 1
@@ -19,16 +21,16 @@
 
 /* LINGUAGGIO  MESSAGGI
  *  ACK ID MODE
- *  READ prefisso = ID 
+ *  READ prefisso = ID PIN
  *   -> S D IN | S D OUT
-   *  ->R D 1 -> read digital 1 
-   *  ->R A 2 -> read analog 2
-   *  <-V D 1 <valore>
-   *  <-V A 2 <valore>
+   *  ->R D -> read digital 1 
+   *  ->R A -> read analog 2
+   *  <-V D <valore>
+   *  <-V A <valore>
    * es ESP R D 1
-   * WRITE
-   *  -> W D 1 <valore>
-   *  -> W A 1 <valore>
+   * WRITE  prefisso = ID PIN
+   *  -> W D <valore>
+   *  -> W A <valore>
  *  */
 
 class NearNode

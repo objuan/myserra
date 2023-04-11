@@ -78,7 +78,7 @@ class BoardManager():
     def ConnectBoards(self):
         global ancora
         ancora =True
-        logger.info ("------INIT ARDUINO-----------")
+        logger.info ("------INIT ARDUINO-1----------")
 
         for b in Board.objects.all():
                 logger.info ("Start "+str(b.name))

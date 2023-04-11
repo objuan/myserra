@@ -9,11 +9,14 @@
     "watch": "vue-cli-service build --watch --mode development"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.18.6",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "v-jsoneditor": "^1.4.5",
     "vue": "^2.6.11",
+    "vue-json-editor": "^1.4.3",
     "vue-router": "^3.5.1",
     "vue2-timepicker": "^1.1.6",
     "vuex": "^3.6.2"

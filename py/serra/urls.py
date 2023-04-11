@@ -21,6 +21,9 @@ from serra import views
 
 vue_urls = [
   path('', views.frontend),
+  path('config', views.frontend),
+  path('board_test', views.frontend),
+  
   path('boardlist', views.frontend),
   path('hello', views.frontend),
   path('centralina', views.frontend),

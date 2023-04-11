@@ -57,9 +57,17 @@ class VirtualPin:
     value=None # out value
     mode = VirtualPinMode.ANALOGIC
     filter = None
+    io="O"
 
     def __init__(self,pin):
         self.pin=pin
+
+    def init(self,client):
+        if self.mode == VirtualPinMode.ANALOGIC:
+            c = " S "+self.io
+        else:
+            c = " S "+self.io
+        client.write_raw(str(self.pin),c)
 
     def get(self):
         return self.value
@@ -84,6 +92,24 @@ class VirtualPin:
         c = str(self.pin) +" "+self.value
         client.write("vw",c)
 
+    def read_raw(self,client):
+        if self.mode == VirtualPinMode.ANALOGIC:
+            c = " R A "
+        else:
+            c = " R D "
+        client.write_raw(str(self.pin),c)
+
+    def write_raw(self,client,val):
+      
+        self.value=val
+        logger.debug ("[CLOUD] " + str(self.pin) +"="+self.value)
+        if self.mode == VirtualPinMode.ANALOGIC:
+            c = " W A "+self.value
+        else:
+            c = " W D "+self.value
+
+        client.write_raw(str(self.pin),c)
+
     #def onConnect(self,con):
     #    if (self.mode == VirtualPinMode.READ_WRITE ):
     #        self.send(con)
@@ -95,8 +121,9 @@ class SharedMemory:
     data = {}
   
     def __init__(self):
-        for c in range(0, 256):
-            self.data[c]=VirtualPin(c)
+        pass
+        #for c in range(0, 256):
+        #    self.data[c]=VirtualPin(c)
 
     def get(self,name):
         return self.data[name].get()
@@ -119,6 +146,11 @@ class SharedClient:
 
     isReady=False
     
+    def addPin(self,name):
+        self.memory.data[name]=VirtualPin(name)
+
+        
+       
     def __init__(self,memory,arduino):
         self.memory=memory
         self.arduino=arduino
@@ -152,9 +184,11 @@ class SharedClient:
         else:
             return pin.value
 
-    def setPinMode(self, name,mode): #VirtualPinMode.DIGITAL
+    def setPinMode(self, name,mode,io): #VirtualPinMode.DIGITAL
          pin = self.memory.data[name]
          pin.mode = mode
+         pin.io=io
+         self.memory.data[name].init(self.arduino)
 
     def setFilter(self,name,filter):
         pin = self.memory.data[name]
@@ -180,6 +214,27 @@ class SharedClient:
             self.memory.data[name].write(self.arduino,str(val))
 
         self.fireWrite(name,self.memory.data[name].get())
+
+    def read_raw(self,pin):
+        print("READ " , pin)
+        self.memory.data[pin].read_raw(self.arduino)
+
+    def write_raw(self,name,val):
+        print("WRITE " , name,val)
+       
+        pin = self.memory.data[name]
+        if (pin.mode == VirtualPinMode.DIGITAL):
+            if (str(val) == "True" or  str(val) == "1"):
+                self.memory.data[name].write_raw(self.arduino,"1")
+            else:
+                self.memory.data[name].write_raw(self.arduino,"0")
+        else:
+            self.memory.data[name].write_raw(self.arduino,str(val))
+
+
+        #self.fireWrite(name,self.memory.data[name].get())
+
+        #self.fireWrite(name,self.memory.data[name].get())
 
 class ArduinoClient:  
 
@@ -293,6 +348,17 @@ class ArduinoClient:
         if (self.currentMessage == None):
                self.onACK()
 
+    def write_raw(self,cmd,buffer):
+        with self._lock:
+            #print("Send", buffer,self.currentMessage)
+         
+            self.addMessage(cmd+buffer,"")
+           
+                #self._write(cmd,buffer)
+        if (self.currentMessage == None):
+               self.onACK()
+    
+
     def onACK(self):
         with self._lock:
             if (self.currentMessage != None):
@@ -347,7 +413,7 @@ class ArduinoClient:
                   
                     while self.connection.in_waiting > 0:
                         l = self.connection.readline()
-                        #print("<=",l)
+                        print("<=",l)
                         line = l.decode('utf-8').rstrip()
                         #print("<=",line)
                         if (line.startswith("ACK")):
@@ -356,10 +422,12 @@ class ArduinoClient:
                             #print(repr(line[2]))
                             args = line.split(sep=self.end_param)
 
+                            #print(args)
                             #i = line.index(self.end_param,3)
                             #pin = int(line[3:i])
-                            pin = int(args[1])
-                            #print ("wv pin = " + str(pin))
+                            #pin = int(args[1])
+                            pin = args[1]
+                            #print ("wv pin = " + str(pin), args[2].rstrip())
                             #if (self.isReady):
                             self.memory.set(self,pin,args[2].rstrip())
 

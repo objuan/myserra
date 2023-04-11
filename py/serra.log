@@ -407,3 +407,1239 @@
 2022-07-15 22:36:09,348 centralina.runtime_service INFO     Start semenzario
 2022-07-15 22:36:09,348 centralina.cloud INFO     ArduinoClient Started
 2022-07-15 22:36:09,351 centralina.cloud ERROR    Connecting ..could not open port '1': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2022-07-16 21:02:07,577 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:02:07,582 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:03:33,482 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:03:33,482 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:03:33,482 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:03:33,484 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:33,487 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:03:33,487 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:03:33,487 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:03:33,488 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:34,606 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:34,606 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:35,729 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:35,729 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:36,855 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:36,855 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:37,976 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:37,977 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:39,087 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:39,087 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:40,209 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:40,209 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:41,331 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:41,331 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:42,442 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:42,442 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:43,562 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:43,562 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:44,686 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:44,686 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:45,798 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:45,798 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:46,922 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:46,922 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:48,044 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:48,044 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:49,165 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:49,165 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:50,286 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:50,286 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:51,401 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:51,401 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:52,512 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:52,512 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:53,634 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:53,634 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:55,508 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:03:55,509 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:03:55,509 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:03:55,510 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:55,513 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:03:55,513 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:03:55,513 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:03:55,514 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:56,628 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:56,628 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:57,746 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:57,746 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:58,859 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:58,859 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:59,984 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:03:59,984 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:01,101 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:01,101 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:32,978 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:04:32,982 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:04:32,982 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:04:32,982 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:32,986 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:04:32,986 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:04:32,986 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:04:32,986 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:34,087 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:34,114 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:35,203 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:35,234 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:36,308 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:36,356 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:37,422 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:37,467 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:38,533 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:38,583 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:39,657 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:39,701 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:40,780 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:40,826 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:41,891 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:41,932 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:42,995 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:43,041 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:44,116 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:44,162 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:45,240 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:45,287 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:46,349 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:46,412 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:47,475 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:47,537 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:48,599 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:48,660 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:49,723 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:49,786 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:50,847 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:50,908 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:51,969 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:52,032 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:53,094 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:53,158 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:54,218 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:54,280 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:55,341 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:55,402 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:56,459 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:56,520 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:57,578 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:57,640 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:58,695 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:58,758 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:59,819 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:04:59,881 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:00,928 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:01,006 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:02,047 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:02,125 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:03,173 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:03,251 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:04,295 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:04,372 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:05,416 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:05,495 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:06,527 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:06,621 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:07,652 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:07,744 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:08,773 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:08,867 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:09,893 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:09,986 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:11,010 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:11,104 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:12,126 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:12,220 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:13,248 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:13,342 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:14,369 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:14,464 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:15,493 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:15,586 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:16,603 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:16,696 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:17,727 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:17,820 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:18,846 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:18,941 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:19,957 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:20,064 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:21,072 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:21,182 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:22,192 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:22,300 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:23,307 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:23,417 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:24,422 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:24,535 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:25,533 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:25,656 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:26,650 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:26,775 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:27,764 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:27,885 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:28,872 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:28,998 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:29,979 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:30,115 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:31,096 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:31,230 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:32,213 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:32,352 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:33,333 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:33,477 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:34,452 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:34,596 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:35,575 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:35,713 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:36,689 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:36,828 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:37,797 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:37,944 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:38,915 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:39,067 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:40,034 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:40,192 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:41,152 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:41,303 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:42,264 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:42,417 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:43,379 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:43,529 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:44,496 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:44,647 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:45,619 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:45,756 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:46,733 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:46,870 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:47,859 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:47,979 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:48,972 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:49,101 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:50,094 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:50,220 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:51,210 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:51,337 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:52,317 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:52,450 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:53,441 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:53,569 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:54,558 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:54,691 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:55,682 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:55,809 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:56,801 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:56,918 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:57,906 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:58,029 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:59,032 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:05:59,145 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:00,152 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:00,264 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:01,272 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:01,376 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:02,376 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:02,502 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:03,482 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:03,619 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:04,597 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:04,736 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:05,716 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:05,857 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:06,839 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:06,982 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:07,949 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:08,103 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:09,076 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:09,218 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:10,202 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:10,343 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:11,316 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:11,454 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:12,431 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:12,571 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:13,554 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:13,694 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:14,672 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:14,811 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:15,787 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:15,927 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:16,901 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:17,041 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:18,015 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:18,154 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:19,133 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:19,274 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:20,253 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:20,394 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:21,374 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:21,514 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:22,492 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:22,634 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:23,611 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:23,749 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:24,718 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:24,861 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:25,831 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:25,984 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:28,462 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:06:28,462 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:06:28,462 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:06:28,462 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:28,466 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:06:28,466 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:06:28,466 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:06:28,466 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:29,580 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:29,580 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:30,699 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:30,699 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:31,808 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:31,808 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:32,927 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:32,927 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:34,045 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:34,045 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:35,167 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:35,167 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:36,273 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:36,273 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:37,385 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:37,385 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:38,506 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:38,506 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:39,617 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:39,617 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:40,731 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:40,731 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:41,849 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:41,849 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:42,966 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:42,966 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:44,088 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:44,088 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:45,197 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:45,197 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:46,302 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:46,302 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:47,414 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:47,414 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:48,530 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:48,530 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:49,647 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:49,647 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:50,762 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:50,762 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:51,876 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:51,876 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:52,987 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:52,987 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:54,098 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:54,098 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:55,206 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:55,206 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:56,323 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:56,323 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:57,434 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:57,434 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:58,557 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:58,557 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:59,666 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:06:59,666 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:02,955 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:07:02,955 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:07:02,955 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:07:02,955 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:02,959 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:07:02,959 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:07:02,963 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:07:02,963 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:04,066 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:04,082 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:05,179 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:05,195 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:06,296 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:06,312 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:55,589 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:07:55,589 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:07:55,590 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:07:55,590 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:55,595 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:07:55,595 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:07:55,595 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:07:55,596 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:56,713 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:07:56,713 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:03,176 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:10:03,176 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:10:03,176 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:10:03,177 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:04,292 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:05,406 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:06,519 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:07,639 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:08,755 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:09,860 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:10,976 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:12,082 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:13,203 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:14,314 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:15,433 centralina.cloud ERROR    Connecting ..could not open port 'COM4': FileNotFoundError(2, 'Impossibile trovare il file specificato.', None, 2)
+2022-07-16 21:10:18,414 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:10:18,414 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:10:18,414 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:10:18,430 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:11:39,841 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:11:39,841 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:11:39,841 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:11:39,859 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:13:34,245 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:13:34,245 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:13:34,245 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:13:34,267 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:32:49,144 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:32:49,145 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:32:49,145 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:32:49,166 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:35:59,467 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:35:59,467 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:35:59,467 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:35:59,485 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:36:28,180 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:36:28,181 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:36:28,181 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:36:28,197 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:37:25,529 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:37:25,529 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:37:25,529 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:37:25,544 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:37:37,371 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:37:37,372 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:37:37,372 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:37:37,387 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:37:51,273 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:37:51,273 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:37:51,273 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:37:51,289 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:37:59,900 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:37:59,901 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:37:59,901 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:37:59,916 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:38:19,161 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:38:19,162 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:38:19,162 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:38:19,177 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:38:26,750 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:38:26,750 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:38:26,750 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:38:26,767 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:38:38,603 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:38:38,603 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:38:38,603 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:38:38,619 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:40:01,166 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:40:01,166 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:40:01,166 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:40:01,181 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:40:38,318 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:40:38,319 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:40:38,319 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:40:38,335 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:40:49,260 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:40:49,261 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:40:49,261 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:40:49,276 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:41:12,727 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:41:12,727 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:41:12,728 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:41:12,743 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:41:53,154 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:41:53,154 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:41:53,154 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:41:53,170 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:43:15,825 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:43:15,825 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:43:15,825 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:43:15,841 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:43:25,574 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:43:25,574 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:43:25,575 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:43:25,590 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:44:38,679 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:44:38,679 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:44:38,679 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:44:38,695 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:44:56,842 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:44:56,842 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:44:56,842 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:44:56,858 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:45:58,184 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:45:58,184 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:45:58,184 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:45:58,200 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:47:01,683 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:47:01,684 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:47:01,684 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:47:01,699 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:50:13,611 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:50:13,612 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:50:13,612 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:50:13,628 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:50:22,294 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:50:22,294 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:50:22,295 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:50:22,310 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:50:33,032 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:50:33,032 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:50:33,032 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:50:33,048 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:51:05,984 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:51:05,984 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:51:05,985 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:51:06,000 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:52:12,691 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:52:12,691 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:52:12,691 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:52:12,707 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:53:07,948 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:53:07,948 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:53:07,948 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:53:07,964 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:57:22,208 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:57:22,208 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:57:22,212 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:57:22,224 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:57:58,254 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:57:58,254 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:57:58,254 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:57:58,270 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:58:11,306 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:58:11,306 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:58:11,306 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:58:11,322 centralina.cloud INFO     Connected  at COM5
+2022-07-16 21:58:44,049 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 21:58:44,050 centralina.arduino_service INFO     Start MAIN
+2022-07-16 21:58:44,050 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 21:58:44,065 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:00:08,624 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:00:08,624 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:00:08,625 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:00:08,640 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:00:34,449 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:00:34,449 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:00:34,450 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:00:34,465 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:01:03,200 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:01:03,201 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:01:03,201 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:01:03,216 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:01:10,985 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:01:10,986 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:01:10,986 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:01:11,002 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:02:55,667 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:02:55,668 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:02:55,668 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:02:55,683 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:03:27,678 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:03:27,679 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:03:27,679 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:03:27,700 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:04:47,327 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:04:47,327 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:04:47,327 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:04:47,351 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:06:13,104 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:06:13,105 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:06:13,105 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:06:13,127 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:08:09,525 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:08:09,525 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:08:09,525 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:08:09,541 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:08:38,350 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:08:38,350 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:08:38,350 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:08:38,366 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:08:50,168 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:08:50,169 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:08:50,169 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:08:50,185 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:09:03,251 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:09:03,251 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:09:03,251 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:09:03,267 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:11:09,160 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:11:09,160 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:11:09,161 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:11:09,176 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:11:33,793 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:11:33,793 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:11:33,793 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:11:33,809 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:13:27,957 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:13:27,958 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:13:27,958 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:13:27,973 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:13:48,469 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:13:48,470 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:13:48,470 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:13:48,485 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:15:26,666 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:15:26,666 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:15:26,666 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:15:26,683 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:15:31,126 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:15:31,127 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:15:31,127 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:15:31,143 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:15:47,198 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:15:47,198 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:15:47,198 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:15:47,214 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:16:01,263 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:16:01,264 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:16:01,264 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:16:01,280 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:16:18,506 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:16:18,507 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:16:18,507 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:16:18,522 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:18:08,309 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:18:08,313 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:18:08,313 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:18:08,325 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:18:49,498 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:18:49,498 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:18:49,498 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:18:49,518 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:20:35,695 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:20:35,695 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:20:35,695 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:20:35,719 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:22:04,172 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:22:04,172 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:22:04,173 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:22:04,188 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:22:37,226 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:22:37,227 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:22:37,227 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:22:37,243 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:22:52,415 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:22:52,416 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:22:52,416 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:22:52,431 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:24:43,428 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:24:43,428 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:24:43,428 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:24:43,444 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:26:48,830 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:26:48,834 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:26:48,834 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:26:48,846 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:28:58,038 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:28:58,039 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:28:58,040 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:28:58,056 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:29:20,219 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:29:20,219 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:29:20,219 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:29:20,235 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:31:40,521 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:31:40,522 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:31:40,522 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:31:40,537 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:32:23,985 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:32:23,985 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:32:23,986 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:32:24,009 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:32:24,985 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:32:24,985 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:32:44,063 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:32:44,064 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:32:44,064 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:32:44,079 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:32:45,064 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:32:45,064 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:34:12,000 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:34:12,001 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:34:12,001 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:34:12,016 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:34:12,993 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:34:12,993 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:34:14,009 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:34:14,009 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-34-14
+2022-07-16 22:34:14,015 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:34:52,542 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:34:52,542 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:34:52,543 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:34:52,558 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:34:53,529 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:34:53,529 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:34:54,558 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:34:54,558 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-34-54
+2022-07-16 22:35:09,739 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:35:09,739 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:35:09,739 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:35:09,755 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:35:10,718 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:35:10,718 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:35:11,753 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:35:11,753 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-35-11
+2022-07-16 22:35:26,766 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:35:26,767 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:35:26,767 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:35:26,783 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:35:27,773 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:35:27,773 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:35:28,774 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:35:28,774 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-35-28
+2022-07-16 22:35:45,535 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:35:45,536 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:35:45,536 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:35:45,551 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:35:46,533 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:35:46,533 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:35:47,546 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:35:47,546 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-35-47
+2022-07-16 22:36:06,856 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:36:06,856 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:36:06,856 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:36:06,872 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:36:07,848 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:36:07,848 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:36:08,871 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:36:08,871 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-36-08
+2022-07-16 22:36:27,241 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:36:27,241 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:36:27,241 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:36:27,257 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:36:28,230 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:36:28,230 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:36:29,245 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:36:29,246 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-36-29
+2022-07-16 22:37:50,967 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:37:50,967 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:37:50,967 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:37:50,983 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:37:51,957 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:37:51,957 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:37:52,972 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:37:52,972 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-37-52
+2022-07-16 22:38:28,013 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:38:28,013 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:38:28,013 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:38:28,029 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:38:28,995 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:38:28,995 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:38:30,021 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:38:30,021 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-38-30
+2022-07-16 22:38:30,022 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:39:02,057 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:39:02,057 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:39:02,057 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:39:02,073 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:39:03,060 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:39:03,061 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:39:04,060 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:39:04,060 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-39-04
+2022-07-16 22:39:04,062 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:39:09,680 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:39:09,681 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:39:09,681 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:39:09,697 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:39:10,678 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:39:10,678 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:39:11,692 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:39:11,692 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-39-11
+2022-07-16 22:43:05,023 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:43:05,024 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:43:05,024 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:43:05,040 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:43:06,021 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:43:06,021 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:43:07,031 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:43:07,032 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-43-07
+2022-07-16 22:43:07,032 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:43:32,759 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:43:32,760 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:43:32,760 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:43:32,775 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:43:33,733 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:43:33,733 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:43:34,763 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:43:34,763 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-43-34
+2022-07-16 22:43:34,765 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:43:41,370 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:43:41,370 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:43:41,370 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:43:41,386 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:43:42,347 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:43:42,347 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:43:43,372 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:43:43,372 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-43-43
+2022-07-16 22:43:43,372 centralina.arduino_service ERROR    ERROR CONNETTING COM5 name 'b' is not defined
+2022-07-16 22:44:09,940 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:44:09,940 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:44:09,940 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:44:09,956 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:44:10,923 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:44:10,923 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:44:11,957 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:44:11,957 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-44-11
+2022-07-16 22:44:11,959 centralina.arduino_service ERROR    ERROR INIT can only concatenate str (not "int") to str
+2022-07-16 22:44:30,202 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:44:30,202 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:44:30,202 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:44:30,218 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:44:31,195 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:44:31,195 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:44:32,210 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:44:32,211 centralina.cloud DEBUG    [CLOUD] 20=2022-07-16-22-44-32
+2022-07-16 22:44:32,212 centralina.arduino_service ERROR    ERROR INIT 'MAIN 1'
+2022-07-16 22:46:29,771 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:46:29,771 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:46:29,771 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:46:29,787 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:46:30,759 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:46:30,759 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:46:31,787 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:46:31,788 centralina.arduino_service ERROR    ERROR CONNETTING COM5 20
+2022-07-16 22:46:39,668 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:46:39,669 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:46:39,669 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:46:39,684 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:46:40,671 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:46:40,671 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:46:41,682 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:46:41,683 centralina.arduino_service ERROR    ERROR CONNETTING COM5 20
+2022-07-16 22:47:26,323 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:47:26,323 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:47:26,323 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:47:26,338 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:47:27,297 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:47:27,297 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:47:28,336 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:48:13,032 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:48:13,032 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:48:13,032 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:48:13,048 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:48:14,013 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:48:14,013 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:48:15,040 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:48:30,152 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:48:30,152 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:48:30,152 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:48:30,167 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:49:00,802 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:49:00,803 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:49:00,803 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:49:00,824 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:49:01,797 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:49:01,797 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:49:02,810 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:49:08,143 centralina.cloud DEBUG    [CLOUD] MAIN 3= W D 1
+2022-07-16 22:49:22,782 centralina.cloud DEBUG    [CLOUD] MAIN 3= W D 1
+2022-07-16 22:50:00,096 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:50:00,097 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:50:00,097 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:50:00,112 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:50:01,098 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:50:01,098 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:50:02,111 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:50:04,536 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:50:04,537 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:50:04,537 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:50:04,553 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:50:05,539 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:50:05,539 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:50:06,540 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:50:14,237 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:50:14,237 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:50:14,237 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:50:14,253 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:50:15,238 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:50:15,238 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:50:16,248 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:50:17,860 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:50:48,303 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:50:48,303 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:50:48,303 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:50:48,319 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:50:49,289 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:50:49,289 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:50:50,317 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:51:04,326 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:51:04,327 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:51:04,327 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:51:04,342 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:51:05,316 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:51:05,316 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:51:06,331 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:51:48,982 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:51:48,982 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:51:48,983 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:51:48,998 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:51:49,974 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:51:49,974 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:51:50,988 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:52:59,068 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:52:59,069 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:52:59,069 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:52:59,084 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:53:00,069 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:53:00,069 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:53:01,075 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:53:12,495 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 22:53:18,423 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 22:53:19,296 centralina.cloud DEBUG    [CLOUD] MAIN 1=0
+2022-07-16 22:53:22,558 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:53:42,719 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:54:00,564 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:54:00,564 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:54:00,564 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:54:00,580 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:54:01,629 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:54:01,629 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:54:02,581 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:54:03,183 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:54:18,637 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:54:18,637 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:54:18,637 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:54:18,652 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:54:19,616 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:54:19,616 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:54:20,639 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:54:21,942 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:54:23,442 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:54:51,650 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:54:51,650 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:54:51,650 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:54:51,666 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:54:52,653 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:54:52,653 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:54:53,656 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:54:54,985 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:55:13,108 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:55:13,108 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:55:13,109 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:55:13,124 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:55:14,114 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:55:14,115 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:55:15,113 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:55:16,305 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:56:17,880 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:56:17,881 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:56:17,881 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:56:17,896 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:56:18,872 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:56:18,872 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:56:19,888 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:56:21,698 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 22:57:45,998 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 22:58:50,398 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:58:50,398 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:58:50,398 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:58:50,418 centralina.cloud INFO     Connected  at COM5
+2022-07-16 22:58:51,385 centralina.cloud INFO     CMD STARTUP
+2022-07-16 22:58:51,385 centralina.cloud INFO     CONNECTION READY
+2022-07-16 22:58:52,405 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 22:58:53,170 centralina.cloud DEBUG    [CLOUD] MAIN 1=0
+2022-07-16 22:58:58,202 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:59:11,139 centralina.cloud DEBUG    [CLOUD] MAIN 3=0
+2022-07-16 22:59:12,291 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 22:59:59,412 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 22:59:59,412 centralina.arduino_service INFO     Start MAIN
+2022-07-16 22:59:59,412 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 22:59:59,432 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:00:00,390 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:00:00,390 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:00:01,416 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:00:02,057 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:00:03,242 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:00:06,973 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 23:00:10,741 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:00:12,803 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 23:00:15,507 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:00:19,163 centralina.cloud DEBUG    [CLOUD] MAIN 3=0
+2022-07-16 23:00:19,931 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:00:21,716 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 23:00:23,356 centralina.cloud DEBUG    [CLOUD] MAIN 1=0
+2022-07-16 23:00:24,341 centralina.cloud DEBUG    [CLOUD] MAIN 1=1
+2022-07-16 23:01:06,304 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:01:06,305 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:01:06,305 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:01:06,321 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:01:07,312 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:01:07,313 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:01:08,313 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:01:09,730 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:01:09,731 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:01:09,731 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:01:09,746 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:01:10,736 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:01:10,736 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:01:11,735 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:01:15,248 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:01:15,249 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:01:15,249 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:01:15,264 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:01:16,254 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:01:16,254 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:01:17,253 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:01:47,232 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:01:47,232 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:01:47,232 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:01:47,248 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:01:48,222 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:01:48,222 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:01:49,237 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:02:24,358 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:02:24,359 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:02:24,359 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:02:24,375 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:02:25,348 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:02:25,348 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:02:26,361 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:02:44,763 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:02:44,764 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:02:44,764 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:02:44,780 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:02:45,762 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:02:45,762 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:02:46,779 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:03:45,265 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:03:45,265 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:03:45,265 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:03:45,281 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:03:46,262 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:03:46,262 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:03:47,274 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:05:44,810 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:05:44,811 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:05:44,811 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:05:44,826 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:05:45,804 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:05:45,804 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:05:46,819 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:06:32,486 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:06:32,486 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:06:32,486 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:06:32,502 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:06:33,477 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:06:33,477 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:06:34,500 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:06:36,063 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:06:42,982 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:06:44,586 centralina.cloud DEBUG    [CLOUD] MAIN 3=0
+2022-07-16 23:06:47,130 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:06:50,502 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:06:55,282 centralina.cloud DEBUG    [CLOUD] MAIN 3=1
+2022-07-16 23:10:06,056 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:10:06,056 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:10:06,057 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:10:06,072 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:10:07,053 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:10:07,053 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:10:08,071 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:10:20,070 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:10:20,070 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:10:20,071 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:10:20,086 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:10:21,076 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:10:21,077 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:10:22,078 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:11:02,073 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:11:02,073 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:11:02,073 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:11:02,097 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:11:03,056 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:11:03,056 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:11:04,081 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:11:44,444 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:11:44,444 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:11:44,444 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:11:44,460 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:11:45,447 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:11:45,447 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:11:46,448 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:13:49,511 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:13:49,512 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:13:49,512 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:13:49,528 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:13:50,509 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:13:50,509 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:13:51,517 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:13:51,518 centralina.arduino_service ERROR    ERROR INIT init() missing 1 required positional argument: 'inOutMode'
+2022-07-16 23:15:28,730 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:15:28,731 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:15:28,732 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:15:28,748 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:15:29,734 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:15:29,735 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:15:30,746 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:15:30,747 centralina.arduino_service ERROR    ERROR INIT setPinMode() takes 3 positional arguments but 4 were given
+2022-07-16 23:15:45,807 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:15:45,808 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:15:45,808 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:15:45,823 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:15:46,802 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:15:46,803 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:15:47,814 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:16:19,868 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:16:19,868 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:16:19,868 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:16:19,884 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:16:20,854 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:16:20,854 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:16:21,877 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:16:34,886 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:16:34,887 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:16:34,887 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:16:34,903 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:16:35,877 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:16:35,877 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:16:36,899 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:17:34,315 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:17:34,316 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:17:34,316 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:17:34,331 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:17:35,319 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:17:35,320 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:17:36,319 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:18:35,857 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:18:35,858 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:18:35,858 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:18:35,873 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:18:36,866 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:18:36,866 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:18:37,860 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:19:01,502 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:19:01,503 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:19:01,503 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:19:01,519 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:19:02,509 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:19:02,510 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:19:03,508 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:19:03,509 centralina.arduino_service ERROR    ERROR INIT init() missing 1 required positional argument: 'inOutMode'
+2022-07-16 23:19:17,554 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:19:17,554 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:19:17,555 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:19:17,570 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:19:18,537 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:19:18,537 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:19:19,558 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:19:19,558 centralina.arduino_service ERROR    ERROR INIT init() missing 1 required positional argument: 'inOutMode'
+2022-07-16 23:19:26,170 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:19:26,170 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:19:26,170 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:19:26,186 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:19:27,154 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:19:27,155 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:19:28,176 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:20:45,411 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:20:45,412 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:20:45,412 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:20:45,427 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:20:46,411 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:20:46,411 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:20:47,425 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:22:10,872 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:22:10,872 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:22:10,872 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:22:10,892 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:22:11,877 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:22:11,877 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:22:12,880 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:23:16,439 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:23:16,440 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:23:16,440 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:23:16,452 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:23:17,415 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:23:17,415 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:23:18,444 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:27:04,147 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:27:04,148 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:27:04,148 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:27:04,169 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:27:05,155 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:27:05,155 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:27:06,154 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:27:11,722 centralina.cloud ERROR    list index out of range
+2022-07-16 23:27:18,729 centralina.cloud ERROR    list index out of range
+2022-07-16 23:28:07,975 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:28:07,975 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:28:07,975 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:28:07,999 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:28:08,978 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:28:08,978 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:28:09,989 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:28:12,832 centralina.cloud ERROR    list index out of range
+2022-07-16 23:28:18,731 centralina.cloud ERROR    list index out of range
+2022-07-16 23:29:38,713 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:29:38,713 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:29:38,713 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:29:38,737 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:29:39,702 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:29:39,702 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:29:40,730 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:29:44,302 centralina.cloud ERROR    list index out of range
+2022-07-16 23:30:16,898 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:30:16,899 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:30:16,899 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:30:16,915 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:30:17,890 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:30:17,890 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:30:18,909 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:30:20,095 centralina.cloud ERROR    list index out of range
+2022-07-16 23:30:22,412 centralina.cloud ERROR    list index out of range
+2022-07-16 23:30:33,082 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:30:33,083 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:30:33,083 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:30:33,099 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:30:34,080 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:30:34,080 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:30:35,098 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:30:36,332 centralina.cloud ERROR    list index out of range
+2022-07-16 23:30:45,043 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:30:45,044 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:30:45,044 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:30:45,060 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:30:46,044 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:30:46,044 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:30:47,058 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:30:49,157 centralina.cloud ERROR    list index out of range
+2022-07-16 23:32:51,812 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:32:51,812 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:32:51,814 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:32:51,834 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:32:52,806 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:32:52,806 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:32:53,821 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:32:55,881 centralina.cloud ERROR    3
+2022-07-16 23:33:01,373 centralina.cloud ERROR    1
+2022-07-16 23:33:04,894 centralina.cloud ERROR    3
+2022-07-16 23:33:22,213 centralina.cloud ERROR    3
+2022-07-16 23:33:51,241 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:33:51,241 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:33:51,241 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:33:51,257 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:33:52,236 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:33:52,236 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:33:53,250 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:33:55,823 centralina.cloud ERROR    3
+2022-07-16 23:37:25,543 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:37:25,543 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:37:25,543 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:37:25,567 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:37:26,523 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:37:26,523 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:37:27,557 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5
+2022-07-16 23:37:29,623 centralina.cloud ERROR    invalid literal for int() with base 10: 'MAIN 1'
+2022-07-16 23:37:34,650 centralina.cloud ERROR    invalid literal for int() with base 10: 'MAIN 3'
+2022-07-16 23:37:58,516 centralina.arduino_service INFO     ------INIT ARDUINO-----------
+2022-07-16 23:37:58,516 centralina.arduino_service INFO     Start MAIN
+2022-07-16 23:37:58,516 centralina.cloud INFO     ArduinoClient Started
+2022-07-16 23:37:58,532 centralina.cloud INFO     Connected  at COM5
+2022-07-16 23:37:59,512 centralina.cloud INFO     CMD STARTUP
+2022-07-16 23:37:59,512 centralina.cloud INFO     CONNECTION READY
+2022-07-16 23:38:00,525 centralina.arduino_service INFO     ------INIT ARDUINO AT COM5

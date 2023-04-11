@@ -7,6 +7,14 @@ pip install djangorestframework
 npm install -g vue
 npm install -g @vue/cli
 npm install @vue/cli-service -g
+npm install @vue/cli-plugin-babel -g
+npm install @babel/core @babel/preset-env -g
+npm install @vue/cli-plugin-eslint -g
+#cd ..
+npm install @vue/cli-plugin-babel/preset -g
+npm install @babel/preset-env -g
+npm i -g vue-template-compiler
+npm install vue-json-editor --save
 
 --- SERVER --
 ModuleNotFoundError: No module named 'async_to_sync'

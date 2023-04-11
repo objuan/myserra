@@ -82,7 +82,7 @@ void Node::tick(Stream *serial)
       // messaggio destinato a me 
       in = in.substring(strlen(id)+1);
 
-       Debug(id,"1", in.c_str());
+     //  Debug(id,"?", in.c_str());
 
     char *p = in.c_str();
     char *str;
@@ -91,13 +91,18 @@ void Node::tick(Stream *serial)
     int mode;
     int pin;
     int value=99;
+    
       while ((str = strtok_r(p, " ", &p)) != NULL) 
        {
          // values[index] = str;
 
-          Debug("R",index, str);
+          //Debug(".",index, str);
 
-          if (index == 0) { // COMMAND
+          if (index == 0) { // PIN
+           
+            pin = atoi(str);
+          }
+          if (index == 1) { // COMMAND
             if (strcmp(str ,"A")==0)
             {
               // ACK
@@ -106,15 +111,16 @@ void Node::tick(Stream *serial)
             if (strcmp(str ,"S")==0) cmd = NODE_CMD_SET;
             if (strcmp(str ,"R")==0) cmd = NODE_CMD_READ;
             if (strcmp(str ,"W")==0) cmd = NODE_CMD_WRITE;
-          }  if (index == 1) { // COMMAND
+          }  
+          if (index == 2) { // COMMAND
             if (strcmp(str ,"D")==0) mode = NODE_CMD_MODE_D;
             if (strcmp(str ,"A")==0) mode = NODE_CMD_MODE_A;
+            
+            if (strcmp(str ,"I")==0) mode = NODE_CMD_MODE_IN;
+            if (strcmp(str ,"O")==0) mode = NODE_CMD_MODE_OUT;
           } 
-          else  if (index == 2) { // COMMAND
-           
-            pin = atoi(str);
-          }
-      else  if (index == 3) { // COMMAND
+          
+           if (index == 3) { // VALUE
            
             value = atoi(str);
           }
@@ -122,7 +128,52 @@ void Node::tick(Stream *serial)
          
           index++;
        }
-  Debug("CMD",cmd,mode, pin,value);
+      
+       Debug(id ,pin, cmd,mode,value);
+
+       if (cmd == NODE_CMD_SET)
+       {
+          if (mode == NODE_CMD_MODE_IN)
+              pinMode(pin, INPUT);
+           else if (mode == NODE_CMD_MODE_IN)
+              pinMode(pin, OUTPUT);
+       }
+       
+       if (cmd == NODE_CMD_READ)
+       {
+          int val=0;
+          if (mode == NODE_CMD_MODE_D)
+              val = digitalRead(pin);
+           else if (mode == NODE_CMD_MODE_IN)
+              val = analogRead(pin);
+
+           char buff[100];buff[0]=0;
+           sprintf(buff, "%s %d",id,pin);
+           virtualWrite_serial(*serial1,buff, val);
+/*
+            serial1->print("vw");
+            serial1->print(0);
+            serial1->print(id);
+            serial1->print(" ");
+            serial1->print(pin);
+            serial1->print(0);
+            serial1->println(val);
+            */
+            
+       }
+       if (cmd == NODE_CMD_WRITE)
+       {
+         
+          if (mode == NODE_CMD_MODE_D)
+              digitalWrite(pin,value);
+           else if (mode == NODE_CMD_MODE_IN)
+               analogWrite(pin,value);
+       }
+       
+       // debug
+       //Serial.print(");
+      //  Serial.println();
+      
 
           
 

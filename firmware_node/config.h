@@ -75,6 +75,20 @@ void virtualWrite_serial(Stream &serial,int pin, Args... values) {
         serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
        // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
     }
+
+  template <typename... Args>
+void virtualWrite_serial(Stream &serial,char*pin, Args... values) {
+      //  Serial.println("_cloudWrite2");
+       
+        BlynkParam cmd(mem_send, 0, sizeof(mem_send));
+        cmd.add(F("vw"));
+        cmd.add(pin);
+        cmd.add_multi(values...);
+        cmd.add(F("\n"));
+        serial.write((unsigned char*)cmd.getBuffer(), cmd.getLength()-1);
+       // static_cast<Proto*>(this)->sendCmd(BLYNK_CMD_HARDWARE, 0, cmd.getBuffer(), cmd.getLength()-1);
+    }
+
     
 template <typename... Args>
 void VirtualLog(Args... values) {

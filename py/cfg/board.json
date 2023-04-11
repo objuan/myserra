@@ -1,11 +1,1 @@
-
-	[
-		{
-			"ID" : "MAIN",
-			"Port" :"COM10"
-		},
-		{
-			"ID" : "LAB",
-			"Port" :"COM11"
-		}
-	]
+[{"NODE": "MAIN", "TYPE": "BOARD", "ID": "MAIN", "PORT": "COM5", "PINS": [{"NAME": "irrigazione", "PIN": 1, "IO": "I", "MODE": "A", "START": 0}, {"NAME": "p2", "PIN": 3, "IO": "O", "MODE": "D", "START": 0}]}, {"NODE": "SLAVE", "TYPE": "BOARD", "ID": "LAB", "PORT": "COM2", "PINS": [{"NAME": "test1", "PIN": 2, "IO": "I", "MODE": "A", "START": 1}]}]
